@@ -9,7 +9,7 @@
 			<c:when test="${sessionScope.uvo!=null}">
 				<li class="nav-item"><a class="nav-link" href="#">${sessionScope.uvo.name} 님</a></li>
 				<c:if test="${sessionScope.uvo.userGroupVO.ugroupNo!='4' }">
-					<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath }/users/myPage.do">myPage</a></li>
+					<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath }/users/mypage.do">myPage</a></li>
 				</c:if>
 				<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath }/users/logout.do">Logout</a></li>
 				<c:if test="${sessionScope.uvo.userGroupVO.ugroupNo=='4' }">

@@ -14,30 +14,41 @@
 			<div class="card-group">
 				<div class="card">
 					<div class="card-header">
-						나의 정보(례쁘게 바꿔주세요.... 전 디자인 바보입니다.)
+						나의 정보
 					</div>
 					<div class="card-body">
 						<div class="card-text">
 							<div class="col-6"></div>
-							<p class="small-txt">회원이름</p>
-							<p class="small-txt">이메일</p>
-							<p class="small-txt">주소</p>
-							<p class="small-txt">회원등급</p>
-							<p class="small-txt">회원....</p>
+							<p class="small-txt">회원이름 : ${sessionScope.uvo.name}</p>
+							<p class="small-txt">생년월일 : ${sessionScope.uvo.birthday}</p>
+							<p class="small-txt">이메일 : ${sessionScope.uvo.email}</p>
+							<p class="small-txt">주소 : ${sessionScope.uvo.address}</p>
+							<p class="small-txt">회원 등급 : ${sessionScope.uvo.userGradeVO.ugradeName}</p>
+							
 						</div>
 						<a href="#" class="btn btn-sub-2 btn-sm">수정</a>
 					</div>
 				</div>
 				<div class="card">
-					<div class="card-header">
-						비밀번호 변경
-					</div>
-					<div class="card-body">
-						
-						<div class="card-text"></div>
-						<a href="#" class="btn btn-sub-2 btn-sm">수정</a>
-					</div>
-				</div>
+                  <div class="card-header">
+                     	비밀번호 변경
+                  </div>
+                  <div class="card-body">
+                     <div class="card-text"></div>
+                     <a href="${pageContext.request.contextPath }/users/updateMyPassword.do" class="btn btn-sub-2 btn-sm">변경</a>
+                  </div>
+                   <div class="card-header" id="memberDelet">
+                     	회원 탈퇴
+                  </div>
+                  <div class="card-body">
+                     <div class="card-text"></div>
+                     <!-- <a href="#" class="btn btn-sub-2-gnt btn-sm memberDelet">탈퇴</a> -->
+                      <div class="card-body">
+                     <div class="card-text"></div>
+                     <a href="${pageContext.request.contextPath}/users/deleteUser.do" class="btn btn-sub-2 btn-sm">회원탈퇴</a>
+                  	</div>
+                  </div>
+               </div>
 			</div>
 		</div>
 

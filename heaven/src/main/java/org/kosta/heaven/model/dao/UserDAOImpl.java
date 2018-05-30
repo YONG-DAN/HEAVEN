@@ -15,4 +15,17 @@ public class UserDAOImpl implements UserDAO{
 	public UserVO checkId(String id) {
 		return template.selectOne("user.checkId", id);
 	}
+	
+	@Override
+	public void updatePassword(UserVO vo) {
+		template.update("user.updatePassword", vo);
+	}
+	@Override
+	public void updateUser(UserVO vo) {
+		template.update("user.updateUser",vo);
+	}
+	@Override
+	public void deleteUser(String id) {
+		template.update("user.deleteUser",id);
+	}
 }

@@ -12,9 +12,18 @@ public class UserServiceImpl implements UserService{
 	private UserDAO userDAO;
 
 	@Override
+	public void updatePassword(UserVO vo) {
+		userDAO.updatePassword(vo);
+	}
+	
+	@Override
 	public UserVO checkId(String id) {
 		System.out.println(id);
 		return userDAO.checkId(id);
 	}
-	
+
+	@Override
+	public void deleteMember(String id) {
+		userDAO.deleteUser(id);
+	}
 }

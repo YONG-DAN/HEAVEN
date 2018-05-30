@@ -21,5 +21,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		inner join users_grade gra on u.ugrade_no=gra.ugrade_no
 		and u.id=#{value}
 	</select>
-
+	<update id="updatePassword" parameterType="userVO">
+		update users set password=#{password}
+		where id=#{id}
+	</update>
+	<update id="updateUser" parameterType="userVO">
+		update users set address=#{address}, email=#{email}
+		where id=#{id}
+	</update>
+	<update id="deleteUser" parameterType="string">
+ 		update users set ugroup_no = '5'
+		where id=#{value}
+ 	</update>
 </mapper>
