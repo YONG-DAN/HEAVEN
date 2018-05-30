@@ -230,7 +230,7 @@
 					<p class="card-text">Lorem ipsum dolor sit amet, consectetur
 						adipisicing elit. Eius adipisci dicta dignissimos neque animi ea,
 						veritatis, provident hic consequatur ut esse! Commodi ea
-						consequatur accusantium, beatae qui deserunt tenetur ipsa.</p>
+						consequatur accusantium, beatae qui deserunt tenetur ipsa....</p>
 				</div>
 			</div>
 		</div>
