@@ -24,7 +24,7 @@
 							<input type="date" class="form-control" name="birthday">
 						</div>
 						<div class="form-group">
-							<label>주소</label>
+							<label>주소 </label>
 							<button type="" class="btn btn-sm">검색</button>
 							<input type="text" class="form-control" name="address">
 						</div>
