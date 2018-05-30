@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Sql Mapper -->
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="user">
+	<resultMap type="userVO" id="userRM">
+		<result property="userGroupVO.ugroupNo" column="ugroup_no" />
+		<result property="userGroupVO.ugroupName" column="ugroup_name" />
+		<result property="userGradeVO.ugradeNo" column="ugrade_no" />
+		<result property="userGradeVO.ugradeName" column="ugrade_name" />
+	</resultMap>
+	
+	<select id="checkId" parameterType="string" resultMap="userRM">
+		<!-- inner join 쿼리 -->
+		select u.id, u.password, u.name, u.gender, u.address, u.email, u.birthday, 
+		u.company_no as companyNo, u.mileage, u.total_use_mileage as totalUseMileage,
+		gro.ugroup_no, gro.ugroup_name, gra.ugrade_no, gra.ugrade_name
+		from users u
+		inner join users_group gro on u.ugroup_no=gro.ugroup_no
+		inner join users_grade gra on u.ugrade_no=gra.ugrade_no
+		and u.id=#{value}
+	</select>
+
+</mapper>
