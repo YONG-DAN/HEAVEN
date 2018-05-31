@@ -1,21 +1,63 @@
 package org.kosta.heaven.controller;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.request;
-
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+
 import org.kosta.heaven.model.service.UserService;
+import org.kosta.heaven.model.vo.user.UserGroupVO;
 import org.kosta.heaven.model.vo.user.UserVO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class UserController {
+	
 	@Resource
 	private UserService userService;
+	
+	/**
+	* 회원가입 메서드
+	* 
+	* UserVO를 받아와서 db에 저장시킨다.
+	* 
+	* @author 용다은
+	*/
+	@RequestMapping(method=RequestMethod.POST, value="users/registerUser.do")
+	public String registerUser(UserVO vo, String place, String uGroupNo) {
+		//hidden으로 받은 uGroupNo 값을 UserGroupVO에 넣음
+		UserGroupVO ugvo = new UserGroupVO(uGroupNo, null);
+		//생성된 UserGroupVO를 UserVO에 set
+		vo.setUserGroupVO(ugvo);
+		//지도 api와 name을 통일하기 위해 place라는 매개변수로 받은 address 값을 userVO에 set해줌
+		vo.setAddress(place);
+		//위에서 set된 내용을 토대로 완성된 vo를 db에 저장시킴
+		userService.registerUser(vo);
+		//home.do로 redirect
+		return "redirect:/home.do";
+	}
+	
+	/**
+	* 아이디를 중복체크 하는 메서드
+	* 
+	* 아이디를 받아와서 db에 같은 아이디가 있는지 확인하고
+	* 결과에 따라 ajax로 사용 가능 여부를 나타냄
+	* 
+	* @author 용다은
+	*/
+	@RequestMapping("users/checkId.do")
+	@ResponseBody
+	public String checkId(String id) {
+		UserVO uvo = userService.checkId(id);
+		if(uvo != null) {// 아이디가 이미 존재한다면
+			return "fail";
+		} else // 아이디가 아직 존재하지 않는다면
+			return "ok";
+	}
+	
 	/**
 	* 로그인 메서드
 	* 
@@ -43,6 +85,7 @@ public class UserController {
 		}
 		}
 	}
+	
 	/**
 	* 로그아웃 메서드
 	* 

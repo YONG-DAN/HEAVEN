@@ -28,4 +28,9 @@ public class UserDAOImpl implements UserDAO{
 	public void deleteUser(String id) {
 		template.update("user.deleteUser",id);
 	}
+
+	@Override
+	public void registerUser(UserVO vo) {
+		template.insert("user.registerUser", vo);
+	}
 }

@@ -4,6 +4,7 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="user">
+	<!-- 회원 resultMap -->
 	<resultMap type="userVO" id="userRM">
 		<result property="userGroupVO.ugroupNo" column="ugroup_no" />
 		<result property="userGroupVO.ugroupName" column="ugroup_name" />
@@ -11,8 +12,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="userGradeVO.ugradeName" column="ugrade_name" />
 	</resultMap>
 	
+	<!-- 회원가입 -->
+	 <insert id="registerUser" parameterType="userVO">
+ 		insert into users(id, password, name, birthday, gender, address, email
+ 		<if test="companyNo!=null">,company_no</if>, mileage, total_use_mileage, ugroup_no, ugrade_no) 
+ 		values(#{id}, #{password}, #{name}, 
+ 		<if test="birthday!=null">
+ 		#{birthday}
+ 		</if>
+ 		<if test="birthday==null">
+ 		sysdate
+ 		</if>
+ 		, #{gender}, #{address}, #{email}
+ 		<if test="companyNo!=null">,#{companyNo}</if>, #{mileage}, #{totalUseMileage}, #{userGroupVO.ugroupNo}, 1)
+ 	</insert>
+ 	
+	<!-- 아이디 중복 체크 -->
 	<select id="checkId" parameterType="string" resultMap="userRM">
-		<!-- inner join 쿼리 -->
 		select u.id, u.password, u.name, u.gender, u.address, u.email, u.birthday, 
 		u.company_no as companyNo, u.mileage, u.total_use_mileage as totalUseMileage,
 		gro.ugroup_no, gro.ugroup_name, gra.ugrade_no, gra.ugrade_name
@@ -21,14 +37,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		inner join users_grade gra on u.ugrade_no=gra.ugrade_no
 		and u.id=#{value}
 	</select>
+	
+	<!-- 비밀번호 수정 -->
 	<update id="updatePassword" parameterType="userVO">
 		update users set password=#{password}
 		where id=#{id}
 	</update>
+	
+	<!-- 회원 정보 수정 -->
 	<update id="updateUser" parameterType="userVO">
 		update users set address=#{address}, email=#{email}
 		where id=#{id}
 	</update>
+	
+	<!-- 회원 탈퇴  -->
 	<update id="deleteUser" parameterType="string">
  		update users set ugroup_no = '5'
 		where id=#{value}

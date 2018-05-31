@@ -292,5 +292,11 @@ a.badge:focus {
 .nav-pills > li > a > .badge {
   margin-left: 3px;
 }
-
+.fas fa-user-alt {
+    font-size: 5px;       /*웹폰트 이므로 font-size로 크기조절을 합니다.*/
+    color: hotpink;
+    opacity: 0.5;
+    cursor: pointer;
+    transition: all 0.5s;  /*마우스오버 했을때 자연스럽게 커지게*/
+}
 

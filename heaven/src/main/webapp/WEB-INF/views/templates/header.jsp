@@ -18,7 +18,7 @@
 			</c:when>
 			<c:otherwise>
 				<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath }/users/loginForm.do">Login</a></li>
-				<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath }/users/registerMemberForm.do">Register</a></li>
+				<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath }/users/registerCategory.do">Register</a></li>
 			</c:otherwise>
 			</c:choose>
 		</ul>

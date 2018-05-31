@@ -10,4 +10,6 @@ public interface UserService {
 
 	public void deleteMember(String id);
 
+	public void registerUser(UserVO vo);
+
 }

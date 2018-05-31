@@ -12,4 +12,6 @@ public interface UserDAO {
 	
 	public UserVO checkId(String id);
 
+	public void registerUser(UserVO vo);
+
 }

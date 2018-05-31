@@ -18,12 +18,16 @@ public class UserServiceImpl implements UserService{
 	
 	@Override
 	public UserVO checkId(String id) {
-		System.out.println(id);
 		return userDAO.checkId(id);
 	}
 
 	@Override
 	public void deleteMember(String id) {
 		userDAO.deleteUser(id);
+	}
+
+	@Override
+	public void registerUser(UserVO vo) {
+		userDAO.registerUser(vo);
 	}
 }
