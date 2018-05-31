@@ -9,7 +9,7 @@
 			<c:when test="${sessionScope.uvo!=null}">
 				<li class="nav-item"><a class="nav-link" href="#">${sessionScope.uvo.name} 님</a></li>
 				<c:if test="${sessionScope.uvo.userGroupVO.ugroupNo!='4' }">
-					<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath }/users/myPage.do">myPage</a></li>
+					<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath }/users/mypage.do">myPage</a></li>
 				</c:if>
 				<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath }/users/logout.do">Logout</a></li>
 				<c:if test="${sessionScope.uvo.userGroupVO.ugroupNo=='4' }">
@@ -18,7 +18,7 @@
 			</c:when>
 			<c:otherwise>
 				<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath }/users/loginForm.do">Login</a></li>
-				<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath }/users/registerMemberForm.do">Register</a></li>
+				<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath }/users/registerCategory.do">Register</a></li>
 			</c:otherwise>
 			</c:choose>
 		</ul>

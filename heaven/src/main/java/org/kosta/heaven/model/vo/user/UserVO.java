@@ -35,6 +35,12 @@ public class UserVO {
 		this.userGradeVO = userGradeVO;
 	}
 
+	public UserVO(String id, String password) {
+		super();
+		this.id = id;
+		this.password = password;
+	}
+
 	public String getId() {
 		return id;
 	}
