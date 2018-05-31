@@ -15,6 +15,8 @@
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.12/css/all.css"
 		integrity="sha384-G0fIWCsCzJIMAVNQPfjH08cyYaUtMwjJwqiRKxxE/rx96Uroj1BtIQ6MLJuheaO9"
 		crossorigin="anonymous">
+	<script
+		src="${pageContext.request.contextPath }/resources/jquery/jquery.min.js"></script>
 </head>
 <body>
 	<tiles:insertAttribute name="header" />
@@ -22,10 +24,9 @@
 	<tiles:insertAttribute name="footer" />
 
 	<!-- Bootstrap core JavaScript -->
-	<script type="text/javascript"
-		src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath }/resources/jquery/jquery.min.js"></script>
+	<!-- <script type="text/javascript"
+		src="//code.jquery.com/jquery-1.11.0.min.js"></script> -->
+	
 	<script
 		src="${pageContext.request.contextPath }/resources/bootstrap/js/bootstrap.bundle.min.js"></script>
 	<script type="text/javascript"
@@ -68,7 +69,7 @@
 	                
 	                
 	                $("[name=addr1]").val(data.zonecode);
-	                $("[name=place]").val(fullRoadAddr);
+	                $("[name=jpPlace]").val(fullRoadAddr);
 	                
 	                /* document.getElementById('signUpUserPostNo').value = data.zonecode; //5자리 새우편번호 사용
 	                document.getElementById('signUpUserCompanyAddress').value = fullRoadAddr;

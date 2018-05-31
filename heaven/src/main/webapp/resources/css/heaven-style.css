@@ -25,6 +25,7 @@
 	color:#f8f9fa;
 }
 
+.navbar-dark .navbar-toggler,
 .navbar-dark .navbar-nav .nav-link{
 	color:#222 !important;
 }
