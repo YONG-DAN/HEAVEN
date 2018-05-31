@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.kosta.heaven.model.service.UserService;
 import org.kosta.heaven.model.vo.post.activity.ActivityListVO;
+import org.kosta.heaven.model.vo.post.join.JoinPostListVO;
 import org.kosta.heaven.model.vo.user.UserVO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -106,5 +107,18 @@ public class UserController {
 		UserVO uvo = (UserVO) session.getAttribute("uvo");
 		ActivityListVO aListVO=userService.readMyActivityList(uvo.getId(),nowPage);
 		return new ModelAndView("users/readMyActivityList.tiles","aListVO",aListVO);
+	}
+	/**
+	* 작성이유 : 나의 재능기부 신청 내역
+	* 
+	* @author 백설희
+	*/
+	@RequestMapping("users/readMyApplicationList.do")
+	public ModelAndView readMyApplicationList(int nowPage,HttpServletRequest request) {
+		HttpSession session = request.getSession(false);
+		UserVO uvo = (UserVO) session.getAttribute("uvo");
+		JoinPostListVO jpListVO=userService.readMyApplicationList(uvo.getId(),nowPage);
+		System.out.println("컨트롤러끝"+jpListVO);
+		return new ModelAndView("users/readMyApplicationList.tiles","jpListVO",jpListVO);
 	}
 }

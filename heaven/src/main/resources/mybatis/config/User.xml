@@ -52,4 +52,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where j.jp_no=p.jp_no and rnum between #{startRowNumber} and #{endRowNumber}
 		order by j.jp_no desc
  	</select>
+ 	<select id="readMyApplicationCount" resultType="int">
+ 		select count(*) 
+		from join_post
+		where id=#{value}
+ 	</select>
+ 	<select id="readMyApplicationList" resultType="joinPostVO" parameterType="pagingBeanFive">
+ 		select jp_no, jp_title, jp_regdate, jp_status
+		from (select row_number() over (order by jp_no desc) as rnum, jp_no, jp_title, to_char(jp_regdate,'YYYY.MM.DD') as jp_regdate, jp_status, id, jp_group_no
+		from join_post)
+		where id=#{id} and jp_group_no='1' and rnum between #{startRowNumber} and #{endRowNumber}
+ 	</select>
 </mapper>
