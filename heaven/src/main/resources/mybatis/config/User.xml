@@ -65,13 +65,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  		update users set ugroup_no = '5'
 		where id=#{value}
  	</update>
-</mapper>
 
-<select id="readMyActivityCount" resultType="int">
+	<select id="readMyActivityCount" resultType="int">
  		select count(*) 
 		from users_activity
 		where id=#{value}
  	</select>
+ 	
  	<select id="readMyActivityList" resultType="activityVO" resultMap="activityRM" parameterType="pagingBeanFive">
  		select j.u_no, j.u_regdate, j.u_mileage, p.jp_title from (
 		select row_number() over (order by u_no desc) as rnum, u_no, to_char(u_regdate,'YYYY.MM.DD') as u_regdate, u_mileage,jp_no
@@ -79,11 +79,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where j.jp_no=p.jp_no and rnum between #{startRowNumber} and #{endRowNumber}
 		order by j.jp_no desc
  	</select>
+ 	
  	<select id="readMyApplicationCount" resultType="int">
  		select count(*) 
 		from join_post
 		where id=#{value}
  	</select>
+ 	
  	<select id="readMyApplicationList" resultType="joinPostVO" parameterType="pagingBeanFive">
  		select jp_no, jp_title, jp_regdate, jp_status
 		from (select row_number() over (order by jp_no desc) as rnum, jp_no, jp_title, to_char(jp_regdate,'YYYY.MM.DD') as jp_regdate, jp_status, id, jp_group_no
