@@ -166,5 +166,3 @@ public class UserController {
 		return new ModelAndView("users/readMyApplicationList.tiles","jpListVO",jpListVO);
 	}
 }
-	
-}
