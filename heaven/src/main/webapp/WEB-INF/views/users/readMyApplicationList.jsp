@@ -32,12 +32,12 @@
 					</tr>
 				</thead>
 				<tbody>						
-					<c:forEach var="avo" items="${requestScope.apListVO.appPostVO}">	
+					<c:forEach var="jpvo" items="${requestScope.jpListVO.list}">	
 					<tr>
-						<td>${avo.appNo}</td>
-						<td><a href="#opret-produkt" data-toggle="collapse" data-parent="#help-accordion-1">${avo.appTitle}</a></td>
-						<td>${avo.appRegdate}</td>
-						<td>${avo.appStatus}</td>
+						<td>${jpvo.jpNo}</td>
+						<td><a href="#opret-produkt" data-toggle="collapse" data-parent="#help-accordion-1">${jpvo.jpTitle}</a></td>
+						<td>${jpvo.jpRegdate}</td>
+						<td>${jpvo.jpStatus}</td>
 					</tr>
 					<tr id="opret-produkt" class="collapse in">
 						<td>승인 거절 사유 : </td>
@@ -53,7 +53,7 @@
 	</div>
 	
 	<!-- Pagination -->
-	<c:set var="pb" value="${requestScope.apListVO.appPb}"></c:set>
+	<c:set var="pb" value="${requestScope.jpListVO.pbf}"></c:set>
 	<ul class="pagination justify-content-center mt-5">
 		<c:if test="${pb.previousPageGroup}">
 			<li class="page-item">
