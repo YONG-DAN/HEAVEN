@@ -56,7 +56,7 @@ insert into users(id, password, name, birthday, gender, address, email, ugroup_n
 values('admin','1233','관리자',to_date('1990.01.01','yyyy-mm-dd'),'f','아차산','admin@admi.n','4','4')
 
 insert into users(id, password, name, birthday, gender, address, email, ugroup_no, ugrade_no)
-values('ppo','1111','뽀',to_date('1990.01.01','yyyy-mm-dd'),'f','파리','ppo@pp.n','1','1')
+values('bbb','1111','bbb',to_date('1990.01.01','yyyy-mm-dd'),'f','파리','aaa@aa.a','1','1')
 --마일리지 거래 분류 테이블
 drop table mileage_group;
 create table mileage_group(

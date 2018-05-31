@@ -10,7 +10,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="userGradeVO.ugradeNo" column="ugrade_no" />
 		<result property="userGradeVO.ugradeName" column="ugrade_name" />
 	</resultMap>
-	
+	<resultMap type="activityVO" id="activityRM">
+		<result property="aNo" column="u_no"/>
+		<result property="aRegdate" column="u_regdate"/>
+		<result property="aMileage" column="u_mileage"/>
+		<result property="joinPostVO.jpNo" column="jp_no"/>
+		<result property="joinPostVO.jpTitle" column="jp_title"/>
+		<result property="userVO.id" column="id"/>
+	</resultMap>
 	<select id="checkId" parameterType="string" resultMap="userRM">
 		<!-- inner join 쿼리 -->
 		select u.id, u.password, u.name, u.gender, u.address, u.email, u.birthday, 
@@ -33,4 +40,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  		update users set ugroup_no = '5'
 		where id=#{value}
  	</update>
+ 	<select id="readMyActivityCount" resultType="int">
+ 		select count(*) 
+		from users_activity
+		where id=#{value}
+ 	</select>
+ 	<select id="readMyActivityList" resultType="activityVO" resultMap="activityRM" parameterType="pagingBeanFive">
+ 		select j.u_no, j.u_regdate, j.u_mileage, p.jp_title from (
+		select row_number() over (order by u_no desc) as rnum, u_no, to_char(u_regdate,'YYYY.MM.DD') as u_regdate, u_mileage,jp_no
+		from USERS_ACTIVITY where id=#{id}) j, JOIN_POST p
+		where j.jp_no=p.jp_no and rnum between #{startRowNumber} and #{endRowNumber}
+		order by j.jp_no desc
+ 	</select>
 </mapper>

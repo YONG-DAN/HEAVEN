@@ -1,5 +1,6 @@
 package org.kosta.heaven.model.service;
 
+import org.kosta.heaven.model.vo.post.activity.ActivityListVO;
 import org.kosta.heaven.model.vo.user.UserVO;
 
 public interface UserService {
@@ -9,5 +10,7 @@ public interface UserService {
 	public UserVO checkId(String id);
 
 	public void deleteMember(String id);
+
+	public ActivityListVO readMyActivityList(String id, int nowPage);
 
 }

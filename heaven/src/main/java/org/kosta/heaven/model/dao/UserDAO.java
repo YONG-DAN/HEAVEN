@@ -1,5 +1,6 @@
 package org.kosta.heaven.model.dao;
 
+import org.kosta.heaven.model.vo.post.activity.ActivityListVO;
 import org.kosta.heaven.model.vo.user.UserVO;
 
 public interface UserDAO {
@@ -11,5 +12,7 @@ public interface UserDAO {
 	public void deleteUser(String id);
 	
 	public UserVO checkId(String id);
+
+	public ActivityListVO readMyActivityList(String id, int nowPage);
 
 }

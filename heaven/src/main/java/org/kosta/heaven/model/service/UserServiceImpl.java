@@ -3,6 +3,7 @@ package org.kosta.heaven.model.service;
 import javax.annotation.Resource;
 
 import org.kosta.heaven.model.dao.UserDAO;
+import org.kosta.heaven.model.vo.post.activity.ActivityListVO;
 import org.kosta.heaven.model.vo.user.UserVO;
 import org.springframework.stereotype.Service;
 
@@ -25,5 +26,10 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public void deleteMember(String id) {
 		userDAO.deleteUser(id);
+	}
+
+	@Override
+	public ActivityListVO readMyActivityList(String id, int nowPage) {
+		return userDAO.readMyActivityList(id, nowPage);
 	}
 }

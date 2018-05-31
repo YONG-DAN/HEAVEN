@@ -1,16 +1,16 @@
 package org.kosta.heaven.controller;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.request;
-
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.kosta.heaven.model.service.UserService;
+import org.kosta.heaven.model.vo.post.activity.ActivityListVO;
 import org.kosta.heaven.model.vo.user.UserVO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class UserController {
@@ -94,5 +94,17 @@ public class UserController {
 		if (session!=null)
 			session.invalidate();
 		return "users/loginForm.tiles";
+	}
+	/**
+	* 작성이유 : 나의 재능기부 참여목록 
+	* 
+	* @author 백설희
+	*/
+	@RequestMapping("users/readMyActivityList.do")
+	public ModelAndView readMyActivityList(int nowPage,HttpServletRequest request) {
+		HttpSession session = request.getSession(false);
+		UserVO uvo = (UserVO) session.getAttribute("uvo");
+		ActivityListVO aListVO=userService.readMyActivityList(uvo.getId(),nowPage);
+		return new ModelAndView("users/readMyActivityList.tiles","aListVO",aListVO);
 	}
 }
