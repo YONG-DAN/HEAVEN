@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Sql Mapper -->
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="join">
+	<resultMap type="joinPostVO" id="jpRM">
+ 		<result column="id"  property="userVO.id"/>
+ 		<result column="jp_group_no"  property="joinPostGroupVO.jpGroupNo"/>
+ 	</resultMap>
+	<insert id="application" parameterType="joinPostVO">
+		<selectKey keyProperty="jpNo" resultType="int" order="BEFORE">
+ 			select join_post_seq.nextval from dual
+ 		</selectKey>
+		insert into join_post(jp_no, jp_title, jp_contents, jp_summary, <if test="jpPlace!=null">jp_place,</if> jp_app_start_date, jp_app_end_date,
+		<if test="jpEventStartDate!=null">jp_event_start_date,</if> <if test="jpEventEndDate!=null">jp_event_end_date,</if> jp_imgdirectory, jp_regdate, 
+		<if test="goalMileage!=null">jp_goal_mileage,</if> <if test="goalEntry!=null">jp_goal_entry,</if> id, jp_group_no)
+		values(#{jpNo}, #{jpTitle}, #{jpContents}, #{jpSummary}, #{jpPlace}, #{jpAppStartDate}, #{jpAppEndDate},
+		#{jpEventStartDate}, #{jpEventEndDate}, #{jpImgDirect}, sysdate,
+		#{goalMileage}, #{goalEntry}, #{userVO.id}, #{joinPostGroupVO.jpGroupNo})
+	</insert>
+
+</mapper>

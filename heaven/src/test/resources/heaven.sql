@@ -138,13 +138,13 @@ create table join_post(
    jp_imgdirectory varchar2(100) not null, -- 대표 이미지 경로
    jp_regdate date default sysdate, -- 작성 일시
    jp_goal_mileage number, --목표 마일리지
-   jp_total_mileage number, -- 모금 마일리지
+   jp_total_mileage number default 0, -- 모금 마일리지
    jp_goal_entry number, -- 목표 참여자 수
-   jp_total_entry number, -- 현재 참여자 수
-   jp_status varchar2(100) not null, -- 승인 여부
+   jp_total_entry number default 0, -- 현재 참여자 수
+   jp_status varchar2(100) default '처리중', -- 승인 여부
    id varchar2(100) not null, -- 작성자 아이디
    jp_group_no varchar2(100) not null, -- 글 게시판 분류
-   jp_progress varchar2(100) not null, -- 참여 진행상태   
+   jp_progress varchar2(100) default '1', -- 참여 진행상태   
    CONSTRAINT fk_join_post_id FOREIGN KEY(id) REFERENCES users(id) ON DELETE CASCADE,
    CONSTRAINT fk_join_post_jp_group_no FOREIGN KEY(jp_group_no) REFERENCES post_group(post_no) ON DELETE CASCADE,
    CONSTRAINT fk_join_post_ps_no FOREIGN KEY(jp_progress) REFERENCES progress_status(ps_no) ON DELETE CASCADE
