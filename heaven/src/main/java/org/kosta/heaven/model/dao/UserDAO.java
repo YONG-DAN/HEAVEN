@@ -2,6 +2,8 @@ package org.kosta.heaven.model.dao;
 
 import org.kosta.heaven.model.vo.post.activity.ActivityListVO;
 import org.kosta.heaven.model.vo.post.join.JoinPostListVO;
+import org.kosta.heaven.model.vo.post.review.ReviewListVO;
+import org.kosta.heaven.model.vo.post.review.ReviewVO;
 import org.kosta.heaven.model.vo.user.UserVO;
 
 public interface UserDAO {
@@ -19,6 +21,13 @@ public interface UserDAO {
 	public ActivityListVO readMyActivityList(String id, int nowPage);
 
 	public JoinPostListVO readMyApplicationList(String id, int nowPage);
+
+	public void updateUserInfo(UserVO vo);
+
+	public ReviewListVO readMyReviewList(String id, int nowPage);
+
+	public ReviewVO readMyReviewDetail(int rNo);
+
 	
 
 }

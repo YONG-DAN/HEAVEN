@@ -22,6 +22,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="userVO.id" column="id"/>
 	</resultMap>
 	
+	<!-- 후기 ResultMap -->
+	<resultMap type="reviewVO" id="reviewRM">
+		<result property="rNo" column="r_no"/>
+		<result property="rTitle" column="r_title"/>
+		<result property="rContents" column="r_contents"/>
+		<result property="rRegdate" column="r_regdate"/>
+		<result property="rRate" column="r_rate"/>
+		<result property="activityVO.joinPostVO.jpTitle" column="jp_title"/>
+	</resultMap>
+	
 	<!-- 회원가입 -->
 	 <insert id="registerUser" parameterType="userVO">
  		insert into users(id, password, name, birthday, gender, address, email
@@ -65,13 +75,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  		update users set ugroup_no = '5'
 		where id=#{value}
  	</update>
-
+	<!-- 나의 재능기부 참여 count -->
 	<select id="readMyActivityCount" resultType="int">
  		select count(*) 
 		from users_activity
 		where id=#{value}
  	</select>
- 	
+ 	<!-- 나의 재능기부 활동 참여 목록  -->
  	<select id="readMyActivityList" resultType="activityVO" resultMap="activityRM" parameterType="pagingBeanFive">
  		select j.u_no, j.u_regdate, j.u_mileage, p.jp_title from (
 		select row_number() over (order by u_no desc) as rnum, u_no, to_char(u_regdate,'YYYY.MM.DD') as u_regdate, u_mileage,jp_no
@@ -79,17 +89,44 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where j.jp_no=p.jp_no and rnum between #{startRowNumber} and #{endRowNumber}
 		order by j.jp_no desc
  	</select>
- 	
+ 	<!-- 나의 재능기부 신청 count -->
  	<select id="readMyApplicationCount" resultType="int">
  		select count(*) 
 		from join_post
 		where id=#{value}
  	</select>
- 	
+	<!-- 나의 재능기부 신청 목록 -->
  	<select id="readMyApplicationList" resultType="joinPostVO" parameterType="pagingBeanFive">
  		select jp_no, jp_title, jp_regdate, jp_status
 		from (select row_number() over (order by jp_no desc) as rnum, jp_no, jp_title, to_char(jp_regdate,'YYYY.MM.DD') as jp_regdate, jp_status, id, jp_group_no
 		from join_post)
 		where id=#{id} and jp_group_no='1' and rnum between #{startRowNumber} and #{endRowNumber}
+ 	</select>
+ 	<!-- 일반 회원의 정보 수정 -->
+ 	<update id="updateUserInfo" parameterType="userVO">
+ 		update users set address=#{address}, email=#{email}
+		where id=#{id}
+ 	</update>
+ 	<!-- 나의 후기 count -->
+ 	<select id="readMyReviewCount" resultType="int">
+ 		select count(*) 
+		from (select id from users_activity where id=#{value}) a, review r 
+ 	</select>
+ 	<!-- 나의 후기 목록 -->
+ 	<select id="readMyReviewList" resultType="reviewVO" parameterType="pagingBeanFive">
+ 		select r.r_no,r.r_title,r.r_regdate,r.r_rate
+		from (select row_number() over (order by r_no desc) as rnum,r_no,r_title,to_char(r_regdate,'YYYY.MM.DD') as r_regdate,r_rate,ua_no
+		from review) r, USERS_ACTIVITY a
+		where r.ua_no=a.u_no and a.id=#{id} and rnum  between #{startRowNumber} and #{endRowNumber}
+		order by r.r_no desc
+ 	</select>
+ 	<!-- 나의 후기 상세보기 -->
+ 	<select id="readMyReviewDetail" resultMap="reviewRM" resultType="reviewVO">
+ 		select r.r_no,r.r_title,r.r_contents,r.r_regdate,r.r_rate,j.jp_title
+		from (select r_no,r_title,r_contents,to_char(r_regdate,'YYYY.MM.DD') as r_regdate,r_rate,ua_no
+		from REVIEW where r_no=#{value}) r, (select u_no,jp_no from users_activity) a, 
+		(select jp_no,jp_title from JOIN_POST where jp_group_no=1) j
+		where a.jp_no=j.jp_no and r.ua_no=a.u_no
+		order by r.r_no desc
  	</select>
 </mapper>

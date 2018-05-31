@@ -41,6 +41,13 @@ public class UserVO {
 		this.password = password;
 	}
 
+	public UserVO(String id, String address, String email) {
+		super();
+		this.id = id;
+		this.address = address;
+		this.email = email;
+	}
+
 	public String getId() {
 		return id;
 	}

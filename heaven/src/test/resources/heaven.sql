@@ -197,6 +197,8 @@ create sequence review_seq;
 
 select * from review;
 
+insert into review(r_no, r_title, r_contents, r_rate, ua_no)
+values(application_seq.nextval,'리뷰테스트2','리뷰리뷰리뷰리뷰리뷰리뷰리뷰', 3, 21)
 
 
 --사이트 문의 테이블

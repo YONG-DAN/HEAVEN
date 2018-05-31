@@ -8,6 +8,7 @@ import org.kosta.heaven.model.vo.user.UserGroupVO;
 import org.kosta.heaven.model.vo.user.UserVO;
 import org.kosta.heaven.model.vo.post.activity.ActivityListVO;
 import org.kosta.heaven.model.vo.post.join.JoinPostListVO;
+import org.kosta.heaven.model.vo.post.review.ReviewListVO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -165,4 +166,33 @@ public class UserController {
 		System.out.println("컨트롤러끝"+jpListVO);
 		return new ModelAndView("users/readMyApplicationList.tiles","jpListVO",jpListVO);
 	}
+	/**
+	* 작성이유 : 일반회원 수정 메서드
+	* 
+	* @author 백설희
+	*/
+	@RequestMapping(method=RequestMethod.POST, value="users/updateUserInfoForm.do")
+	public String updateUserInfo(HttpServletRequest request,UserVO vo,String place) {
+		HttpSession session=request.getSession(false);
+		if(session==null||session.getAttribute("uvo")==null){
+			return "users/loginForm.tiles";
+		}
+		vo.setAddress(place);
+		userService.updateUserInfoForm(vo);
+		session.setAttribute("uvo", userService.checkId(vo.getId()));
+		return "users/mypage.tiles";
+	}
+	/**
+	* 작성이유 : 나의 후기목록 보기
+	* 
+	* @author 백설희
+	*/
+	@RequestMapping("users/readMyReviewList.do")
+	public ModelAndView readMyReviewList(HttpServletRequest request,int nowPage) {
+		HttpSession session = request.getSession(false);
+		UserVO uvo = (UserVO) session.getAttribute("uvo");
+		ReviewListVO rListVO=userService.readMyReviewPostList(uvo.getId(),nowPage);
+		return new ModelAndView("users/myReviewList.tiles","rListVO",rListVO);
+	}
+	
 }

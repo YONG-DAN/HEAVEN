@@ -6,6 +6,8 @@ import org.kosta.heaven.model.vo.post.activity.ActivityListVO;
 import org.kosta.heaven.model.vo.post.activity.ActivityVO;
 import org.kosta.heaven.model.vo.post.join.JoinPostListVO;
 import org.kosta.heaven.model.vo.post.join.JoinPostVO;
+import org.kosta.heaven.model.vo.post.review.ReviewListVO;
+import org.kosta.heaven.model.vo.post.review.ReviewVO;
 import org.kosta.heaven.model.vo.user.UserVO;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,5 +71,29 @@ public class UserDAOImpl implements UserDAO{
 		List<JoinPostVO> jpList=template.selectList("user.readMyApplicationList", pbf);
 		JoinPostListVO jpListVO= new JoinPostListVO(jpList, pbf);
 		return jpListVO;
+	}
+	@Override
+	public void updateUserInfo(UserVO vo) {
+		template.update("user.updateUserInfo",vo);
+	}
+	@Override
+	public ReviewListVO readMyReviewList(String id, int nowPage) {
+		PagingBeanFive pbf=null;
+		//나의 후기글 목록의 수를 가져온다.
+		int totalMyReviewCount=template.selectOne("user.readMyReviewCount",id);
+		if(nowPage==0) {
+			pbf=new PagingBeanFive(totalMyReviewCount);
+		}else {
+			pbf=new PagingBeanFive(totalMyReviewCount,nowPage);
+		}
+		pbf.setId(id);
+		List<ReviewVO> rList=template.selectList("user.readMyReviewList", pbf);
+		ReviewListVO rListVO=new ReviewListVO(rList, pbf);
+		return rListVO;
+	}
+	@Override
+	public ReviewVO readMyReviewDetail(int rNo) {
+		ReviewVO reviewVO=template.selectOne("user.readMyReviewDetail", rNo);
+		return reviewVO;
 	}
 }

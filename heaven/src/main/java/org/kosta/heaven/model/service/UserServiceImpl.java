@@ -5,6 +5,7 @@ import org.kosta.heaven.model.dao.UserDAO;
 import org.kosta.heaven.model.vo.user.UserVO;
 import org.kosta.heaven.model.vo.post.activity.ActivityListVO;
 import org.kosta.heaven.model.vo.post.join.JoinPostListVO;
+import org.kosta.heaven.model.vo.post.review.ReviewListVO;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -40,5 +41,15 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public JoinPostListVO readMyApplicationList(String id, int nowPage) {
 		return userDAO.readMyApplicationList(id,nowPage);
+	}
+
+	@Override
+	public void updateUserInfoForm(UserVO vo) {
+		userDAO.updateUserInfo(vo);
+	}
+
+	@Override
+	public ReviewListVO readMyReviewPostList(String id, int nowPage) {
+		return userDAO.readMyReviewList(id, nowPage);
 	}
 }
