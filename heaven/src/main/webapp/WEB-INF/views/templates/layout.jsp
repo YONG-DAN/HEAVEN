@@ -68,7 +68,7 @@
 	                
 	                
 	                $("[name=addr1]").val(data.zonecode);
-	                $("[name=place]").val(fullRoadAddr);
+	                $("[name=jpPlace]").val(fullRoadAddr);
 	                
 	                /* document.getElementById('signUpUserPostNo').value = data.zonecode; //5자리 새우편번호 사용
 	                document.getElementById('signUpUserCompanyAddress').value = fullRoadAddr;
