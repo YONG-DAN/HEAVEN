@@ -1,6 +1,5 @@
-/*package org.kosta.heaven.model.service;
+package org.kosta.heaven.model.service;
 
-import org.kosta.heaven.model.vo.post.mileage.MileageTradePostListVO;
 import org.kosta.heaven.model.vo.post.mileage.MileageTradeVO;
 
 public interface MileageService {
@@ -11,9 +10,8 @@ public interface MileageService {
 
 	public void exchangeMileage(MileageTradeVO mileageTradeVO);
 
-	public MileageTradePostListVO readMyMileageTradeList(String string, int nowPage);
+/*	public MileageTradePostListVO readMyMileageTradeList(String string, int nowPage);
 
-	public void saveMileage(String id, int mileage);
+	public void saveMileage(String id, int mileage);*/
 
 }
-*/

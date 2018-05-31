@@ -92,4 +92,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		from join_post)
 		where id=#{id} and jp_group_no='1' and rnum between #{startRowNumber} and #{endRowNumber}
  	</select>
+ 	
+ 	<!-- 마일리지 충전 -->
+ 	<update id="addMileage" parameterType="mileageTradeVO">
+ 		update users set mileage=mileage + #{mtVolume} where id =#{userVO.id}
+ 	</update>
+
+	<!-- 마일리지 환전 -->
+ 	 <update id="exchangeMileage" parameterType="mileageTradeVO">
+ 		update users set mileage=mileage - #{mtVolume} where id =#{userVO.id}
+ 	</update>
 </mapper>

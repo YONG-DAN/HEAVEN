@@ -77,11 +77,11 @@ public class UserController {
 		}else{
 			if(!vo.getPassword().equals(uvo.getPassword())) { //비밀번호가 일치하지 않는 경우
 			return "users/loginFail.tiles";
-		}
-			else if(uvo.getUserGroupVO().getUgroupNo().equals("5")) {//탈퇴회원이 로그인하는 경우
+		}else if (uvo.getUserGroupVO().getUgroupNo().equals("3")) { //미승인 단체가 로그인 하는 경우
 			return "users/loginFail.tiles";
-		}
-		else { //정상적으로 로그인 하는 경우	
+		}else if(uvo.getUserGroupVO().getUgroupNo().equals("5")) {//탈퇴회원이 로그인하는 경우
+			return "users/loginFail.tiles";
+		}else { //정상적으로 로그인 하는 경우	
 			request.getSession().setAttribute("uvo", uvo);
 			return "home.tiles";
 		}

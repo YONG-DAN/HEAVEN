@@ -2,6 +2,7 @@ package org.kosta.heaven.model.dao;
 
 import org.kosta.heaven.model.vo.post.activity.ActivityListVO;
 import org.kosta.heaven.model.vo.post.join.JoinPostListVO;
+import org.kosta.heaven.model.vo.post.mileage.MileageTradeVO;
 import org.kosta.heaven.model.vo.user.UserVO;
 
 public interface UserDAO {
@@ -19,6 +20,10 @@ public interface UserDAO {
 	public ActivityListVO readMyActivityList(String id, int nowPage);
 
 	public JoinPostListVO readMyApplicationList(String id, int nowPage);
+
+	public void addMileage(MileageTradeVO mileageTradeVO);
+
+	public void exchangeMileage(MileageTradeVO mileageTradeVO);
 	
 
 }

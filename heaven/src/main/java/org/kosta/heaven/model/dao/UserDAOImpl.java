@@ -1,11 +1,13 @@
 package org.kosta.heaven.model.dao;
 
 import java.util.List;
+
 import org.kosta.heaven.model.vo.post.PagingBeanFive;
 import org.kosta.heaven.model.vo.post.activity.ActivityListVO;
 import org.kosta.heaven.model.vo.post.activity.ActivityVO;
 import org.kosta.heaven.model.vo.post.join.JoinPostListVO;
 import org.kosta.heaven.model.vo.post.join.JoinPostVO;
+import org.kosta.heaven.model.vo.post.mileage.MileageTradeVO;
 import org.kosta.heaven.model.vo.user.UserVO;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,4 +72,15 @@ public class UserDAOImpl implements UserDAO{
 		JoinPostListVO jpListVO= new JoinPostListVO(jpList, pbf);
 		return jpListVO;
 	}
+	
+	@Override
+	public void addMileage(MileageTradeVO mileageTradeVO) {
+		template.update("user.addMileage", mileageTradeVO);
+	}
+
+	@Override
+	public void exchangeMileage(MileageTradeVO mileageTradeVO) {
+		template.update("user.exchangeMileage", mileageTradeVO);
+	}
+
 }
