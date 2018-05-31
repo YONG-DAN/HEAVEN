@@ -3,15 +3,17 @@ package org.kosta.heaven.controller;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-
 import org.kosta.heaven.model.service.UserService;
 import org.kosta.heaven.model.vo.user.UserGroupVO;
 import org.kosta.heaven.model.vo.user.UserVO;
+import org.kosta.heaven.model.vo.post.activity.ActivityListVO;
+import org.kosta.heaven.model.vo.post.join.JoinPostListVO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class UserController {
@@ -138,4 +140,31 @@ public class UserController {
 			session.invalidate();
 		return "users/loginForm.tiles";
 	}
+		/**
+	* 작성이유 : 나의 재능기부 참여목록 
+	* 
+	* @author 백설희
+	*/
+	@RequestMapping("users/readMyActivityList.do")
+	public ModelAndView readMyActivityList(int nowPage,HttpServletRequest request) {
+		HttpSession session = request.getSession(false);
+		UserVO uvo = (UserVO) session.getAttribute("uvo");
+		ActivityListVO aListVO=userService.readMyActivityList(uvo.getId(),nowPage);
+		return new ModelAndView("users/readMyActivityList.tiles","aListVO",aListVO);
+	}
+	/**
+	* 작성이유 : 나의 재능기부 신청 내역
+	* 
+	* @author 백설희
+	*/
+	@RequestMapping("users/readMyApplicationList.do")
+	public ModelAndView readMyApplicationList(int nowPage,HttpServletRequest request) {
+		HttpSession session = request.getSession(false);
+		UserVO uvo = (UserVO) session.getAttribute("uvo");
+		JoinPostListVO jpListVO=userService.readMyApplicationList(uvo.getId(),nowPage);
+		System.out.println("컨트롤러끝"+jpListVO);
+		return new ModelAndView("users/readMyApplicationList.tiles","jpListVO",jpListVO);
+	}
+}
+	
 }

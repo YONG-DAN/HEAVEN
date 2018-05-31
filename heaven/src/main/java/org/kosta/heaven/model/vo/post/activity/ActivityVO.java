@@ -4,7 +4,7 @@ import org.kosta.heaven.model.vo.post.join.JoinPostVO;
 import org.kosta.heaven.model.vo.user.UserVO;
 
 public class ActivityVO {
-	private int aNO;
+	private int aNo;
 	private String aRegdate;
 	private int aMileage;
 	private String cheerUpMessage;
@@ -15,10 +15,10 @@ public class ActivityVO {
 		super();
 	}
 
-	public ActivityVO(int aNO, String aRegdate, int aMileage, String cheerUpMessage, UserVO userVO,
+	public ActivityVO(int aNo, String aRegdate, int aMileage, String cheerUpMessage, UserVO userVO,
 			JoinPostVO joinPostVO) {
 		super();
-		this.aNO = aNO;
+		this.aNo = aNo;
 		this.aRegdate = aRegdate;
 		this.aMileage = aMileage;
 		this.cheerUpMessage = cheerUpMessage;
@@ -26,12 +26,12 @@ public class ActivityVO {
 		this.joinPostVO = joinPostVO;
 	}
 
-	public int getaNO() {
-		return aNO;
+	public int getaNo() {
+		return aNo;
 	}
 
-	public void setaNO(int aNO) {
-		this.aNO = aNO;
+	public void setaNo(int aNo) {
+		this.aNo = aNo;
 	}
 
 	public String getaRegdate() {
@@ -76,7 +76,7 @@ public class ActivityVO {
 
 	@Override
 	public String toString() {
-		return "ActivityVO [aNO=" + aNO + ", aRegdate=" + aRegdate + ", aMileage=" + aMileage + ", cheerUpMessage="
+		return "ActivityVO [aNo=" + aNo + ", aRegdate=" + aRegdate + ", aMileage=" + aMileage + ", cheerUpMessage="
 				+ cheerUpMessage + ", userVO=" + userVO + ", joinPostVO=" + joinPostVO + "]";
 	}
 }

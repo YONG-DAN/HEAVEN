@@ -1,5 +1,7 @@
 package org.kosta.heaven.model.service;
 
+import org.kosta.heaven.model.vo.post.activity.ActivityListVO;
+import org.kosta.heaven.model.vo.post.join.JoinPostListVO;
 import org.kosta.heaven.model.vo.user.UserVO;
 
 public interface UserService {
@@ -11,5 +13,9 @@ public interface UserService {
 	public void deleteMember(String id);
 
 	public void registerUser(UserVO vo);
+	
+	public ActivityListVO readMyActivityList(String id, int nowPage);
+
+	public JoinPostListVO readMyApplicationList(String id, int nowPage);
 
 }

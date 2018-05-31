@@ -1,10 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<style type="text/css">
+	.control-group {
+		margin-bottom: 18px;
+	}
+</style>
 <script type="text/javascript">
 	$(document).ready(function(){
-		
-		$("#password").keyup(function(){
+		 $("#password").keyup(function(){
 			var passwordCon = $("#passwordCon").val();
 			var password = $("#password").val();
 			var checkResultPassword="";
@@ -34,7 +37,7 @@
 			}
 		});//keyup
 		$("#updateForm").submit(function(){
-			var usrPassword=${sessionScope.mvo.password};
+			var usrPassword=${sessionScope.uvo.password};
 			var insertPassword=$("#insertPassword").val();
 			if (checkResultPassword=="") {
 				alert("비밀번호를 확인하세요!");
@@ -44,12 +47,11 @@
 				return false;
 			}else{
 				alert("다시 로그인 해주세요");
-				
 			}
 		});//submit
 		$('.btn-cancel').click(function(){
 			location.href="${pageContext.request.contextPath }/users/mypage.do";
-		});
+		}); 
 	});
 </script>  
 <div class="container" id="updateForm">
