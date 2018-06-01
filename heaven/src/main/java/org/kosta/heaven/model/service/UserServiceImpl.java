@@ -5,6 +5,8 @@ import org.kosta.heaven.model.dao.UserDAO;
 import org.kosta.heaven.model.vo.user.UserVO;
 import org.kosta.heaven.model.vo.post.activity.ActivityListVO;
 import org.kosta.heaven.model.vo.post.join.JoinPostListVO;
+import org.kosta.heaven.model.vo.post.mileage.MileageTradeVO;
+import org.kosta.heaven.model.vo.user.UserVO;
 import org.kosta.heaven.model.vo.post.review.ReviewListVO;
 import org.springframework.stereotype.Service;
 
@@ -33,7 +35,7 @@ public class UserServiceImpl implements UserService{
 		userDAO.registerUser(vo);
 	}
 	
-		@Override
+	@Override
 	public ActivityListVO readMyActivityList(String id, int nowPage) {
 		return userDAO.readMyActivityList(id, nowPage);
 	}
@@ -51,5 +53,17 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public ReviewListVO readMyReviewPostList(String id, int nowPage) {
 		return userDAO.readMyReviewList(id, nowPage);
+	}
+	
+	@Override
+	@Transactional
+	public void addMileage(MileageTradeVO mileageTradeVO) {
+		userDAO.addMileage(mileageTradeVO);
+	}
+
+	@Override
+	@Transactional
+	public void exchangeMileage(MileageTradeVO mileageTradeVO) {
+		userDAO.exchangeMileage(mileageTradeVO);
 	}
 }

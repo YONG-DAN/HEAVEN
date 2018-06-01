@@ -13,7 +13,7 @@
 						<br><br>
 							<h5 class="card-title">일반회원</h5>
 							<br>
-							<p class="card-text">개인회원으로 기부앤테이크의 재능을 기부하거나<br>
+							<p class="card-text">개인회원으로 기부앤테이크에서 재능을 기부하거나<br>
 												  재능 기부 프로그램에 직접 참여할 수 있어요.</p>
 						</div>
 					</div>

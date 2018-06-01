@@ -8,6 +8,7 @@ import org.kosta.heaven.model.vo.post.join.JoinPostListVO;
 import org.kosta.heaven.model.vo.post.join.JoinPostVO;
 import org.kosta.heaven.model.vo.post.review.ReviewListVO;
 import org.kosta.heaven.model.vo.post.review.ReviewVO;
+import org.kosta.heaven.model.vo.post.mileage.MileageTradeVO;
 import org.kosta.heaven.model.vo.user.UserVO;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -96,4 +97,14 @@ public class UserDAOImpl implements UserDAO{
 		ReviewVO reviewVO=template.selectOne("user.readMyReviewDetail", rNo);
 		return reviewVO;
 	}
+	@Override
+	public void addMileage(MileageTradeVO mileageTradeVO) {
+		template.update("user.addMileage", mileageTradeVO);
+	}
+
+	@Override
+	public void exchangeMileage(MileageTradeVO mileageTradeVO) {
+		template.update("user.exchangeMileage", mileageTradeVO);
+	}
+	
 }

@@ -4,6 +4,7 @@ import org.kosta.heaven.model.vo.post.activity.ActivityListVO;
 import org.kosta.heaven.model.vo.post.join.JoinPostListVO;
 import org.kosta.heaven.model.vo.post.review.ReviewListVO;
 import org.kosta.heaven.model.vo.post.review.ReviewVO;
+import org.kosta.heaven.model.vo.post.mileage.MileageTradeVO;
 import org.kosta.heaven.model.vo.user.UserVO;
 
 public interface UserDAO {
@@ -28,6 +29,8 @@ public interface UserDAO {
 
 	public ReviewVO readMyReviewDetail(int rNo);
 
-	
+	public void addMileage(MileageTradeVO mileageTradeVO);
+
+	public void exchangeMileage(MileageTradeVO mileageTradeVO);
 
 }

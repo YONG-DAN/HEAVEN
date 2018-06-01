@@ -63,8 +63,8 @@
                   <div class="card-body">
                   	 <div class="card-body">
                      <div class="card-text"></div>
-                     	 <p>보유 마일리지 : ${sessionScope.uvo.mileage}</p>
-                    	 <a href="${pageContext.request.contextPath }/users/updateMyPassword.do" class="btn btn-sub-2 btn-sm">충전/환전/조회</a>
+                     	 <p>보유 마일리지 : ${sessionScope.uvo.mileage} P </p>
+                    	 <a href="${pageContext.request.contextPath }/users/addMileageForm.do" class="btn btn-sub-2 btn-sm">충전/환전/조회</a>
                   	</div>
                   </div>
                </div>
