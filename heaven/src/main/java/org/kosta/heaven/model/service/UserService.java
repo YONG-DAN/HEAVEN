@@ -2,13 +2,10 @@ package org.kosta.heaven.model.service;
 
 import org.kosta.heaven.model.vo.post.activity.ActivityListVO;
 import org.kosta.heaven.model.vo.post.join.JoinPostListVO;
+import org.kosta.heaven.model.vo.post.join.JoinPostVO;
 import org.kosta.heaven.model.vo.post.mileage.MileageTradeVO;
 import org.kosta.heaven.model.vo.post.question.QuestionPostListVO;
 import org.kosta.heaven.model.vo.post.question.QuestionPostVO;
-<<<<<<< HEAD
-import org.kosta.heaven.model.vo.post.join.JoinPostVO;
-=======
->>>>>>> branch 'master' of https://github.com/YONG-DAN/HEAVEN.git
 import org.kosta.heaven.model.vo.post.review.ReviewListVO;
 import org.kosta.heaven.model.vo.post.review.ReviewVO;
 import org.kosta.heaven.model.vo.user.UserVO;
@@ -41,12 +38,6 @@ public interface UserService {
 
 	public void deleteMyReview(int rNo);
 	
-	public void createQuestion(QuestionPostVO qpVO);
-
-	public QuestionPostListVO readMyQuestionList(String id, int nowPage);
-
-	public QuestionPostVO readMyQuestionDetail(int qNo);
-
 	public void createQuestion(QuestionPostVO qpVO);
 
 	public QuestionPostListVO readMyQuestionList(String id, int nowPage);

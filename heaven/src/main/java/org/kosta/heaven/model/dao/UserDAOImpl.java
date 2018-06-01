@@ -1,6 +1,7 @@
 package org.kosta.heaven.model.dao;
 
 import java.util.List;
+
 import org.kosta.heaven.model.vo.post.PagingBeanFive;
 import org.kosta.heaven.model.vo.post.activity.ActivityListVO;
 import org.kosta.heaven.model.vo.post.activity.ActivityVO;
@@ -10,11 +11,6 @@ import org.kosta.heaven.model.vo.post.mileage.MileageTradeVO;
 import org.kosta.heaven.model.vo.post.question.QuestionPostVO;
 import org.kosta.heaven.model.vo.post.review.ReviewListVO;
 import org.kosta.heaven.model.vo.post.review.ReviewVO;
-<<<<<<< HEAD
-import org.kosta.heaven.model.vo.post.mileage.MileageTradeVO;
-import org.kosta.heaven.model.vo.post.question.QuestionPostVO;
-=======
->>>>>>> branch 'master' of https://github.com/YONG-DAN/HEAVEN.git
 import org.kosta.heaven.model.vo.user.UserVO;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -160,25 +156,6 @@ public class UserDAOImpl implements UserDAO{
 	public List<QuestionPostVO> readMyQuestionList(PagingBeanFive pagingBean) {
 		return template.selectList("user.readMyQuestionList", pagingBean);
 	}
-	
-	@Override
-	public void createQuestion(QuestionPostVO qpVO) {
-		template.insert("user.createQuestion", qpVO);
-	}
 
-	@Override
-	public int getTotalQuestionContentCount(String id) {
-		return template.selectOne("user.getTotalQuestionContentCount", id);
-	}
-
-	@Override
-	public QuestionPostVO readMyQuestionDetail(int qNo) {
-		return template.selectOne("user.readMyQuestionDetail", qNo);
-	}
-
-	@Override
-	public List<QuestionPostVO> readMyQuestionList(PagingBeanFive pagingBean) {
-		return template.selectList("user.readMyQuestionList", pagingBean);
-	}
 	
 }

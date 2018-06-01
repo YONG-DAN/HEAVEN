@@ -31,25 +31,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="rRate" column="r_rate"/>
 		<result property="activityVO.joinPostVO.jpTitle" column="jp_title"/>
 	</resultMap>
-	<!-- 문의 ResultMap -->
-	<resultMap type="questionPostVO" id="qPostVO">
-		<result column="q_no" property="qNo"/>
-		<result column="thread" property="thread"/>
-		<result column="q_title" property="qTitle"/>
-		<result column="q_contents" property="qContents"/>
-		<result column="q_regdate" property="qRegdate"/>
-		<result column="q_parent_no" property="qParentNo"/>
-		<result column="q_status" property="qStatus"/>
-		<collection property="userVO" javaType="userVO" column="q_no"
-		select="selectMemberByDetail" ></collection>
-	</resultMap>
-	
-	<select id="selectMemberByDetail" resultType="userVO">
-		select u.id, u.password, u.name, u.address, to_char(u.birthday,'yyyy.mm.dd') birthday,
-		u.mileage, u.total_use_mileage
-		from users u, question q
-		where u.id=q.id and q.q_no=#{value}
-	</select>
 	
 	<!-- 문의 ResultMap -->
 	<resultMap type="questionPostVO" id="qPostVO">
@@ -187,15 +168,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  		update REVIEW set r_title=#{rTitle}, r_contents=#{rContents}, r_rate=#{rRate}
 		where r_no=#{rNo}
  	</update>
-<<<<<<< HEAD
-=======
  	
->>>>>>> branch 'master' of https://github.com/YONG-DAN/HEAVEN.git
  	<!-- 나의 후기 삭제하기 -->
  	<delete id="deleteMyReview" parameterType="int">
  		delete from REVIEW where r_no=#{value}
  	</delete>
-<<<<<<< HEAD
  	<!-- 나의 신청활동 취소를 위한 해당 신청의 날짜범위 가져오기 -->
  	<select id="selectMyJoinDate" resultType="joinPostVO">
 		select j.jp_app_start_date, j.jp_app_end_date
@@ -208,9 +185,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  	<delete id="deleteMyActivity" parameterType="int">
  		delete from users_activity where u_no=#{value}
  	</delete>
-=======
- 	
->>>>>>> branch 'master' of https://github.com/YONG-DAN/HEAVEN.git
  	<!-- 문의 작성하기 -->
  	<insert id="createQuestion" parameterType="questionPostVO">
 		<selectKey keyProperty="qNo" resultType="int" order="BEFORE">
