@@ -1,4 +1,4 @@
-/*package org.kosta.heaven.model.dao;
+package org.kosta.heaven.model.dao;
 
 import java.util.List;
 import org.kosta.heaven.model.vo.post.PagingBeanTen;
@@ -19,4 +19,3 @@ public interface MileageDAO {
 	public void saveMileage(MileageTradeVO mileageTradeVO);
 	
 }
-*/

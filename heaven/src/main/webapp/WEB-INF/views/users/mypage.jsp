@@ -26,7 +26,7 @@
 							<p class="small-txt">회원 등급 : ${sessionScope.uvo.userGradeVO.ugradeName}</p>
 							
 						</div>
-						<a href="#" class="btn btn-sub-2 btn-sm">수정</a>
+						<a href="${pageContext.request.contextPath }/users/updateUserInfoForm.do" class="btn btn-sub-2 btn-sm">수정</a>
 					</div>
 				</div>
 				<div class="card">
@@ -63,8 +63,8 @@
                   <div class="card-body">
                   	 <div class="card-body">
                      <div class="card-text"></div>
-                     	 <p>보유 마일리지 : ${sessionScope.uvo.mileage}</p>
-                    	 <a href="${pageContext.request.contextPath }/users/updateMyPassword.do" class="btn btn-sub-2 btn-sm">충전/환전/조회</a>
+                     	 <p>보유 마일리지 : ${sessionScope.uvo.mileage} P </p>
+                    	 <a href="${pageContext.request.contextPath }/users/addMileageForm.do" class="btn btn-sub-2 btn-sm">충전/환전/조회</a>
                   	</div>
                   </div>
                </div>
@@ -75,8 +75,8 @@
                         <p>나의 기부활동 참여 ${appCount}건</p>
                      </div>
                      <a href="${pageContext.request.contextPath}/users/readMyActivityList.do?nowPage=1" class="btn btn-sub-2 btn-sm">활동목록</a>
-                     <a href="${pageContext.request.contextPath}/users/readMyReviewPostList.do?nowPage=1" class="btn btn-sub-2 btn-sm">후기내역</a>
-                     <a href="${pageContext.request.contextPath}/users/readMyWebQuestionList.do?nowPage=1" class="btn btn-sub-2 btn-sm">문의</a>
+                     <a href="${pageContext.request.contextPath}/users/readMyReviewList.do?nowPage=1" class="btn btn-sub-2 btn-sm">후기내역</a>
+                     <a href="${pageContext.request.contextPath}/users/readMyQuestionList.do?nowPage=1" class="btn btn-sub-2 btn-sm">문의</a>
                   </div>
                </div>
             </div>

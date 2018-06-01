@@ -293,6 +293,9 @@ a.badge:focus {
 .nav-pills > li > a > .badge {
   margin-left: 3px;
 }
+
+
+
 /*myPage*/
 #userDelete{
 	border-top: 1px solid rgba(0, 0, 0, 0.07);	
@@ -334,4 +337,34 @@ a.badge:focus {
 	background-color: #34bdb6;
 	border-color: #34bdb6;
 }
-
+.updateMyReview>p:nth-child(3) {
+	overflow: auto;
+	margin-bottom: 0px;
+}
+.updateMyReview>p:nth-child(1){
+	float: left;
+}
+.updateMyReview>p:nth-child(2){
+	
+}
+.lastP{
+	float: left;
+}
+.rTitleInputTitle {
+	float: left;
+    width: 85%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.rTitleInputRate{
+	width: 38px;
+    float: left;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.lastDiv{
+	overflow: auto;
+}
+#sendMessageButton {
+	margin: 0 auto;
+}

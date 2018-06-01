@@ -22,6 +22,55 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="userVO.id" column="id"/>
 	</resultMap>
 	
+	<!-- 후기 ResultMap -->
+	<resultMap type="reviewVO" id="reviewRM">
+		<result property="rNo" column="r_no"/>
+		<result property="rTitle" column="r_title"/>
+		<result property="rContents" column="r_contents"/>
+		<result property="rRegdate" column="r_regdate"/>
+		<result property="rRate" column="r_rate"/>
+		<result property="activityVO.joinPostVO.jpTitle" column="jp_title"/>
+	</resultMap>
+	<!-- 문의 ResultMap -->
+	<resultMap type="questionPostVO" id="qPostVO">
+		<result column="q_no" property="qNo"/>
+		<result column="thread" property="thread"/>
+		<result column="q_title" property="qTitle"/>
+		<result column="q_contents" property="qContents"/>
+		<result column="q_regdate" property="qRegdate"/>
+		<result column="q_parent_no" property="qParentNo"/>
+		<result column="q_status" property="qStatus"/>
+		<collection property="userVO" javaType="userVO" column="q_no"
+		select="selectMemberByDetail" ></collection>
+	</resultMap>
+	
+	<select id="selectMemberByDetail" resultType="userVO">
+		select u.id, u.password, u.name, u.address, to_char(u.birthday,'yyyy.mm.dd') birthday,
+		u.mileage, u.total_use_mileage
+		from users u, question q
+		where u.id=q.id and q.q_no=#{value}
+	</select>
+	
+	<!-- 문의 ResultMap -->
+	<resultMap type="questionPostVO" id="qPostVO">
+		<result column="q_no" property="qNo"/>
+		<result column="thread" property="thread"/>
+		<result column="q_title" property="qTitle"/>
+		<result column="q_contents" property="qContents"/>
+		<result column="q_regdate" property="qRegdate"/>
+		<result column="q_parent_no" property="qParentNo"/>
+		<result column="q_status" property="qStatus"/>
+		<collection property="userVO" javaType="userVO" column="q_no"
+		select="selectMemberByDetail" ></collection>
+	</resultMap>
+	
+	<select id="selectMemberByDetail" resultType="userVO">
+		select u.id, u.password, u.name, u.address, to_char(u.birthday,'yyyy.mm.dd') birthday,
+		u.mileage, u.total_use_mileage
+		from users u, question q
+		where u.id=q.id and q.q_no=#{value}
+	</select>
+	
 	<!-- 회원가입 -->
 	 <insert id="registerUser" parameterType="userVO">
  		insert into users(id, password, name, birthday, gender, address, email
@@ -65,13 +114,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  		update users set ugroup_no = '5'
 		where id=#{value}
  	</update>
-
+	<!-- 나의 재능기부 참여 count -->
 	<select id="readMyActivityCount" resultType="int">
  		select count(*) 
 		from users_activity
 		where id=#{value}
  	</select>
- 	
+ 	<!-- 나의 재능기부 활동 참여 목록  -->
  	<select id="readMyActivityList" resultType="activityVO" resultMap="activityRM" parameterType="pagingBeanFive">
  		select j.u_no, j.u_regdate, j.u_mileage, p.jp_title from (
 		select row_number() over (order by u_no desc) as rnum, u_no, to_char(u_regdate,'YYYY.MM.DD') as u_regdate, u_mileage,jp_no
@@ -79,17 +128,117 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where j.jp_no=p.jp_no and rnum between #{startRowNumber} and #{endRowNumber}
 		order by j.jp_no desc
  	</select>
- 	
+ 	<!-- 나의 재능기부 신청 count -->
  	<select id="readMyApplicationCount" resultType="int">
  		select count(*) 
 		from join_post
 		where id=#{value}
  	</select>
- 	
+	<!-- 나의 재능기부 신청 목록 -->
  	<select id="readMyApplicationList" resultType="joinPostVO" parameterType="pagingBeanFive">
  		select jp_no, jp_title, jp_regdate, jp_status
 		from (select row_number() over (order by jp_no desc) as rnum, jp_no, jp_title, to_char(jp_regdate,'YYYY.MM.DD') as jp_regdate, jp_status, id, jp_group_no
 		from join_post)
 		where id=#{id} and jp_group_no='1' and rnum between #{startRowNumber} and #{endRowNumber}
+ 	</select>
+ 	<!-- 마일리지 충전 -->
+ 	<update id="addMileage" parameterType="mileageTradeVO">
+ 		update users set mileage=mileage + #{mtVolume} where id =#{userVO.id}
+ 	</update>
+
+	<!-- 마일리지 환전 -->
+ 	 <update id="exchangeMileage" parameterType="mileageTradeVO">
+ 		update users set mileage=mileage - #{mtVolume} where id =#{userVO.id}
+ 	</update>
+ 	
+ 	<!-- 일반 회원의 정보 수정 -->
+ 	<update id="updateUserInfo" parameterType="userVO">
+ 		update users set address=#{address}, email=#{email}
+		where id=#{id}
+ 	</update>
+ 	
+ 	<!-- 나의 후기 count -->
+ 	<select id="readMyReviewCount" resultType="int">
+ 		select count(*) 
+		from (select id from users_activity where id=#{value}) a, review r 
+ 	</select>
+ 	
+ 	<!-- 나의 후기 목록 -->
+ 	<select id="readMyReviewList" resultType="reviewVO" parameterType="pagingBeanFive">
+ 		select r.r_no,r.r_title,r.r_regdate,r.r_rate
+		from (select row_number() over (order by r_no desc) as rnum,r_no,r_title,to_char(r_regdate,'YYYY.MM.DD') as r_regdate,r_rate,ua_no
+		from review) r, USERS_ACTIVITY a
+		where r.ua_no=a.u_no and a.id=#{id} and rnum  between #{startRowNumber} and #{endRowNumber}
+		order by r.r_no desc
+ 	</select>
+ 	
+ 	<!-- 나의 후기 상세보기 -->
+ 	<select id="readMyReviewDetail" resultMap="reviewRM" resultType="reviewVO">
+ 		select r.r_no,r.r_title,r.r_contents,r.r_regdate,r.r_rate,j.jp_title
+		from (select r_no,r_title,r_contents,to_char(r_regdate,'YYYY.MM.DD') as r_regdate,r_rate,ua_no
+		from REVIEW where r_no=#{value}) r, (select u_no,jp_no from users_activity) a, 
+		(select jp_no,jp_title from JOIN_POST where jp_group_no=1) j
+		where a.jp_no=j.jp_no and r.ua_no=a.u_no
+		order by r.r_no desc
+ 	</select>
+ 	
+ 	<!-- 나의 후기 수정하기 -->
+ 	<update id="updateMyReviewDetail" parameterType="reviewVO">
+ 		update REVIEW set r_title=#{rTitle}, r_contents=#{rContents}, r_rate=#{rRate}
+		where r_no=#{rNo}
+ 	</update>
+<<<<<<< HEAD
+=======
+ 	
+>>>>>>> branch 'master' of https://github.com/YONG-DAN/HEAVEN.git
+ 	<!-- 나의 후기 삭제하기 -->
+ 	<delete id="deleteMyReview" parameterType="int">
+ 		delete from REVIEW where r_no=#{value}
+ 	</delete>
+<<<<<<< HEAD
+ 	<!-- 나의 신청활동 취소를 위한 해당 신청의 날짜범위 가져오기 -->
+ 	<select id="selectMyJoinDate" resultType="joinPostVO">
+		select j.jp_app_start_date, j.jp_app_end_date
+		from(select jp_no from USERS_ACTIVITY where u_no=#{value}) a,
+		(select to_char(jp_app_start_date,'yyyy-MM-dd') as jp_app_start_date, to_char(jp_app_end_date,'yyyy-MM-dd') as jp_app_end_date,jp_no
+		from join_post) j
+		where a.jp_no=j.jp_no
+ 	</select>
+ 	<!-- 나의 신청활동 삭제 -->
+ 	<delete id="deleteMyActivity" parameterType="int">
+ 		delete from users_activity where u_no=#{value}
+ 	</delete>
+=======
+ 	
+>>>>>>> branch 'master' of https://github.com/YONG-DAN/HEAVEN.git
+ 	<!-- 문의 작성하기 -->
+ 	<insert id="createQuestion" parameterType="questionPostVO">
+		<selectKey keyProperty="qNo" resultType="int" order="BEFORE">
+ 			select question_seq.nextval from dual
+ 		</selectKey>
+ 		insert into question(q_no, thread, q_title, q_contents, id) 
+ 		values (#{qNo}, #{qNo}*100, #{qTitle}, #{qContents}, #{userVO.id})
+ 	</insert>
+
+ 	<!--  문의 글 페이징을 위해 글 수 세기  -->
+ 	<select id = "getTotalQuestionContentCount" parameterType="string" resultType="int">
+ 		select count(*) from question where id=#{value}
+ 	</select>
+
+	<!-- 나의 문의 글 목록 뽑기 -->
+	<select id="readMyQuestionList" parameterType="pagingBeanFive" resultMap="qPostVO">
+		select rnum, q.q_no, q.thread, q.q_title, q.q_regdate, q.q_status, q.q_parent_no
+		from (select row_number() over(order by thread desc) rnum, q_no, thread, q_title,
+		to_char(q_regdate,'yyyy.mm.dd') q_regdate, q_status, q_parent_no, id
+		from question where id=#{id} order by thread desc) q, users u
+		where q.id=u.id and rnum between #{startRowNumber} and  #{endRowNumber}
+		order by thread desc
+	</select>
+	
+	<!--  나의 문의 글 상세 보기 -->
+ 	<select id = "readMyQuestionDetail" parameterType="int" resultType="questionPostVO">
+		select q_no as qNo, q_title as qTitle, q_contents as qContents, 
+		to_char(q_regdate, 'YYYY.MM.DD') as qRegdate, q_status as qStatus
+		from question where q_no=#{value}
  	</select>
 </mapper>

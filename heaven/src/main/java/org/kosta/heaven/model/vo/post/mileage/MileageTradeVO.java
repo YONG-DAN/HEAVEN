@@ -44,10 +44,10 @@ public class MileageTradeVO {
 	public void setMugVO(MileageUseGroupVO mugVO) {
 		this.mugVO = mugVO;
 	}
-	public UserVO getuserVO() {
+	public UserVO getUserVO() {
 		return userVO;
 	}
-	public void setuserVO(UserVO userVO) {
+	public void setUserVO(UserVO userVO) {
 		this.userVO = userVO;
 	}
 	@Override
