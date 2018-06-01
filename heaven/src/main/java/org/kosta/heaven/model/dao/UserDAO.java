@@ -1,5 +1,8 @@
 package org.kosta.heaven.model.dao;
 
+import java.util.List;
+
+import org.kosta.heaven.model.vo.post.PagingBeanFive;
 import org.kosta.heaven.model.vo.post.activity.ActivityListVO;
 import org.kosta.heaven.model.vo.post.join.JoinPostListVO;
 import org.kosta.heaven.model.vo.post.review.ReviewListVO;
@@ -35,5 +38,11 @@ public interface UserDAO {
 	public void exchangeMileage(MileageTradeVO mileageTradeVO);
 
 	public void createQuestion(QuestionPostVO qpVO);
+
+	public int getTotalQuestionContentCount(String id);
+
+	public List<QuestionPostVO> readMyQuestionList(PagingBeanFive pagingBean);
+
+	public QuestionPostVO readMyQuestionDetail(int qNo);
 
 }

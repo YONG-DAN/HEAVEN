@@ -76,7 +76,7 @@
                      </div>
                      <a href="${pageContext.request.contextPath}/users/readMyActivityList.do?nowPage=1" class="btn btn-sub-2 btn-sm">활동목록</a>
                      <a href="${pageContext.request.contextPath}/users/readMyReviewList.do?nowPage=1" class="btn btn-sub-2 btn-sm">후기내역</a>
-                     <a href="${pageContext.request.contextPath}/users/readMyWebQuestionList.do?nowPage=1" class="btn btn-sub-2 btn-sm">문의</a>
+                     <a href="${pageContext.request.contextPath}/users/readMyQuestionList.do?nowPage=1" class="btn btn-sub-2 btn-sm">문의</a>
                   </div>
                </div>
             </div>

@@ -4,6 +4,7 @@ import org.kosta.heaven.model.vo.post.activity.ActivityListVO;
 import org.kosta.heaven.model.vo.post.join.JoinPostListVO;
 import org.kosta.heaven.model.vo.post.review.ReviewListVO;
 import org.kosta.heaven.model.vo.post.mileage.MileageTradeVO;
+import org.kosta.heaven.model.vo.post.question.QuestionPostListVO;
 import org.kosta.heaven.model.vo.post.question.QuestionPostVO;
 import org.kosta.heaven.model.vo.user.UserVO;
 
@@ -30,5 +31,9 @@ public interface UserService {
 	public ReviewListVO readMyReviewPostList(String id, int nowPage);
 
 	public void createQuestion(QuestionPostVO qpVO);
+
+	public QuestionPostListVO readMyQuestionList(String id, int nowPage);
+
+	public QuestionPostVO readMyQuestionDetail(int qNo);
 
 }
