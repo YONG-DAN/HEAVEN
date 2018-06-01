@@ -56,11 +56,4 @@ public interface UserDAO {
 
 	public void deleteMyActivity(int rNo);
 
-	public void createQuestion(QuestionPostVO qpVO);
-
-	public int getTotalQuestionContentCount(String id);
-
-	public List<QuestionPostVO> readMyQuestionList(PagingBeanFive pagingBean);
-
-	public QuestionPostVO readMyQuestionDetail(int qNo);
 }
