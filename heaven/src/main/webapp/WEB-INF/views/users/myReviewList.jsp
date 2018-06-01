@@ -23,7 +23,7 @@
 					<c:forEach var="rvo" items="${requestScope.rListVO.list}" >
 						<tr>
 							<td>${rvo.rNo}</td>
-							<td><a href="${pageContext.request.contextPath}/users/readMyReviewDetail.do?rpNo=${rvo.rNo}">${rvo.rTitle}</a></td>
+							<td><a href="${pageContext.request.contextPath}/users/readMyReviewDetail.do?rNo=${rvo.rNo}">${rvo.rTitle}</a></td>
 							<td>${rvo.rRegdate}</td>
 							<td>${rvo.rRate}</td>
 						</tr>

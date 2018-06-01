@@ -57,7 +57,7 @@ public class UserDAOImpl implements UserDAO{
 		System.out.println(pbf.getStartRowNumber());
 		List<ActivityVO> aList=template.selectList("user.readMyActivityList", pbf);
 		ActivityListVO aListVO= new ActivityListVO(aList, pbf);
-		return aListVO ;
+		return aListVO;
 	}
 
 	@Override
@@ -74,10 +74,12 @@ public class UserDAOImpl implements UserDAO{
 		JoinPostListVO jpListVO= new JoinPostListVO(jpList, pbf);
 		return jpListVO;
 	}
+	
 	@Override
 	public void updateUserInfo(UserVO vo) {
 		template.update("user.updateUserInfo",vo);
 	}
+	
 	@Override
 	public ReviewListVO readMyReviewList(String id, int nowPage) {
 		PagingBeanFive pbf=null;
@@ -93,11 +95,13 @@ public class UserDAOImpl implements UserDAO{
 		ReviewListVO rListVO=new ReviewListVO(rList, pbf);
 		return rListVO;
 	}
+	
 	@Override
 	public ReviewVO readMyReviewDetail(int rNo) {
 		ReviewVO reviewVO=template.selectOne("user.readMyReviewDetail", rNo);
 		return reviewVO;
 	}
+	
 	@Override
 	public void addMileage(MileageTradeVO mileageTradeVO) {
 		template.update("user.addMileage", mileageTradeVO);
@@ -108,6 +112,22 @@ public class UserDAOImpl implements UserDAO{
 		template.update("user.exchangeMileage", mileageTradeVO);
 	}
 
+
+	@Override
+	public ReviewVO readMyReviewDetail(String rNo) {
+		return template.selectOne("user.readMyReviewDetail", rNo);
+	}
+
+	@Override
+	public void updateMyReviewDetail(ReviewVO rVO) {
+		template.update("user.updateMyReviewDetail", rVO);
+	}
+
+	@Override
+	public void deleteMyReview(int rNo) {
+		template.delete("user.deleteMyReview",rNo);
+	}
+	
 	@Override
 	public void createQuestion(QuestionPostVO qpVO) {
 		template.insert("user.createQuestion", qpVO);

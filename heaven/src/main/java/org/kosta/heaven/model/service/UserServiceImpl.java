@@ -9,6 +9,7 @@ import org.kosta.heaven.model.vo.post.mileage.MileageTradeVO;
 import org.kosta.heaven.model.vo.post.question.QuestionPostListVO;
 import org.kosta.heaven.model.vo.post.question.QuestionPostVO;
 import org.kosta.heaven.model.vo.post.review.ReviewListVO;
+import org.kosta.heaven.model.vo.post.review.ReviewVO;
 import org.kosta.heaven.model.vo.user.UserVO;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -69,7 +70,22 @@ public class UserServiceImpl implements UserService{
 	public void exchangeMileage(MileageTradeVO mileageTradeVO) {
 		userDAO.exchangeMileage(mileageTradeVO);
 	}
+	
+	@Override
+	public ReviewVO readMyReviewDetail(String rNo) {
+		return userDAO.readMyReviewDetail(rNo);
+	}
 
+	@Override
+	public void updateMyReviewDetail(ReviewVO rVO) {
+		userDAO.updateMyReviewDetail(rVO);
+	}
+
+	@Override
+	public void deleteMyReview(int rNo) {
+		userDAO.deleteMyReview(rNo);
+	}
+	
 	@Override
 	@Transactional
 	public void createQuestion(QuestionPostVO qpVO) {

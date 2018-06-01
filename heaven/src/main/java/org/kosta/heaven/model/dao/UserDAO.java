@@ -37,6 +37,12 @@ public interface UserDAO {
 
 	public void exchangeMileage(MileageTradeVO mileageTradeVO);
 
+	public ReviewVO readMyReviewDetail(String rNo);
+
+	public void updateMyReviewDetail(ReviewVO rVO);
+
+	public void deleteMyReview(int rNo);
+	
 	public void createQuestion(QuestionPostVO qpVO);
 
 	public int getTotalQuestionContentCount(String id);
