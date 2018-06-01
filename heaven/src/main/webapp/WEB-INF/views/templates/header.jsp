@@ -39,10 +39,10 @@
 		<div class="collapse navbar-collapse" id="navbarResponsive">
 			<ul class="navbar-nav ml-auto">
 				<li class="nav-item">
-					<a class="nav-link" href="${pageContext.request.contextPath }/donation/list_donation.do">재능기부</a>
+					<a class="nav-link" href="${pageContext.request.contextPath }/donation/readDonationList.do?nowPage=1">재능기부</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="${pageContext.request.contextPath }/taking/list_taking.do">테이킹</a>
+					<a class="nav-link" href="${pageContext.request.contextPath }/taking/readTakingList.do">테이킹</a>
 				</li>
 				<li class="nav-item">
 					<a class="nav-link" href="${pageContext.request.contextPath }/board/list_board.do">커뮤니티</a>
