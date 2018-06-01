@@ -8,6 +8,7 @@ import org.kosta.heaven.model.vo.user.UserGroupVO;
 import org.kosta.heaven.model.vo.user.UserVO;
 import org.kosta.heaven.model.vo.post.activity.ActivityListVO;
 import org.kosta.heaven.model.vo.post.join.JoinPostListVO;
+import org.kosta.heaven.model.vo.post.question.QuestionPostVO;
 import org.kosta.heaven.model.vo.post.review.ReviewListVO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class UserController {
@@ -193,6 +195,28 @@ public class UserController {
 		UserVO uvo = (UserVO) session.getAttribute("uvo");
 		ReviewListVO rListVO=userService.readMyReviewPostList(uvo.getId(),nowPage);
 		return new ModelAndView("users/myReviewList.tiles","rListVO",rListVO);
+	}
+	
+	/**
+	* 문의 게시판 게시글 작성
+	* 
+	* @author 용다은
+	*/
+	@RequestMapping(method=RequestMethod.POST, value="board/createQuestion.do")
+	public String addWebQuestion(HttpServletRequest request, QuestionPostVO qpVO, RedirectAttributes redirectAttributes) {
+		HttpSession session = request.getSession(false);
+		if(session==null||session.getAttribute("uvo")==null){
+			return "users/loginForm.tiles";
+		}
+		//session -> UserVO로 회원 정보 저장
+		UserVO uvo =  (UserVO) session.getAttribute("uvo");
+		qpVO.setUserVO(uvo);
+		//createQuestion
+		userService.createQuestion(qpVO);
+		//작성한 게시글을 바로 보여 주기 위해 qNo 부여함
+		redirectAttributes.addAttribute("qpNo", + qpVO.getqNo());
+/*		return "redirect:/board/readMyWebQuestionDetail.do";*/
+		return "redirect:/home.do";
 	}
 	
 }

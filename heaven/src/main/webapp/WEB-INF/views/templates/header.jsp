@@ -47,6 +47,9 @@
 				<li class="nav-item">
 					<a class="nav-link" href="${pageContext.request.contextPath }/board/list_board.do">커뮤니티</a>
 				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="${pageContext.request.contextPath }/board/createQuestionForm.do">문의하기</a>
+				</li>
 			</ul>
 		</div>
 	</div>
