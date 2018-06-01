@@ -9,6 +9,7 @@ import org.kosta.heaven.model.vo.post.mileage.MileageTradeVO;
 import org.kosta.heaven.model.vo.user.UserVO;
 import org.kosta.heaven.model.vo.post.review.ReviewListVO;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class UserServiceImpl implements UserService{
