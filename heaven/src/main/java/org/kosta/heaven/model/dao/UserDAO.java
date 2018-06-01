@@ -43,6 +43,14 @@ public interface UserDAO {
 	public void updateMyReviewDetail(ReviewVO rVO);
 
 	public void deleteMyReview(int rNo);
+	
+	public void createQuestion(QuestionPostVO qpVO);
+
+	public int getTotalQuestionContentCount(String id);
+
+	public List<QuestionPostVO> readMyQuestionList(PagingBeanFive pagingBean);
+
+	public QuestionPostVO readMyQuestionDetail(int qNo);
 
 	public JoinPostVO selectMyJoinDate(int rNo);
 
