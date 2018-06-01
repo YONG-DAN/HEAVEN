@@ -9,6 +9,7 @@ import org.kosta.heaven.model.vo.user.UserVO;
 import org.kosta.heaven.model.vo.post.activity.ActivityListVO;
 import org.kosta.heaven.model.vo.post.join.JoinPostListVO;
 import org.kosta.heaven.model.vo.post.review.ReviewListVO;
+import org.kosta.heaven.model.vo.post.review.ReviewVO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -194,5 +195,54 @@ public class UserController {
 		ReviewListVO rListVO=userService.readMyReviewPostList(uvo.getId(),nowPage);
 		return new ModelAndView("users/myReviewList.tiles","rListVO",rListVO);
 	}
-	
+	/**
+	* 작성이유 : 나의 후기 상세보기
+	* 
+	* @author 백설희
+	*/
+	@RequestMapping("users/readMyReviewDetail.do")
+	public String readMyReviewDetail(String rNo,Model model) {
+		ReviewVO reviewVO=userService.readMyReviewDetail(rNo);
+		model.addAttribute("reviewVO", reviewVO);
+		return "users/readMyReviewDetail.tiles";
+	}
+	/**
+	* 작성이유 : 내 후기 수정 폼으로 이동하기 위해
+	* 
+	* @author 백설희
+	*/
+	@RequestMapping("users/updateMyReviewForm.do")
+	public String updateMyReviewForm(String rNo, Model model) {
+		ReviewVO reviewVO=userService.readMyReviewDetail(rNo);
+		model.addAttribute("reviewVO", reviewVO);
+		return "users/updateMyReviewForm.tiles";
+	}
+	/**
+	* 작성이유 : 내 후기 수정
+	* 
+	* @author 백설희
+	*/
+	@RequestMapping(method=RequestMethod.POST, value="users/updateMyReviewDetail.do")
+	public String updateMyReviewDetail(ReviewVO rVO, Model model) {
+		/*String rNo=Integer.toString(rVO.getrNo());
+		ReviewVO reviewVO=userService.readMyReviewDetail(rNo);*/
+		String rNo=Integer.toString(rVO.getrNo());
+		userService.updateMyReviewDetail(rVO);
+		ReviewVO reviewVO=userService.readMyReviewDetail(rNo);
+		model.addAttribute("reviewVO", reviewVO);
+		return "users/readMyReviewDetail.tiles";
+	}
+	/**
+	 * 작성이유 : 후기 번호를 받아와서 
+	 * 해당하는 후기를 삭제하기 위하여
+	 * 
+	 * 나의 후기 삭제하기
+	 * 
+	 * @author 백설희
+	 */
+	@RequestMapping("users/deleteMyReview.do")
+	public String deleteMyReview(int rNo) {
+		userService.deleteMyReview(rNo);
+		return "redirect:/users/readMyReviewList.do?nowPage=1";
+	}
 }

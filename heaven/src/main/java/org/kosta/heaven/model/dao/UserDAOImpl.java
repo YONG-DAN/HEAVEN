@@ -106,5 +106,20 @@ public class UserDAOImpl implements UserDAO{
 	public void exchangeMileage(MileageTradeVO mileageTradeVO) {
 		template.update("user.exchangeMileage", mileageTradeVO);
 	}
+
+	@Override
+	public ReviewVO readMyReviewDetail(String rNo) {
+		return template.selectOne("user.readMyReviewDetail", rNo);
+	}
+
+	@Override
+	public void updateMyReviewDetail(ReviewVO rVO) {
+		template.update("user.updateMyReviewDetail", rVO);
+	}
+
+	@Override
+	public void deleteMyReview(int rNo) {
+		template.delete("user.deleteMyReview",rNo);
+	}
 	
 }

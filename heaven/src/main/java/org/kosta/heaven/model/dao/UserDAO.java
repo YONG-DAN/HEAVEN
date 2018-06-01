@@ -33,4 +33,10 @@ public interface UserDAO {
 
 	public void exchangeMileage(MileageTradeVO mileageTradeVO);
 
+	public ReviewVO readMyReviewDetail(String rNo);
+
+	public void updateMyReviewDetail(ReviewVO rVO);
+
+	public void deleteMyReview(int rNo);
+
 }
