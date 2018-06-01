@@ -1,21 +1,32 @@
 package org.kosta.heaven.controller;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+
 import org.kosta.heaven.model.service.UserService;
-import org.kosta.heaven.model.vo.user.UserGroupVO;
-import org.kosta.heaven.model.vo.user.UserVO;
 import org.kosta.heaven.model.vo.post.activity.ActivityListVO;
 import org.kosta.heaven.model.vo.post.join.JoinPostListVO;
+import org.kosta.heaven.model.vo.post.join.JoinPostVO;
+import org.kosta.heaven.model.vo.post.question.QuestionPostListVO;
+import org.kosta.heaven.model.vo.post.question.QuestionPostVO;
 import org.kosta.heaven.model.vo.post.review.ReviewListVO;
+import org.kosta.heaven.model.vo.user.UserGroupVO;
+import org.kosta.heaven.model.vo.user.UserVO;
 import org.kosta.heaven.model.vo.post.review.ReviewVO;
+import org.kosta.heaven.model.vo.user.UserGroupVO;
+import org.kosta.heaven.model.vo.user.UserVO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class UserController {
@@ -244,5 +255,95 @@ public class UserController {
 	public String deleteMyReview(int rNo) {
 		userService.deleteMyReview(rNo);
 		return "redirect:/users/readMyReviewList.do?nowPage=1";
+	}
+	/**
+	* 문의 게시판 게시글 작성
+	* 
+	* @author 용다은
+	*/
+	@RequestMapping(method=RequestMethod.POST, value="board/createQuestion.do")
+	public String addWebQuestion(HttpServletRequest request, QuestionPostVO qpVO, RedirectAttributes redirectAttributes) {
+		HttpSession session = request.getSession(false);
+		if(session==null||session.getAttribute("uvo")==null){
+			return "users/loginForm.tiles";
+		}
+		//session -> UserVO로 회원 정보 저장
+		UserVO uvo =  (UserVO) session.getAttribute("uvo");
+		qpVO.setUserVO(uvo);
+		//createQuestion
+		userService.createQuestion(qpVO);
+		//작성한 게시글을 바로 보여 주기 위해 qNo 부여함
+		redirectAttributes.addAttribute("qNo", + qpVO.getqNo());
+		return "redirect:/users/readMyQuestionDetail.do";
+	}
+	
+	/**
+	* 나의 문의 게시판 목록 보기
+	* 
+	* @author 용다은
+	*/
+	@RequestMapping("users/readMyQuestionList.do")
+	public String readMyWebQuestionList(int nowPage, HttpServletRequest request, Model model) {
+		HttpSession session=request.getSession(false);
+		if(session==null||session.getAttribute("uvo")==null){ //session 없는 경우 로그인 페이지로 보냄
+			return "users/loginForm.tiles";
+		}
+		UserVO uvo = (UserVO) session.getAttribute("uvo");
+		QuestionPostListVO qListVO = userService.readMyQuestionList(uvo.getId(), nowPage);
+		model.addAttribute("qListVO", qListVO);
+		return "users/readMyQuestionList.tiles";
+	}
+	
+	/**
+	* 나의 문의 게시판 게시글 상세 보기
+	* 
+	* @author 용다은
+	*/
+	@RequestMapping("users/readMyQuestionDetail.do")
+	public String readWebQuestion(int qNo, Model model) {
+		QuestionPostVO qPostVO=userService.readMyQuestionDetail(qNo);
+		model.addAttribute("qPostVO", qPostVO);
+		//답변완료 된 문의글인 경우 답변VO를 찾는 메서드
+		/*	if(qPostVO.getqStatus().equals("답변완료")) {
+			QuestionPostVO qAnswerVO = userService.readWebQuestionAnswer(qNo);
+			//답변VO를 view로 보내줌
+			model.addAttribute("qAnswerVO", qAnswerVO);
+		}*/
+		return "users/readMyQuestionDetail.tiles";
+	}
+	/**
+	 * 작성이유 : 신청활동 신청을 위한 해당 재능기부의 신청날짜가져오기
+	 * 
+	 * 신청취소가능 날짜 가져오기
+	 * 
+	 * @author 백설희
+	 */
+	@RequestMapping("users/deleteMyActivity.do")
+	public String deleteMyActivity(int rNo) {
+		JoinPostVO joinPostVO=userService.selectMyJoinDate(rNo);
+		String startDate=joinPostVO.getJpAppStartDate();
+		String endDate=joinPostVO.getJpAppEndDate();
+		/*오늘날짜를 int로 가져오기*/
+		/*SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+		Calendar c1 = Calendar.getInstance();
+		String strToday = sdf.format(c1.getTime());
+		int today=Integer.parseInt(strToday);*/
+		Date today= new Date();
+	    SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
+		try {
+			Date endday = transFormat.parse(endDate);
+			Date startday = transFormat.parse(startDate);
+			if(today.compareTo(startday)==1 || today.compareTo(startday)==0) {
+	            if(today.compareTo(endday)==-1||today.compareTo(endday)==0) {
+	            	userService.deleteMyActivity(rNo);
+	            }else {
+		        	 return "users/deleteFail.tiles";
+		         }
+	         }
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}  
+
+		return "redirect:/users/readMyActivityList.do?nowPage=1";
 	}
 }

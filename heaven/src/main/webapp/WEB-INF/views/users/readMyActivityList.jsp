@@ -1,6 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript">
+	/* $(document).ready(function(){
+		$("#deleteMyActivity").click(function(){
+			confirm("");
+		});
+	}); */
+</script>
 <!-- Page Heading -->
 <div class="page-heading bg-sub-3-gnt">
 	<h4 class="py-5 text-center">마이페이지</h4>
@@ -30,16 +38,17 @@
 						<th>기부 프로젝트명</th>
 						<th>참여 마일리지</th>
 						<th>참여일</th>
+						<th>취소신청</th>
 					</tr>
 				</thead>
 				<tbody>			
 					<c:forEach var="avo" items="${requestScope.aListVO.list}">	
 					<tr>
-						<%-- <td>${requestScope.aListVO.list}</td> --%>
 						<td>${avo.aNo}</td>
 						<td>${avo.joinPostVO.jpTitle}</td>
 						<td>${avo.aMileage}</td>
 						<td>${avo.aRegdate}</td>
+						<td><a href="${pageContext.request.contextPath}/users/deleteMyActivity.do?rNo=${avo.aNo}" class="btn btn-sub-3 mr-1" id="deleteMyActivity">신청취소</a></td>
 					</tr>
 					</c:forEach>	
 				</tbody>
