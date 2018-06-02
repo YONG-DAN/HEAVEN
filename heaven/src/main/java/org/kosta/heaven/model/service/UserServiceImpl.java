@@ -1,8 +1,9 @@
 package org.kosta.heaven.model.service;
 
 import javax.annotation.Resource;
+
 import org.kosta.heaven.model.dao.UserDAO;
-import org.kosta.heaven.model.vo.post.PagingBeanFive;
+import org.kosta.heaven.model.vo.post.PagingBeanTen;
 import org.kosta.heaven.model.vo.post.activity.ActivityListVO;
 import org.kosta.heaven.model.vo.post.join.JoinPostListVO;
 import org.kosta.heaven.model.vo.post.mileage.MileageTradeVO;
@@ -98,13 +99,13 @@ public class UserServiceImpl implements UserService{
 		//목록에 보여 줄 문의 내역 수를 가져옴
 				int totalCount= userDAO.getTotalQuestionContentCount(id);
 				//페이징빈 생성
-				PagingBeanFive pagingBean=null;
+				PagingBeanTen pagingBean=null;
 				if(nowPage==0) {
-					pagingBean=new PagingBeanFive(totalCount);
+					pagingBean=new PagingBeanTen(totalCount);
 					pagingBean.setId(id);
 				}
 				else {
-					pagingBean=new PagingBeanFive(totalCount, nowPage);
+					pagingBean=new PagingBeanTen(totalCount, nowPage);
 					pagingBean.setId(id);
 				}
 				return new QuestionPostListVO(userDAO.readMyQuestionList(pagingBean),pagingBean);

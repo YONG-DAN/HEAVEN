@@ -2,6 +2,7 @@ package org.kosta.heaven.model.dao;
 
 import java.util.List;
 import org.kosta.heaven.model.vo.post.PagingBeanFive;
+import org.kosta.heaven.model.vo.post.PagingBeanTen;
 import org.kosta.heaven.model.vo.post.activity.ActivityListVO;
 import org.kosta.heaven.model.vo.post.activity.ActivityVO;
 import org.kosta.heaven.model.vo.post.join.JoinPostListVO;
@@ -144,7 +145,7 @@ public class UserDAOImpl implements UserDAO{
 	}
 
 	@Override
-	public List<QuestionPostVO> readMyQuestionList(PagingBeanFive pagingBean) {
+	public List<QuestionPostVO> readMyQuestionList(PagingBeanTen pagingBean) {
 		return template.selectList("user.readMyQuestionList", pagingBean);
 	}
 	

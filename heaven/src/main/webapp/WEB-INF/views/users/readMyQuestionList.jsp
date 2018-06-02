@@ -48,7 +48,7 @@
 
 	<!-- Pagination -->
 	<ul class="pagination justify-content-center mt-5">
-		<c:set var="pb" value="${qListVO.pbf}"></c:set>
+		<c:set var="pb" value="${qListVO.pbt}"></c:set>
 		<c:if test="${pb.previousPageGroup}">
 			<li class="page-item"><a class="page-link"
 				href="${pageContext.request.contextPath}/users/readMyQuestionList.do?nowPage=${pb.startPageOfPageGroup-1}"

@@ -1,20 +1,20 @@
 package org.kosta.heaven.model.vo.post.question;
 
 import java.util.List;
-import org.kosta.heaven.model.vo.post.PagingBeanFive;
+import org.kosta.heaven.model.vo.post.PagingBeanTen;
 
 public class QuestionPostListVO {
 	private List<QuestionPostVO> list;
-	private PagingBeanFive pbf;
+	private PagingBeanTen pbt;
 	
 	public QuestionPostListVO() {
 		super();
 	}
 	
-	public QuestionPostListVO(List<QuestionPostVO> list, PagingBeanFive pbf) {
+	public QuestionPostListVO(List<QuestionPostVO> list, PagingBeanTen pbt) {
 		super();
 		this.list = list;
-		this.pbf = pbf;
+		this.pbt = pbt;
 	}
 	
 	public List<QuestionPostVO> getlist() {
@@ -25,17 +25,17 @@ public class QuestionPostListVO {
 		this.list = list;
 	}
 	
-	public PagingBeanFive getpbf() {
-		return pbf;
+	public PagingBeanTen getpbt() {
+		return pbt;
 	}
 	
-	public void setpbf(PagingBeanFive pbf) {
-		this.pbf = pbf;
+	public void setpbt(PagingBeanTen pbt) {
+		this.pbt = pbt;
 	}
 	
 	@Override
 	public String toString() {
-		return "QuestionPostListVO [list=" + list + ", pbf=" + pbf + "]";
+		return "QuestionPostListVO [list=" + list + ", pbt=" + pbt + "]";
 	}
 	
 }

@@ -13,7 +13,7 @@
 				</c:if>
 				<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath }/users/logout.do">Logout</a></li>
 				<c:if test="${sessionScope.uvo.userGroupVO.ugroupNo=='4' }">
-					<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath }/adminPageData.do">관리자 페이지</a></li>
+					<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath }/admin/adminPage.do">관리자 페이지</a></li>
 				</c:if>
 			</c:when>
 			<c:otherwise>
