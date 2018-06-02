@@ -28,7 +28,7 @@
 					</div>
 				</div>
 				<div class="col-lg-3 card text-center adminHover"
-					onclick="location.href='${pageContext.request.contextPath}/admin/readQuestionList.do?nowPage=1'">
+					onclick="location.href='${pageContext.request.contextPath}/admin/readAllQuestionList.do?nowPage=1'">
 					<div class="card-body">
 						<i class="fas fa-question fa-3x"></i> <br> <br>
 						<h5 class="card-title">문의 게시판</h5>

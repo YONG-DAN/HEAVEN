@@ -14,13 +14,14 @@ public class AdminController {
 	private AdminService adminService;
 	
 	/**
-	* 작성이유 : 사이트 문의 목록보기
+	* 
+	* 사이트 전체 문의 목록보기
 	* 
 	* @author 용다은
 	*/
 	@RequestMapping("admin/readAllQuestionList.do")
-	public String readWebQuestionList(int nowPage, Model model) {
-		QuestionPostListVO qListVO = adminService.readQuestionList(nowPage);
+	public String readAllQuestionList(int nowPage, Model model) {
+		QuestionPostListVO qListVO = adminService.readAllQuestionList(nowPage);
 		model.addAttribute("qListVO", qListVO);
 		return "admin/readAllQuestionList.tiles";
 	}

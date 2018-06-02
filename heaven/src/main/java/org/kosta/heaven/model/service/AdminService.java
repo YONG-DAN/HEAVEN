@@ -4,6 +4,6 @@ import org.kosta.heaven.model.vo.post.question.QuestionPostListVO;
 
 public interface AdminService {
 
-	public QuestionPostListVO readQuestionList(int nowPage);
+	public QuestionPostListVO readAllQuestionList(int nowPage);
 
 }
