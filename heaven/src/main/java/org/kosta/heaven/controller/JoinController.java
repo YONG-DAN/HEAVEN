@@ -59,4 +59,20 @@ public class JoinController {
 		model.addAttribute("donationList", donationList);
 		return "donation/readDonationList.tiles";
 	}
+	
+	/**
+	 * 재능기부 상세
+	 * 재능기부 목록에서 선택한 재능기부에 대한 상세 내용을 볼 수 있다.
+	 * 
+	 * @author 조민경
+	 * @param jpNo
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping("donation/readDonationDetail.do")
+	public String readDonationDetail(int jpNo, Model model) {
+		JoinPostVO donationVO = joinService.readDonationDetail(jpNo);
+		model.addAttribute("donationVO",donationVO);
+		return "donation/readDonationDetail.tiles";
+	}
 }

@@ -23,4 +23,9 @@ public class JoinServiceImpl implements JoinService {
 		return joinDAO.readDonationList(nowPage);
 	}
 
+	@Override
+	public JoinPostVO readDonationDetail(int jpNo) {
+		return joinDAO.readDonationDetail(jpNo);
+	}
+
 }

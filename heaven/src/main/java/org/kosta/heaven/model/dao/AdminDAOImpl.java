@@ -12,25 +12,38 @@ import org.kosta.heaven.model.vo.post.question.QuestionPostVO;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-
+/*수정완료*/
 @Repository
 public class AdminDAOImpl implements AdminDAO{
 	@Autowired
 	private SqlSessionTemplate template;
 
-	@Override
-	public QuestionPostListVO readQuestionList(int nowPage) {
-		PagingBeanTen pbt = null;
-		int totalWebQuestionCount=template.selectOne("admin.totalWebQuestionCount");
-		if(nowPage==0) {
-			pbt = new PagingBeanTen(totalWebQuestionCount);
-		}else {
-			pbt = new PagingBeanTen(totalWebQuestionCount, nowPage);
-		}
-		List<QuestionPostVO> wqList=template.selectList("admin.readWebQuestionList", pbt);
-		QuestionPostListVO wqListVO = new QuestionPostListVO(wqList, pbt);
-		return wqListVO;
-	}
+	   @Override
+	   public List<QuestionPostVO> readAllQuestionList(PagingBeanTen pagingBean) {
+	      return template.selectList("admin.readAllQuestionList", pagingBean);
+	   }
+
+	   @Override
+	   public int getTotalQuestionContentCount() {
+	      return template.selectOne("admin.getTotalQuestionContentCount");
+	   }
+
+	   @Override
+	   public QuestionPostVO readQuestionDetail(int qNo) {
+	      return template.selectOne("admin.readQuestionDetail", qNo);
+	   }
+
+	   @Override
+	   public void createQuestionAnswer(QuestionPostVO qVO) {
+	      template.insert("admin.createQuestionAnswer", qVO);
+	   }
+
+	   @Override
+	   public void updateQuestionStatus(QuestionPostVO qVO) {
+	      template.update("admin.updateQuestionStatus", qVO);
+	   }
+	   
+
 	@Override
 	public int totalGibuJoinPostCount(int nowPage) {
 		return template.selectOne("admin.totalGibuJoinPostCount", nowPage);

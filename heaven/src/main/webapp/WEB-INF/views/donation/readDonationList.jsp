@@ -79,10 +79,10 @@
 <div id="entryList" class="container">
 	<!-- Project One -->
 	<c:forEach items="${donationList.list }" var="list">
-	<div class="row">
+	<div class="row my-5">
 		<div class="col-md-7">
 			<a href="#"> <img class="img-fluid rounded mb-3 mb-md-0"
-				src="${list.jpImgDirect }" alt="">
+				src="${list.jpImgDirect }" alt="${list.jpTitle }">
 			</a>
 		</div>
 		<div class="col-md-5">
@@ -90,7 +90,7 @@
 			<p>${list.jpSummary }</p>
 			<p>${list.jpAppStartDate }-${list.jpAppEndDate }</p>
 			<p>${list.totalEntry}/${list.goalEntry }</p>
-			<a class="btn btn-primary" href="#">View Project <span
+			<a class="btn btn-point btn-sm" href="${pageContext.request.contextPath }/donation/readDonationDetail.do?jpNo=${list.jpNo}">View Project <span
 				class="glyphicon glyphicon-chevron-right"></span>
 			</a>
 		</div>
