@@ -11,6 +11,8 @@ import org.kosta.heaven.model.vo.post.mileage.MileageTradeVO;
 import org.kosta.heaven.model.vo.post.question.QuestionPostVO;
 import org.kosta.heaven.model.vo.post.review.ReviewListVO;
 import org.kosta.heaven.model.vo.post.review.ReviewVO;
+import org.kosta.heaven.model.vo.post.mileage.MileageTradeVO;
+import org.kosta.heaven.model.vo.post.question.QuestionPostVO;
 import org.kosta.heaven.model.vo.user.UserVO;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -128,7 +130,15 @@ public class UserDAOImpl implements UserDAO{
 	public void deleteMyReview(int rNo) {
 		template.delete("user.deleteMyReview",rNo);
 	}
-	
+	@Override
+	public JoinPostVO selectMyJoinDate(int rNo) {
+		return template.selectOne("user.selectMyJoinDate", rNo);
+	}
+
+	@Override
+	public void deleteMyActivity(int rNo) {
+		template.delete("user.deleteMyActivity",rNo);
+	}
 	@Override
 	public void createQuestion(QuestionPostVO qpVO) {
 		template.insert("user.createQuestion", qpVO);

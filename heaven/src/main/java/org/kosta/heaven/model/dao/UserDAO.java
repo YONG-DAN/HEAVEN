@@ -6,6 +6,7 @@ import org.kosta.heaven.model.vo.post.PagingBeanFive;
 import org.kosta.heaven.model.vo.post.PagingBeanTen;
 import org.kosta.heaven.model.vo.post.activity.ActivityListVO;
 import org.kosta.heaven.model.vo.post.join.JoinPostListVO;
+import org.kosta.heaven.model.vo.post.join.JoinPostVO;
 import org.kosta.heaven.model.vo.post.review.ReviewListVO;
 import org.kosta.heaven.model.vo.post.review.ReviewVO;
 import org.kosta.heaven.model.vo.post.mileage.MileageTradeVO;
@@ -52,4 +53,7 @@ public interface UserDAO {
 
 	public QuestionPostVO readMyQuestionDetail(int qNo);
 
+	public JoinPostVO selectMyJoinDate(int rNo);
+
+	public void deleteMyActivity(int rNo);
 }

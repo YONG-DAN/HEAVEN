@@ -1,17 +1,25 @@
 package org.kosta.heaven.controller;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+
 import org.kosta.heaven.model.service.UserService;
 import org.kosta.heaven.model.vo.post.activity.ActivityListVO;
 import org.kosta.heaven.model.vo.post.join.JoinPostListVO;
+import org.kosta.heaven.model.vo.post.join.JoinPostVO;
 import org.kosta.heaven.model.vo.post.question.QuestionPostListVO;
 import org.kosta.heaven.model.vo.post.question.QuestionPostVO;
 import org.kosta.heaven.model.vo.post.review.ReviewListVO;
 import org.kosta.heaven.model.vo.user.UserGroupVO;
 import org.kosta.heaven.model.vo.user.UserVO;
 import org.kosta.heaven.model.vo.post.review.ReviewVO;
+import org.kosta.heaven.model.vo.user.UserGroupVO;
+import org.kosta.heaven.model.vo.user.UserVO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -249,7 +257,6 @@ public class UserController {
 		userService.deleteMyReview(rNo);
 		return "redirect:/users/readMyReviewList.do?nowPage=1";
 	}
-	
 	/**
 	* 문의 게시판 게시글 작성
 	* 
@@ -305,5 +312,40 @@ public class UserController {
 		}*/
 		return "users/readMyQuestionDetail.tiles";
 	}
-	
+	/**
+	 * 작성이유 : 신청활동 신청을 위한 해당 재능기부의 신청날짜가져오기
+	 * 
+	 * 신청취소가능 날짜 가져오기
+	 * 
+	 * @author 백설희
+	 */
+	@RequestMapping("users/deleteMyActivity.do")
+	public String deleteMyActivity(int rNo) {
+		JoinPostVO joinPostVO=userService.selectMyJoinDate(rNo);
+		String startDate=joinPostVO.getJpAppStartDate();
+		String endDate=joinPostVO.getJpAppEndDate();
+		/*오늘날짜를 int로 가져오기*/
+		/*SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+		Calendar c1 = Calendar.getInstance();
+		String strToday = sdf.format(c1.getTime());
+		int today=Integer.parseInt(strToday);*/
+		Date today= new Date();
+	    SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
+		try {
+			Date endday = transFormat.parse(endDate);
+			Date startday = transFormat.parse(startDate);
+			if(today.compareTo(startday)==1 || today.compareTo(startday)==0) {
+	            if(today.compareTo(endday)==-1||today.compareTo(endday)==0) {
+	            	userService.deleteMyActivity(rNo);
+	            }else {
+		        	 return "users/deleteFail.tiles";
+		         }
+	         }
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}  
+
+		return "redirect:/users/readMyActivityList.do?nowPage=1";
+	}
+
 }

@@ -1,7 +1,6 @@
 package org.kosta.heaven.model.service;
 
 import javax.annotation.Resource;
-
 import org.kosta.heaven.model.dao.UserDAO;
 import org.kosta.heaven.model.vo.post.PagingBeanTen;
 import org.kosta.heaven.model.vo.post.activity.ActivityListVO;
@@ -93,6 +92,16 @@ public class UserServiceImpl implements UserService{
 		userDAO.createQuestion(qpVO);
 	}
 
+	@Override
+	public JoinPostVO selectMyJoinDate(int rNo) {
+		return userDAO.selectMyJoinDate(rNo);
+	}
+
+	@Override
+	public void deleteMyActivity(int rNo) {
+		userDAO.deleteMyActivity(rNo);
+	}
+	
 	@Override
 	@Transactional
 	public QuestionPostListVO readMyQuestionList(String id, int nowPage) {

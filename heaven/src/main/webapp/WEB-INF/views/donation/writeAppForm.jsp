@@ -1,16 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<script>
-$(document).ready(function(){
-	alert("동작");
-});
-</script>
 <div class="container">
 	<div class="row">
 		<div class="col-md-8 offset-md-2 order-md-1">
-			<h4 class="mb-3">재능기부 신청서</h4>
-			<h4 class="mb-3">taking 신청서</h4>
+		<c:choose>
+			<c:when test="${uvo.userGroupVO.ugroupNo=='1' }"><h4 class="mb-3">재능기부 신청서</h4></c:when>
+			<c:when test="${uvo.userGroupVO.ugroupNo=='2' }"><h4 class="mb-3">taking 신청서</h4></c:when>
+			<c:otherwise></c:otherwise>
+		</c:choose>			
 			<form action="${pageContext.request.contextPath }/application.do" method="post">
 				<input type="hidden" name="jpGroupNo" value="${uvo.userGroupVO.ugroupNo }">
 				<!-- 이름 -->
@@ -41,6 +39,7 @@ $(document).ready(function(){
 					</div>
 				</div>
 				<!-- 재능기부 모임 기간 -->
+				<c:if test="${uvo.userGroupVO.ugroupNo=='1' }">
 				<div class="mb-3">
 					<label for="">모임기간</label>
 						<small class="text-muted">재능기부 모임 기간을 선택하세요</small>
@@ -65,7 +64,8 @@ $(document).ready(function(){
 							<button type="button" class="btn btn-sub-2" onclick="execPostCode()"><i class="fa fa-search"></i></button>
 						</div>
 					</div>
-				</div>
+				</div>				
+				</c:if>
 				<!-- 대표이미지 -->
 				<div class="mb-3">
 					<label for="jpImgDirect">대표이미지</label>
@@ -73,17 +73,21 @@ $(document).ready(function(){
 					<input type="file" class="form-control" name="jpImgDirect" required>
 				</div>
 				<!-- 목표 참여자수 -->
+				<c:if test="${uvo.userGroupVO.ugroupNo=='1' }">
 				<div class="mb-3">
 					<label for="goalEntry">목표 참여자 수</label>
 					<small class="text-muted">최소 10명이상 선택하세요</small>
 					<input type="number" class="form-control" name="goalEntry" min="10" required>
 				</div>
+				</c:if>
+				<c:if test="${uvo.userGroupVO.ugroupNo=='2' }">
 				<!-- 목표 마일리지 -->
 				<div class="mb-3">
 					<label for="goalMileage">목표 마일리지</label>
 					<small class="text-muted">최소 100마일리지 이상 설정하세요</small>
 					<input type="number" class="form-control" name="goalMileage" min="100" required>
 				</div>
+				</c:if>
 				<!-- 내용 -->
 				<div class="mb-3">
 					<label for="jpContents">재능기부 내용</label>
