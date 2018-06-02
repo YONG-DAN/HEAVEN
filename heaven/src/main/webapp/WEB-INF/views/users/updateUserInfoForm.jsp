@@ -28,7 +28,7 @@
 					<i class="fa fa-search"></i> 주소 찾기
 					</button>
                 <div class="input-prepend">
-                    <input type="text" class="input-xlarge" name="place" id="place" value="${sessionScope.uvo.address}">
+                    <input type="text" class="input-xlarge" name="jpPlace" id="jpPlace" value="${sessionScope.uvo.address}">
                 </div>
             </div>
         </div>

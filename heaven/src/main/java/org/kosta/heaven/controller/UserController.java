@@ -42,13 +42,13 @@ public class UserController {
 	* @author 용다은
 	*/
 	@RequestMapping(method=RequestMethod.POST, value="users/registerUser.do")
-	public String registerUser(UserVO vo, String place, String uGroupNo) {
+	public String registerUser(UserVO vo, String jpPlace, String uGroupNo) {
 		//hidden으로 받은 uGroupNo 값을 UserGroupVO에 넣음
 		UserGroupVO ugvo = new UserGroupVO(uGroupNo, null);
 		//생성된 UserGroupVO를 UserVO에 set
 		vo.setUserGroupVO(ugvo);
 		//지도 api와 name을 통일하기 위해 place라는 매개변수로 받은 address 값을 userVO에 set해줌
-		vo.setAddress(place);
+		vo.setAddress(jpPlace);
 		//위에서 set된 내용을 토대로 완성된 vo를 db에 저장시킴
 		userService.registerUser(vo);
 		//home.do로 redirect
@@ -184,12 +184,12 @@ public class UserController {
 	* @author 백설희
 	*/
 	@RequestMapping(method=RequestMethod.POST, value="users/updateUserInfoForm.do")
-	public String updateUserInfo(HttpServletRequest request,UserVO vo,String place) {
+	public String updateUserInfo(HttpServletRequest request,UserVO vo,String jpPlace) {
 		HttpSession session=request.getSession(false);
 		if(session==null||session.getAttribute("uvo")==null){
 			return "users/loginForm.tiles";
 		}
-		vo.setAddress(place);
+		vo.setAddress(jpPlace);
 		userService.updateUserInfoForm(vo);
 		session.setAttribute("uvo", userService.checkId(vo.getId()));
 		return "users/mypage.tiles";

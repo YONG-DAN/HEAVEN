@@ -115,7 +115,7 @@
 						</div>
 						<div class="form-group">
 							<div class="input-group mb-3">
-								<input type="text" class="form-control" name="place" id="place"
+								<input type="text" class="form-control" name="jpPlace" id="jpPlace"
 									placeholder="ADDRESS" required="required">
 								<div class="input-group-append">
 									<button type="button" class="btn btn-sub-2-gnt"
