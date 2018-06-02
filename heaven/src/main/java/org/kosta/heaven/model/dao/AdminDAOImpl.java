@@ -28,5 +28,15 @@ public class AdminDAOImpl implements AdminDAO{
 	public QuestionPostVO readQuestionDetail(int qNo) {
 		return template.selectOne("admin.readQuestionDetail", qNo);
 	}
+
+	@Override
+	public void createQuestionAnswer(QuestionPostVO qVO) {
+		template.insert("admin.createQuestionAnswer", qVO);
+	}
+
+	@Override
+	public void updateQuestionStatus(QuestionPostVO qVO) {
+		template.update("admin.updateQuestionStatus", qVO);
+	}
 	
 }

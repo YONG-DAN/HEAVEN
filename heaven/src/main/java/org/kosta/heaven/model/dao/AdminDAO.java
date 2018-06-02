@@ -12,4 +12,8 @@ public interface AdminDAO {
 
 	public QuestionPostVO readQuestionDetail(int qNo);
 
+	public void createQuestionAnswer(QuestionPostVO qVO);
+
+	public void updateQuestionStatus(QuestionPostVO qVO);
+
 }

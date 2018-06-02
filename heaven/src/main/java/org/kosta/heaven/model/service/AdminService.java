@@ -9,4 +9,6 @@ public interface AdminService {
 
 	public QuestionPostVO readQuestionDetail(int qNo);
 
+	public void createQuestionAnswer(QuestionPostVO qVO);
+
 }

@@ -34,7 +34,7 @@
 						<h5 class="card-title">문의 게시판</h5>
 						<br>
 						<p class="card-text">
-							<span><b style="font-size: 40px"> ${qCount} </b></span>&nbsp;건
+							미답변<span><b style="font-size: 40px"> ${qCount} </b></span>&nbsp;건
 						</p>
 					</div>
 				</div>

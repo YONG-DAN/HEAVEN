@@ -18,19 +18,35 @@
 						<th>제목</th>
 						<th>작성일</th>
 						<th>상태</th>
+<%-- 			thead에 드롭박스로 미처리 문의 글만 모아보기
+				<th class="dropdown">
+                   <a href="#" data-toggle="dropdown" class="dropdown-toggle">상태<b class="caret"></b></a>
+                   <ul class="dropdown-menu">
+                      <li><a href="${pageContext.request.contextPath}/admin/readUnansweredQuestionDetail.do">처리중</a></li>
+                      <li><a href="#">답변완료</a></li>
+                   </ul>
+                </th> --%>
 					</tr>
 				</thead>
 				<tbody>
 					<c:set value="${qListVO.list}" var="qPostVO" />
 					<c:forEach items="${qPostVO}" var="qPostVO" varStatus="count">
-						<tr>
 							<td>${qPostVO.qNo}</td>
-							<td><a
-								href="${pageContext.request.contextPath}/admin/readQuestionDetail.do?qNo=${qPostVO.qNo}">${qPostVO.qTitle}</a></td>
+							<c:choose>
+								<c:when test="${!qPostVO.answer}">
+									<td><a href="${pageContext.request.contextPath}/admin/readQuestionDetail.do?qNo=${qPostVO.qNo}" class="pl-4"><span style="color:#f35b56">⇒ Re: </span>${qPostVO.qTitle}</a></td>
+								</c:when>
+								<c:otherwise>
+									<td><a href="${pageContext.request.contextPath}/admin/readQuestionDetail.do?qNo=${qPostVO.qNo}">${qPostVO.qTitle}</a></td>
+								</c:otherwise>
+							</c:choose>
 							<td>${qPostVO.qRegdate}</td>
 							<c:choose>
 								<c:when test="${qPostVO.qStatus=='처리중'}">
 									<td><span class="label label-warning">${qPostVO.qStatus}</span></td>
+								</c:when>
+								<c:when test="${qPostVO.qStatus=='답변'}">
+									<td></td>
 								</c:when>
 								<c:otherwise>
 									<td><span class="label label-danger">${qPostVO.qStatus}</span></td>

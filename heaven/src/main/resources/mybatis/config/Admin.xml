@@ -41,9 +41,26 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select count(*) from question
 	</select>
 	
+	<!-- 문의 상세 보기 -->
 	<select id="readQuestionDetail" parameterType="int" resultMap="qPostVO">
 		select q_no, thread, q_title, q_contents, to_char(q_regdate,'yyyy.mm.dd') q_regdate, q_parent_no, q_status
 		from question where q_no=#{value}
 	</select>
+	
+	<!-- 문의 답변하기 -->
+	<insert id="createQuestionAnswer" parameterType="questionPostVO">
+	   <selectKey keyProperty="qNo" resultType="int" order="AFTER">
+          select question_seq.currval from dual
+       </selectKey>
+		<!-- insert into question(q_no, thread, q_title, q_contents, q_parent_no, q_status, id)
+		values(question_seq.nextval, #{qNo}*100-1, #{qTitle}, #{qContents}, #{qNo},'답변',#{userVO.id}) -->
+		insert into question(q_no, thread, q_title, q_contents, q_parent_no, q_status, id)
+		values(question_seq.nextval, #{qNo}*100-1, #{qTitle}, #{qContents}, #{qNo},'답변',#{userVO.id})
+	</insert>
+	
+	<!-- 문의 글 상태 업데이트 -->
+	<update id="updateQuestionStatus" parameterType="questionPostVO">
+		update question set q_status='답변완료' where q_no=#{qNo}
+	</update>
 	
 </mapper>
