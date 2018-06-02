@@ -23,5 +23,10 @@ public class AdminDAOImpl implements AdminDAO{
 	public int getTotalQuestionContentCount() {
 		return template.selectOne("admin.getTotalQuestionContentCount");
 	}
+
+	@Override
+	public QuestionPostVO readQuestionDetail(int qNo) {
+		return template.selectOne("admin.readQuestionDetail", qNo);
+	}
 	
 }

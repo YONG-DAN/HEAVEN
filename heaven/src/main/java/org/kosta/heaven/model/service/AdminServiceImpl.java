@@ -5,6 +5,7 @@ import javax.annotation.Resource;
 import org.kosta.heaven.model.dao.AdminDAO;
 import org.kosta.heaven.model.vo.post.PagingBeanTen;
 import org.kosta.heaven.model.vo.post.question.QuestionPostListVO;
+import org.kosta.heaven.model.vo.post.question.QuestionPostVO;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -25,6 +26,11 @@ public class AdminServiceImpl implements AdminService{
 			pagingBean=new PagingBeanTen(totalCount, nowPage);
 		}
 		return new QuestionPostListVO(adminDAO.readAllQuestionList(pagingBean),pagingBean);
+	}
+
+	@Override
+	public QuestionPostVO readQuestionDetail(int qNo) {
+		return adminDAO.readQuestionDetail(qNo);
 	}
 	
 }

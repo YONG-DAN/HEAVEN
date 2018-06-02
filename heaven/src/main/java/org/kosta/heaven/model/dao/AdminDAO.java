@@ -10,4 +10,6 @@ public interface AdminDAO {
 
 	public int getTotalQuestionContentCount();
 
+	public QuestionPostVO readQuestionDetail(int qNo);
+
 }
