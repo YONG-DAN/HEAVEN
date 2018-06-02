@@ -8,5 +8,7 @@ public interface JoinDAO {
 	void application(JoinPostVO joinPostVO);
 	
 	JoinPostListVO readDonationList(int nowPage);
+	
+	JoinPostVO readDonationDetail(int jpNo);
 
 }
