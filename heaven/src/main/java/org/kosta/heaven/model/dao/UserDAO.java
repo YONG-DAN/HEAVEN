@@ -3,6 +3,7 @@ package org.kosta.heaven.model.dao;
 import java.util.List;
 
 import org.kosta.heaven.model.vo.post.PagingBeanFive;
+import org.kosta.heaven.model.vo.post.PagingBeanTen;
 import org.kosta.heaven.model.vo.post.activity.ActivityListVO;
 import org.kosta.heaven.model.vo.post.join.JoinPostListVO;
 import org.kosta.heaven.model.vo.post.join.JoinPostVO;
@@ -48,7 +49,7 @@ public interface UserDAO {
 
 	public int getTotalQuestionContentCount(String id);
 
-	public List<QuestionPostVO> readMyQuestionList(PagingBeanFive pagingBean);
+	public List<QuestionPostVO> readMyQuestionList(PagingBeanTen pagingBean);
 
 	public QuestionPostVO readMyQuestionDetail(int qNo);
 

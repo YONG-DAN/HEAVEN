@@ -368,3 +368,10 @@ a.badge:focus {
 #sendMessageButton {
 	margin: 0 auto;
 }
+.adminPage {
+	margin-top:40px;
+	margin-bottom:40px;
+}
+.adminHover:hover {
+	background-color:#ccc;
+}
