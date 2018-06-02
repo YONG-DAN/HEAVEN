@@ -17,13 +17,16 @@
 		<div class="col-lg-12 mb-1">
 			<div class="card-group adminPage">
 				<div class="col-lg-3 card text-center adminHover"
-					onclick="location.href='${pageContext.request.contextPath}/readTradePoint.do?nowPage=1'">
+					onclick="location.href='${pageContext.request.contextPath}/admin/readTotalJoinPostList.do?nowPage=1'">
 					<div class="card-body">
 						<i class="fas fa-pencil-alt fa-3x"></i> <br> <br>
 						<h5 class="card-title">신청서 관리</h5>
 						<br>
 						<p class="card-text">
-							<span><b style="font-size: 40px"> ${qCount} </b></span>&nbsp;건
+							<span><b style="font-size: 40px"> ${qCount} </b></span>
+							<small>총 신청&nbsp;건</small><br>
+							<small>미처리 신청&nbsp;건</small>
+							
 						</p>
 					</div>
 				</div>

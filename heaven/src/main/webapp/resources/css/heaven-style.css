@@ -373,5 +373,14 @@ a.badge:focus {
 	margin-bottom:40px;
 }
 .adminHover:hover {
-	background-color:#ccc;
+	background-color:#cee7e4;
+}
+.fa-pencil-alt, .fa-question, .fa-users, .fa-hand-holding-usd {
+	color : #edbf71;
+}
+.adminJoinList{
+	border: 1px solid #eee;
+    margin-bottom: 40px;
+    padding-top: 25px;
+}
 }
