@@ -4,6 +4,8 @@ import javax.annotation.Resource;
 
 import org.kosta.heaven.model.dao.MileageDAO;
 import org.kosta.heaven.model.dao.UserDAO;
+import org.kosta.heaven.model.vo.post.PagingBeanTen;
+import org.kosta.heaven.model.vo.post.mileage.MileageTradePostListVO;
 import org.kosta.heaven.model.vo.post.mileage.MileageTradeVO;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,7 +34,7 @@ public class MileageServiceImpl implements MileageService {
 		mileageDAO.exchangeMileage(mileageTradeVO);
 	}
 
-/*	@Override
+	@Override
 	@Transactional
 	public MileageTradePostListVO readMyMileageTradeList(String id, int nowPage) {
 		// 목록에 보여 줄 마일리지 내역 수를 가져옴
@@ -49,7 +51,7 @@ public class MileageServiceImpl implements MileageService {
 		return new MileageTradePostListVO(mileageDAO.readMyMileageTradeList(pagingBean), pagingBean);
 	}
 
-	@Override
+/*	@Override
 	@Transactional
 	public void saveMileage(String id, int mileage) {
 		MileageTradeVO mileageTradeVO = new MileageTradeVO();

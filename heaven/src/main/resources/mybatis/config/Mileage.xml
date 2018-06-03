@@ -6,10 +6,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="mileage">
 	<!-- 마일리지 ResultMap -->
 	 <resultMap type="mileageTradeVO" id="mileageRM">
-		<result property="mugVO.mugNo" column="mug_no" />
-		<result property="mugVO.mugName" column="mug_name" />
+		<result property="mugVO.mugNo" column="mg_no" />
+		<result property="mugVO.mugName" column="mg_name" />
 		<result property="userVO.id" column="id" />
-		<result property = "userVO.mileage" column="mileage"/>
+		<result property="userVO.mileage" column="mileage"/>
 	</resultMap>
 	
 	<!-- 마일리지 충전 -->
@@ -23,4 +23,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  		insert into mileage_trade(mt_no, mt_volume, mg_no, id)
  		values(mileage_trade_seq.nextval, #{mtVolume}, #{mugVO.mugNo}, #{userVO.id})
  	</insert>
+ 	
+ 	<!-- 마일리지 거래 내역 콘텐츠 수 -->
+ 	<select id="getTotalContentCount" parameterType="string" resultType="int">
+ 		select count(*) from mileage_trade where id=#{value}
+ 	</select>
+ 	
+ 	<!-- 마일리지 거래 내역 -->
+ 	<select id="readMyMileageTradeList" parameterType="pagingBeanTen" resultMap="mileageRM">
+		SELECT mtNo, mtVolume, mg_no, mg_name, mtRegdate, id, mileage FROM
+		(SELECT row_number() over(ORDER BY mt_no DESC) AS rnum, 
+		t.mt_no AS mtNo, t.mt_volume AS mtVolume, to_char(t.mt_regdate,'YYYY.MM.DD') AS mtRegdate, 
+		t.mg_no, mg.mg_name, u.id, u.mileage FROM MILEAGE_TRADE t
+		INNER JOIN MILEAGE_GROUP mg ON mg.mg_no=t.mg_no
+		INNER JOIN users u ON t.id = u.id
+		AND u.id=#{id}) WHERE rnum BETWEEN #{startRowNumber} AND #{endRowNumber} ORDER BY mtNo DESC
+ 	</select>
 </mapper>
