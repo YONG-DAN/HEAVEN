@@ -173,5 +173,12 @@ public class UserDAOImpl implements UserDAO{
 	public void deleteQuestion(int qNo) {
 		template.delete("user.deleteQuestion", qNo);
 	}
+
+	@Override
+	public void updateUserMileage(ActivityVO activityVO) {
+		template.update("user.updateUserMileage", activityVO);		
+	}
+	
+	
 	
 }

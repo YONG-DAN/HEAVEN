@@ -65,7 +65,7 @@
 				</c:when>
 				<c:otherwise>
 					<span class="text-white border-right mr-1 pr-2">다양한 재능기부에 참여해 보세요!</span>
-					<a href="#entryList" class="text-white">재능기부 참여하기<i class="far fa-hand-point-up"></i></a>
+					<a href="#entryList" class="text-white">재능기부 참여하기<i class="fas fa-hand-point-down"></i></a>
 				</c:otherwise>
 			</c:choose>
 			</div>

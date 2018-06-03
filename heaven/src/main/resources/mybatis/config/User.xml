@@ -231,4 +231,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  	<delete id="deleteQuestion" parameterType="int">
  		delete from question where q_no=#{qNo}
  	</delete>
+ 	
+ 	<!-- 회원 마일리지 가용 마일리지, 누적 마일리지 수정 -->
+ 	<update id="updateUserMileage" parameterType="activityVO">
+ 		update users set mileage=mileage-#{aMileage}, total_use_mileage=total_use_mileage+#{aMileage}
+ 		where id=#{userVO.id}
+ 	</update>
 </mapper>

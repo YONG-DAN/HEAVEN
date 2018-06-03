@@ -27,25 +27,25 @@ public class JoinDAOImpl implements JoinDAO {
 	// 재능기부 목록
 	@Override
 	public JoinPostListVO readDonationList(int nowPage) {
-		PagingBeanFive pbf=null;
-		int totalDonationCount=template.selectOne("join.readDonationCount");
-		if(nowPage==0) {
-			pbf=new PagingBeanFive(totalDonationCount);
-		}else {
-			pbf=new PagingBeanFive(totalDonationCount,nowPage);
+		PagingBeanFive pbf = null;
+		int totalDonationCount = template.selectOne("join.readDonationCount");
+		if (nowPage == 0) {
+			pbf = new PagingBeanFive(totalDonationCount);
+		} else {
+			pbf = new PagingBeanFive(totalDonationCount, nowPage);
 		}
-		List<JoinPostVO> donationList=template.selectList("join.readDonationList", pbf);
-		JoinPostListVO donationListVO= new JoinPostListVO(donationList, pbf);
-		
+		List<JoinPostVO> donationList = template.selectList("join.readDonationList", pbf);
+		JoinPostListVO donationListVO = new JoinPostListVO(donationList, pbf);
+
 		return donationListVO;
 	}
-	
+
 	// 재능기부 상세
 	@Override
-	public JoinPostVO readDonationDetail(int jpNo) {		
-		return template.selectOne("join.readDonationDetail",jpNo);
+	public JoinPostVO readDonationDetail(int jpNo) {
+		return template.selectOne("join.readDonationDetail", jpNo);
 	}
-	
+
 	// 재능기부 참여하기
 	@Override
 	public void addUserActivity(ActivityVO activityVO) {
@@ -56,12 +56,12 @@ public class JoinDAOImpl implements JoinDAO {
 	@Override
 	public void updateDonationMileageAndTotalEntry(ActivityVO activityVO) {
 		template.update("join.updateDonationMileageAndTotalEntry", activityVO);
-		
+
 	}
-	
+
 	// 해당 재능기부에 대한 응원메시지 목록
 	@Override
-	public List<ActivityVO> readCheerUpMessageList(int jpNo){
+	public List<ActivityVO> readCheerUpMessageList(int jpNo) {
 		return template.selectList("join.readCheerUpMessageList", jpNo);
 	}
 
@@ -69,6 +69,24 @@ public class JoinDAOImpl implements JoinDAO {
 	@Override
 	public List<ReviewVO> readReviewList(int jpNo) {
 		return template.selectList("join.readReviewList", jpNo);
+	}
+
+	// 성별이 남자인 참여자의 수
+	@Override
+	public int getDonationMaleEntry(int jpNo) {
+		return template.selectOne("join.getDonationMaleEntry", jpNo);
+	}
+
+	// 성별이 남자인 참여자의 수
+	@Override
+	public int getDonationFemaleEntry(int jpNo) {
+		return template.selectOne("join.getDonationFemaleEntry", jpNo);
+	}
+	
+	// 로그인한 회원의 참여 여부
+	@Override
+	public ActivityVO findEntryByIdAndJpno(ActivityVO activityVO) {
+		return template.selectOne("join.findEntryByIdAndJpno", activityVO);
 	}
 
 }

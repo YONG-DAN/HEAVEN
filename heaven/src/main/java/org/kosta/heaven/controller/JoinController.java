@@ -74,9 +74,21 @@ public class JoinController {
 	 * @return
 	 */
 	@RequestMapping("donation/readDonationDetail.do")
-	public String readDonationDetail(int jpNo, Model model) {
+	public String readDonationDetail(int jpNo, Model model, HttpServletRequest request) {
+		HttpSession session = request.getSession(false);
+		UserVO uvo = null;
+		ActivityVO entryVO = null;
+		if(session!=null||session.getAttribute("uvo")!=null) {
+			uvo = (UserVO)session.getAttribute("uvo");
+			if(uvo!=null) {
+				entryVO = joinService.findEntryByIdAndJpno(jpNo, uvo.getId());
+			}
+		}
 		JoinPostVO donationVO = joinService.readDonationDetail(jpNo);
 		model.addAttribute("donationVO",donationVO);
+		model.addAttribute("maleEntry", joinService.getDonationMaleEntry(jpNo));
+		model.addAttribute("femaleEntry", joinService.getDonationFemaleEntry(jpNo));
+		model.addAttribute("entryVO", entryVO);
 		return "donation/readDonationDetail.tiles";
 	}
 	
@@ -127,6 +139,13 @@ public class JoinController {
 		return "donation/readCheerUpMessageList.tiles";
 	}
 	
+	/**
+	 * 후기 목록
+	 * 해당 재능기부에 있는 후기 목록을 가지고 온다
+	 * @param jpNo
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping("donation/readReviewList.do")
 	public String readReviewList(int jpNo, Model model) {
 		List<ReviewVO> reviewList = joinService.readReviewList(jpNo);
