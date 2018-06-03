@@ -221,4 +221,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  		select q_no as qNo, q_title as qTitle, q_contents as qContents, 
  		q_regdate as qRegdate, q_parent_no as qParentNo from question where q_parent_no = #{value}
  	</select>
+ 	
+ 	<!-- 문의 글 수정하기 -->
+ 	<update id="updateQuestion" parameterType="questionPostVO">
+ 		update question set q_title=#{qTitle}, q_contents=#{qContents} where q_no=#{qNo}
+ 	</update>
+ 	
+ 	<!-- 문의 글 삭제하기 -->
+ 	<delete id="deleteQuestion" parameterType="int">
+ 		delete from question where q_no=#{qNo}
+ 	</delete>
 </mapper>

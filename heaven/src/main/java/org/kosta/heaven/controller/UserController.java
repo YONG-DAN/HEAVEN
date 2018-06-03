@@ -312,6 +312,49 @@ public class UserController {
 		}
 		return "users/readMyQuestionDetail.tiles";
 	}
+	
+	/**
+	* 
+	* 해당 문의글 번호를 통해 글 정보를 받아와서
+	* 게시글 수정 폼으로 이동하기 위해
+	* 
+	* @author 용다은
+	*/
+	@RequestMapping("users/updateQuestionForm.do")
+	public String updateQuestionForm(int qNo, Model model) {
+		QuestionPostVO qPostVO = userService.readMyQuestionDetail(qNo);
+		model.addAttribute("qPostVO", qPostVO);
+		return "users/updateQuestionForm.tiles";
+	}
+	
+	/**
+	* 
+	* 고객문의 게시판 게시글 수정
+	* 
+	* @author 용다은
+	*/
+	@RequestMapping(method=RequestMethod.POST, value="users/updateQuestion.do")
+	public String updateWebQuestion(QuestionPostVO qVO, Model model) {
+		//새로 작성한 qTitle과 qContents를 받아온 qVO를 이용해 update 시킴
+		userService.updateQuestion(qVO);
+		//qNo를 이용해 detail을 읽어들임
+		QuestionPostVO qPostVO=userService.readMyQuestionDetail(qVO.getqNo());
+		//가져온 qPostVO를 뿌려줌
+		model.addAttribute("qPostVO", qPostVO);
+		return "users/readMyQuestionDetail.tiles";
+	}
+	
+	/**
+	* 작성이유 : 고객문의 게시판 게시글 삭제
+	* 
+	* @author 용다은
+	*/
+	@RequestMapping("users/deleteQuestion.do")
+	public String deleteWebQuestion(int qNo) {
+		userService.deleteQuestion(qNo);
+		return "redirect:/users/readMyQuestionList.do?nowPage=1";
+	}
+	
 	/**
 	 * 작성이유 : 신청활동 신청을 위한 해당 재능기부의 신청날짜가져오기
 	 * 

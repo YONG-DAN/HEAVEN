@@ -163,5 +163,15 @@ public class UserDAOImpl implements UserDAO{
 	public QuestionPostVO readQuestionAnswer(int qNo) {
 		return template.selectOne("user.readQuestionAnswer", qNo);
 	}
+
+	@Override
+	public void updateQuestion(QuestionPostVO qVO) {
+		template.update("user.updateQuestion", qVO);
+	}
+
+	@Override
+	public void deleteQuestion(int qNo) {
+		template.delete("user.deleteQuestion", qNo);
+	}
 	
 }

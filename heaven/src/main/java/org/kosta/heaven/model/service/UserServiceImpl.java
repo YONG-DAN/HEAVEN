@@ -132,5 +132,16 @@ public class UserServiceImpl implements UserService{
 	public QuestionPostVO readQuestionAnswer(int qNo) {
 		return userDAO.readQuestionAnswer(qNo);
 	}
+
+	@Override
+	@Transactional
+	public void updateQuestion(QuestionPostVO qVO) {
+		userDAO.updateQuestion(qVO);
+	}
+
+	@Override
+	public void deleteQuestion(int qNo) {
+		userDAO.deleteQuestion(qNo);
+	}
 	
 }

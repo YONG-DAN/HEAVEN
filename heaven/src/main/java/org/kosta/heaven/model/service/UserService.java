@@ -50,4 +50,8 @@ public interface UserService {
 
 	public QuestionPostVO readQuestionAnswer(int qNo);
 
+	public void updateQuestion(QuestionPostVO qVO);
+
+	public void deleteQuestion(int qNo);
+
 }
