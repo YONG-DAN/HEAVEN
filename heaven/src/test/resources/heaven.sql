@@ -42,7 +42,7 @@ create table users(
    address varchar2(100) not null,
    email varchar2(100) not null,
    company_no varchar2(100),
-   mileage number default 0,
+   mileage number default 0, -- 현재 가용 마일리지
    total_use_mileage number default 0,
    ugroup_no varchar2(100) not null,
    ugrade_no varchar2(100) not null,

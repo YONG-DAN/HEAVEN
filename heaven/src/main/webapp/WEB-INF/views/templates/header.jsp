@@ -25,7 +25,7 @@
 	</div>
 </div>
 <!-- Navigation -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-light">
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
 	<div class="container">
 		<a class="navbar-brand" href="${pageContext.request.contextPath }/">
 			<img src="${pageContext.request.contextPath }/resources/img/logo.png" alt="Gibu and Take">
