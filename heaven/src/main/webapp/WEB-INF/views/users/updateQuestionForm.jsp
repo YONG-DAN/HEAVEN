@@ -9,7 +9,7 @@ $(document).ready(function(){
 		location.href="${pageContext.request.contextPath}/users/loginForm.do"
 	}
 	$("#questionForm").submit(function(){
-		alert("문의 글이 등록되었습니다. 답변은 마이페이지에서 확인할 수 있습니다.")
+		alert("문의 글이 수정되었습니다.")
 	});//click
 }); //ready
 </script>
@@ -22,23 +22,26 @@ $(document).ready(function(){
 <div class="container">
 	<div class="row">
 		<div class="col-lg-6 offset-lg-3 my-4">
-			<form name="sentMessage" id="questionForm" action="${pageContext.request.contextPath}/board/createQuestion.do" method="post" novalidate>
+			<form name="sentMessage" id="questionForm" action="${pageContext.request.contextPath}/users/updateQuestion.do" method="post" novalidate>
+			<input type="hidden" name="qNo" value="${qPostVO.qNo}">
+				<div class="control-group form-group">
+				</div>
 				<div class="control-group form-group">
 					<div class="controls">
-						<input type="text" class="form-control" name="qTitle" placeholder="제목">
+						<input type="text" class="form-control" name="qTitle" value="${qPostVO.qTitle}">
 						<p class="help-block"></p>
 					</div>
 				</div>
 				<div class="control-group form-group">
 					<div class="controls">
 					<pre>
-						<textarea rows="10" cols="100" class="form-control" name="qContents" maxlength="999" style="resize:none" placeholder="내용"></textarea>
+						<textarea rows="10" cols="100" class="form-control" name="qContents" maxlength="999" style="resize:none">${qPostVO.qContents}</textarea>
 					</pre>
 					</div>
 				</div>
 				<div id="success"></div>
 				<!-- For success/fail messages -->
-				<button type="submit" class="btn btn-point btn-block" id="sendMessageButton">등록</button>
+				<button type="submit" class="btn btn-sub-2 btn-block" id="sendMessageButton">수정하기</button>
 			</form>
 		</div>
 

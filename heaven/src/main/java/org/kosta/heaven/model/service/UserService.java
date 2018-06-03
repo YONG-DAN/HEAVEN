@@ -48,4 +48,10 @@ public interface UserService {
 
 	public void deleteMyActivity(int rNo);
 
+	public QuestionPostVO readQuestionAnswer(int qNo);
+
+	public void updateQuestion(QuestionPostVO qVO);
+
+	public void deleteQuestion(int qNo);
+
 }

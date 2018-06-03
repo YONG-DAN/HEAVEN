@@ -47,14 +47,15 @@ $(document).ready(function(){
 			<div class="content">
 			<!--글내용-->
 				<div class="jumbotron">
-					${qPostVO.qContents} <br><br><br>
+				<pre>
+					${qPostVO.qContents}
+				</pre>
 				</div>
-				
 				<c:if test="${qPostVO.qStatus=='답변완료'}">
-				<!--답변 부분-->
-						<div class="col-10 offset-lg-1 my-4 border border-left-0 border-right-0">
+			<!--답변 부분-->
+				<div class="col-10 offset-lg-1 my-4 border border-left-0 border-right-0">
 			<h3 class="my-3 px-3">RE: &nbsp;${qAnswerVO.qTitle}</h3>
-			<p class="border border-left-0 border-right-0 py-3 px-3">글 번호: ${qAnswerVO.qNo} &nbsp;&nbsp;&nbsp; 작성 시간: ${wqPostVO.wqRegdate}
+			<p class="border border-left-0 border-right-0 py-3 px-3">글 번호: ${qAnswerVO.qNo} &nbsp;&nbsp;&nbsp; 작성 시간: ${qPostVO.qRegdate}
 			&nbsp;&nbsp;&nbsp; 
 			<div class="content">
 			<!--답변 내용-->

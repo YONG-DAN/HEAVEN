@@ -40,7 +40,7 @@ public class MileageController {
 		}
 		else{ //login 상태면 uvo를 받아와서 UserVO에 넣어줌
 			UserVO uvo=(UserVO) session.getAttribute("uvo");
-			mileageTradeVO.setUserVO(uvo);		
+			mileageTradeVO.setUserVO(uvo);	
 		//MileageUseGroupVO에 mugNo를 넣어 거래 종류를 저장하고
 		//mileageTradeVO에 넣어줌
 		MileageUseGroupVO mugVO = new MileageUseGroupVO(mugNo, null);
@@ -51,9 +51,7 @@ public class MileageController {
 		mileageTradeVO.getUserVO().setMileage(mileageTradeVO.getMtVolume());
 		userService.addMileage(mileageTradeVO);
 		request.getSession().setAttribute("uvo", userService.checkId(mileageTradeVO.getUserVO().getId()));
-/*		return "redirect:/users/readMyMileageTradeList.do?nowPage=1";*/
-		
-		return "redirect:/users/addMileageForm.do";
+		return "redirect:/users/readMyMileageTradeList.do?nowPage=1";
 		}
 	}
 
@@ -82,17 +80,15 @@ public class MileageController {
 		mileageTradeVO.getUserVO().setMileage(mileageTradeVO.getMtVolume());
 		userService.exchangeMileage(mileageTradeVO);
 		request.getSession().setAttribute("uvo", userService.checkId(mileageTradeVO.getUserVO().getId()));
-/*		return "redirect:/users/readMyMileageTradeList.do?nowPage=1";*/
-		return "redirect:/users/exchangeMileageForm.do";
+		return "redirect:/users/readMyMileageTradeList.do?nowPage=1";
 		}
 	}
-/*	*//**
-	* 마일리지 사용내역
-	* 
-	* 작성이유 : 사용 내역을 가져와서 보여주는 메서드
+	
+	/**
+	* 마일리지 사용내역을 가져와서 보여주는 메서드
 	* 
 	* @author 용다은
-	*//*
+	*/
 	@RequestMapping("users/readMyMileageTradeList.do")
 	public ModelAndView readMyMileageTradeList(HttpServletRequest request, int nowPage) {
 		//session 정보를 확인
@@ -104,5 +100,5 @@ public class MileageController {
 			}
 			else
 				return null; //session==null 일 때 ModelAndView 어찌함?
-	}*/
+	}
 }
