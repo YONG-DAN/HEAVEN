@@ -305,11 +305,11 @@ public class UserController {
 		QuestionPostVO qPostVO=userService.readMyQuestionDetail(qNo);
 		model.addAttribute("qPostVO", qPostVO);
 		//답변완료 된 문의글인 경우 답변VO를 찾는 메서드
-		/*	if(qPostVO.getqStatus().equals("답변완료")) {
-			QuestionPostVO qAnswerVO = userService.readWebQuestionAnswer(qNo);
+			if(qPostVO.getqStatus().equals("답변완료")) {
+			QuestionPostVO qAnswerVO = userService.readQuestionAnswer(qNo);
 			//답변VO를 view로 보내줌
 			model.addAttribute("qAnswerVO", qAnswerVO);
-		}*/
+		}
 		return "users/readMyQuestionDetail.tiles";
 	}
 	/**

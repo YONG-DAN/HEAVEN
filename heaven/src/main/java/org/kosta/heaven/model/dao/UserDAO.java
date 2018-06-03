@@ -56,4 +56,6 @@ public interface UserDAO {
 	public JoinPostVO selectMyJoinDate(int rNo);
 
 	public void deleteMyActivity(int rNo);
+
+	public QuestionPostVO readQuestionAnswer(int qNo);
 }

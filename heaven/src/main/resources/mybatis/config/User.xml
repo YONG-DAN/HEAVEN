@@ -215,4 +215,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
       to_char(q_regdate, 'YYYY.MM.DD') as qRegdate, q_status as qStatus
       from question where q_no=#{value}
     </select>
+    
+    <!-- 문의 글에 해당하는 답변 내용 가져오기 -->
+ 	<select id="readQuestionAnswer" resultType="questionPostVO" parameterType="int">
+ 		select q_no as qNo, q_title as qTitle, q_contents as qContents, 
+ 		q_regdate as qRegdate, q_parent_no as qParentNo from question where q_parent_no = #{value}
+ 	</select>
 </mapper>

@@ -10,6 +10,7 @@ import org.kosta.heaven.model.vo.post.join.JoinPostListVO;
 import org.kosta.heaven.model.vo.post.question.QuestionPostListVO;
 import org.kosta.heaven.model.vo.post.question.QuestionPostVO;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class AdminServiceImpl implements AdminService{
@@ -37,11 +38,12 @@ public class AdminServiceImpl implements AdminService{
 	}
 
 	@Override
+	@Transactional
 	public void createQuestionAnswer(QuestionPostVO qVO) {
-		//답변을 작성하기
-		adminDAO.createQuestionAnswer(qVO);
 		//문의글의 진행 상태 변경하기
 		adminDAO.updateQuestionStatus(qVO);
+		//답변을 작성하기
+		adminDAO.createQuestionAnswer(qVO);
 	}
 	
 	@Override

@@ -158,5 +158,10 @@ public class UserDAOImpl implements UserDAO{
 	public List<QuestionPostVO> readMyQuestionList(PagingBeanTen pagingBean) {
 		return template.selectList("user.readMyQuestionList", pagingBean);
 	}
+
+	@Override
+	public QuestionPostVO readQuestionAnswer(int qNo) {
+		return template.selectOne("user.readQuestionAnswer", qNo);
+	}
 	
 }
