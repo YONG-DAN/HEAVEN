@@ -12,6 +12,22 @@ public interface AdminService {
 
 	public void createQuestionAnswer(QuestionPostVO qVO);
 
+	public JoinPostListVO totalGibuJoinPostList(int nowPage);
+
+	public JoinPostListVO totalTakingJoinPostList(int nowPage);
+
+	public JoinPostListVO approvalTakingJoinPostList(int nowPage);
+
+	public JoinPostListVO approvalGibuJoinPostList(int nowPage);
+
+	public JoinPostListVO unapprovalGibuJoinPostList(int nowPage);
+
+	public JoinPostListVO unapprovalTakingJoinPostList(int nowPage);
+
+	public JoinPostListVO refusalGibuJoinPostList(int nowPage);
+
+	public JoinPostListVO refusalTakingJoinPostList(int nowPage);
+	
 	public JoinPostListVO readPointList(int nowPage);
 
 }

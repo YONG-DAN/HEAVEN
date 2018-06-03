@@ -17,6 +17,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<collection property="userVO" javaType="userVO" column="q_no" select="selectUserByDetail" ></collection>
 	</resultMap>
 	
+	<resultMap type="joinPostVO" id="joinPostRM">
+		 <result property="userVO.id" column="id"/>
+		 <result property="joinPostGroupVO.jpGroupNo" column="jp_group_no"/>
+		 <result property="joinPostStatusVO.jpStuatusName" column="jp_status"/>
+	</resultMap>
+	
 	<!-- 참여 게시글 result map -->
 	<resultMap type="joinPostVO" id="jpRM">
 		<result column="jp_no" property="jpNo"/>
@@ -73,6 +79,87 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<update id="updateQuestionStatus" parameterType="questionPostVO">
 		update question set q_status='답변완료' where q_no=#{qNo}
 	</update>
+	
+	<!-- 전체 신청 재능기부 count -->
+	<select id="totalGibuJoinPostCount" resultType="int">
+		select count(*) from JOIN_POST where jp_group_no=1
+	</select>
+	<!-- 전체 신청 재능기부 목록 -->
+	<select id="totalGibuJoinPostList" resultMap="joinPostRM" resultType="joinPostVO" parameterType="pagingBeanFive" >
+		select jp_no, jp_title, jp_regdate, id, jp_status
+		from join_post
+		where jp_group_no=1
+	</select>
+	<!--전체 테이킹 신청 count-->
+	<select id="totalTakingJoinPostCount" resultType="int">
+		select count(*) from JOIN_POST where jp_group_no=2
+	</select>
+	<!-- 전체 신청 테이킹 목록 -->
+	<select id="totalTakingJoinPostList" resultMap="joinPostRM" resultType="joinPostVO" parameterType="pagingBeanFive">
+		select jp_no, jp_title, jp_regdate, id, jp_status
+		from join_post
+		where jp_group_no=2
+	</select>
+	<!-- 승인된 재능기부 신청서 count -->
+	<select id="approvalGibuJoinPostCount" resultType="int">
+		select count(*) from JOIN_POST where jp_group_no=1 and jp_status='승인'
+	</select>
+	<!-- 승인된 재능기부 신청서 목록 -->
+	<select id="approvalGibuJoinPostList" resultMap="joinPostRM" resultType="joinPostVO" parameterType="pagingBeanFive">
+		select jp_no, jp_title, jp_regdate, id
+		from join_post
+		where jp_group_no=1 and jp_status='승인'
+	</select>	
+	<!-- 승인된 테이킹 신청서 count -->
+	<select id="approvalTakingJoinPostCount" resultType="int">
+		select count(*) from JOIN_POST where jp_group_no=2 and jp_status='승인'
+	</select>
+	<!-- 승인된 테이킹 신청서 목록 -->
+	<select id="approvalTakingJoinPostList" resultMap="joinPostRM" resultType="joinPostVO" parameterType="pagingBeanFive">
+		select jp_no, jp_title, jp_regdate, id
+		from join_post
+		where jp_group_no=2 and jp_status='승인'
+	</select>
+	<!-- 미처리된 재능기부 신청서 count -->
+	<select id="unapprovalGibuJoinPostCount" resultType="int">
+		select count(*) from JOIN_POST where jp_group_no=1 and jp_status='처리중'
+	</select>
+	<!-- 미처리된 재능기부 신청서 목록 -->
+	<select id="unapprovalGibuJoinPostList" resultMap="joinPostRM" resultType="joinPostVO" parameterType="pagingBeanFive">
+		select jp_no, jp_title, jp_regdate, id
+		from join_post
+		where jp_group_no=1 and jp_status='처리중'
+	</select>
+	<!-- 미처리된 테이킹 신청서 count -->
+	<select id="unapprovalTakingJoinPostCount" resultType="int">
+		select count(*) from JOIN_POST where jp_group_no=2 and jp_status='처리중'
+	</select>
+	<!-- 미처리된 테이킹 신청서 목록 -->
+	<select id="unapprovalTakingJoinPostList" resultMap="joinPostRM" resultType="joinPostVO" parameterType="pagingBeanFive">
+		select jp_no, jp_title, jp_regdate, id
+		from join_post
+		where jp_group_no=2 and jp_status='처리중'
+	</select>
+	<!-- 거절된 재능기부 신청서 count -->
+	<select id="refusalGibuJoinPostCount" resultType="int">
+		select count(*) from JOIN_POST where jp_group_no=1 and jp_status='거절'
+	</select>
+	<!-- 거절된 재능기부 신청 목록 -->
+	<select id="refusalGibuJoinPostList" resultMap="joinPostRM" resultType="joinPostVO" parameterType="pagingBeanFive">
+		select jp_no, jp_title, jp_regdate, id
+		from join_post
+		where jp_group_no=1 and jp_status='거절'
+	</select>
+	<!-- 거절된 테이킹 신청서 count -->
+	<select id="refusalTakingJoinPostCount" resultType="int">
+		select count(*) from JOIN_POST where jp_group_no=2 and jp_status='거절'
+	</select>
+	<!-- 거절된 테이킹 신청 목록 -->
+	<select id="refusalTakingJoinPostList" resultMap="joinPostRM" resultType="joinPostVO" parameterType="pagingBeanFive">
+		select jp_no, jp_title, jp_regdate, id
+		from join_post
+		where jp_group_no=2 and jp_status='거절'
+	</select>
 	
 	<!-- 포인트 지급 목록 페이징을 위한 게시글 수 세기 -->
 	<select id="getTotalPointContentCount" resultType="int">

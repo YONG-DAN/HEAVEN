@@ -149,12 +149,16 @@ create table join_post(
    CONSTRAINT fk_join_post_jp_group_no FOREIGN KEY(jp_group_no) REFERENCES post_group(post_no) ON DELETE CASCADE,
    CONSTRAINT fk_join_post_ps_no FOREIGN KEY(jp_progress) REFERENCES progress_status(ps_no) ON DELETE CASCADE
 )
-
+--재능기부신청서
 insert into join_post (jp_no,jp_title,jp_contents,jp_summary,jp_place,jp_app_start_date,jp_app_end_date,jp_event_start_date,jp_event_end_date,
-jp_imgdirectory,jp_goal_mileage,jp_status,id,jp_group_no,jp_progress)values(application_seq.nextval,'신청서테스트','신청서테스트입니다','신청서요약','판교',to_date('2018-05-30','yyyy-mm-dd'),
-to_date('2018-06-30','yyyy-mm-dd'),to_date('2018-07-01','yyyy-mm-dd'),to_date('2018-07-02','yyyy-mm-dd'),'이미지이다',50000,'처리중','bbb','1','1'
+jp_imgdirectory,jp_goal_mileage,jp_status,id,jp_group_no,jp_progress)values(application_seq.nextval,'재능기부신청서테스트','재능기부신청서테스트입니다','신청서요약','판교',to_date('2018-05-30','yyyy-mm-dd'),
+to_date('2018-06-30','yyyy-mm-dd'),to_date('2018-07-01','yyyy-mm-dd'),to_date('2018-07-02','yyyy-mm-dd'),'이미지이다',50000,'승인','aaa','1','1'
 )
-
+--테이킹 신청서
+insert into join_post (jp_no,jp_title,jp_contents,jp_summary,jp_app_start_date,jp_app_end_date,
+jp_imgdirectory,jp_goal_mileage,jp_status,id,jp_group_no,jp_progress)values(application_seq.nextval,'거절신청서테스트','거절테이킹신청서테스트입니다','신청서요약',to_date('2018-05-30','yyyy-mm-dd'),
+to_date('2018-06-30','yyyy-mm-dd'),'이미지이다',150000,'거절','bbb','2','3'
+)
 -- 참여게시판 게시글 시퀀스
 drop sequence join_post_seq;
 create sequence join_post_seq;
