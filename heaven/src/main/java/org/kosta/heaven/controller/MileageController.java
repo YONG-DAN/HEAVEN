@@ -40,7 +40,7 @@ public class MileageController {
 		}
 		else{ //login 상태면 uvo를 받아와서 UserVO에 넣어줌
 			UserVO uvo=(UserVO) session.getAttribute("uvo");
-			mileageTradeVO.setUserVO(uvo);	
+			mileageTradeVO.setUserVO(uvo);		
 		//MileageUseGroupVO에 mugNo를 넣어 거래 종류를 저장하고
 		//mileageTradeVO에 넣어줌
 		MileageUseGroupVO mugVO = new MileageUseGroupVO(mugNo, null);
@@ -52,6 +52,7 @@ public class MileageController {
 		userService.addMileage(mileageTradeVO);
 		request.getSession().setAttribute("uvo", userService.checkId(mileageTradeVO.getUserVO().getId()));
 /*		return "redirect:/users/readMyMileageTradeList.do?nowPage=1";*/
+		
 		return "redirect:/users/addMileageForm.do";
 		}
 	}
