@@ -1,7 +1,9 @@
 package org.kosta.heaven.controller;
 
 import javax.annotation.Resource;
+
 import org.kosta.heaven.model.service.AdminService;
+import org.kosta.heaven.model.vo.post.join.JoinPostListVO;
 import org.kosta.heaven.model.vo.post.question.QuestionPostListVO;
 import org.kosta.heaven.model.vo.post.question.QuestionPostVO;
 import org.springframework.stereotype.Controller;
@@ -63,4 +65,22 @@ public class AdminController {
 		adminService.createQuestionAnswer(qVO);
 		return "redirect:/admin/readQuestionDetail.do?qNo="+qVO.getqNo();
 	}
+	
+	/**
+	 * 
+	 * 모금 포인트가 지급되어야 하는 프로그램들
+	 * 즉, 마감된 프로그램들의 목록을 불러들여
+	 * 해당 기부자 및 단체에게 포인트 지급이 가능하게 한다
+	 * 
+	 * @author 용다은
+	 * 
+	 */
+	@RequestMapping("admin/readPointList.do")
+	public String readPointList(int nowPage, Model model) {
+		JoinPostListVO jpListVO = adminService.readPointList(nowPage);
+		System.out.println(jpListVO);
+		model.addAttribute("jpListVO", jpListVO);
+		return "admin/readPointList.tiles";
+	}
+	
 }

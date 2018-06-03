@@ -14,8 +14,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="q_regdate" property="qRegdate"/>
 		<result column="q_parent_no" property="qParentNo"/>
 		<result column="q_status" property="qStatus"/>
-		<collection property="userVO" javaType="userVO" column="q_no"
-		select="selectUserByDetail" ></collection>
+		<collection property="userVO" javaType="userVO" column="q_no" select="selectUserByDetail" ></collection>
+	</resultMap>
+	
+	<!-- 참여 게시글 result map -->
+	<resultMap type="joinPostVO" id="jpRM">
+		<result column="jp_no" property="jpNo"/>
+   		<result column="jp_title" property="jpTitle"/>
+  		<result column="jp_total_mileage" property="jpTotalMileage"/>
+  		<result column="id" property="userVO.id"/>
+  		<result column="name" property="userVO.name"/>
+		<result column="jp_group_no" property="joinPostGroupVO.jpGroupNo"/>
+		<result column="post_name" property="joinPostGroupVO.jpGroupName"/>
+		<result column="jp_progress" property="joinPostStatusVO.jpStuatusNo"/> 
 	</resultMap>
 	
 	<!-- collection select -->
@@ -62,5 +73,34 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<update id="updateQuestionStatus" parameterType="questionPostVO">
 		update question set q_status='답변완료' where q_no=#{qNo}
 	</update>
+	
+	<!-- 포인트 지급 목록 페이징을 위한 게시글 수 세기 -->
+	<select id="getTotalPointContentCount" resultType="int">
+		select count(*) from join_post where jp_progress = '3'
+	</select>
+	
+	<!-- 포인트 지급 목록 게시글 가져오기 -->
+	<select id="readPointList" resultMap="jpRM">
+	select
+		jp.jp_no,
+		jp.jp_title,
+		jp.jp_imgdirectory,
+		jp.jp_total_mileage,
+		jp.jp_group_no,
+		jp.jp_progress, 
+		ps.ps_no,
+		ps.ps_name,
+		pg.post_no,
+		pg.post_name,
+		u.id,
+		u.name
+	from join_post jp 
+		inner join users u on jp.id = u.id
+		inner join progress_status ps on jp.jp_progress = ps.ps_no 
+		inner join post_group pg on jp.jp_group_no = pg.post_no
+	where jp.jp_progress='3' 
+<!-- 	and rnum between #{startRowNumber} and #{endRowNumber}
+	order by j.jp_no desc -->
+	</select>
 	
 </mapper>
