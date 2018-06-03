@@ -2,23 +2,24 @@ package org.kosta.heaven.model.dao;
 
 import java.util.List;
 import java.util.Map;
+import org.kosta.heaven.model.vo.post.PagingBeanFive;
 import org.kosta.heaven.model.vo.post.PagingBeanTen;
 import org.kosta.heaven.model.vo.post.join.JoinPostVO;
 import org.kosta.heaven.model.vo.post.question.QuestionPostListVO;
 import org.kosta.heaven.model.vo.post.question.QuestionPostVO;
-/*수정완료*/
+
 public interface AdminDAO {
 
-	   public List<QuestionPostVO> readAllQuestionList(PagingBeanTen pagingBean);
+	public List<QuestionPostVO> readAllQuestionList(PagingBeanTen pagingBean);
 
-	   public int getTotalQuestionContentCount();
+	public int getTotalQuestionContentCount();
 
-	   public QuestionPostVO readQuestionDetail(int qNo);
+	public QuestionPostVO readQuestionDetail(int qNo);
 
-	   public void createQuestionAnswer(QuestionPostVO qVO);
+	public void createQuestionAnswer(QuestionPostVO qVO);
 
-	   public void updateQuestionStatus(QuestionPostVO qVO);
-
+	public void updateQuestionStatus(QuestionPostVO qVO);
+	
 	public int totalGibuJoinPostCount(int nowPage);
 
 	public List<JoinPostVO> totalGibuJoinPostList(Map<String, Object> map);
@@ -50,11 +51,9 @@ public interface AdminDAO {
 	public int refusalTakingJoinPostCount(int nowPage);
 
 	public List<JoinPostVO> refusalTakingJoinPostList(Map<String, Object> map);
-
-
-
 	
+	public List<JoinPostVO> readPointList(PagingBeanFive pagingBean);
 
-	
+	public int getTotalPointContentCount();
 
 }

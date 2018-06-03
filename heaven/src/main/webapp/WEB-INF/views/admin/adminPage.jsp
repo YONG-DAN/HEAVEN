@@ -54,7 +54,7 @@
 					</div>
 				</div>
 				<div class="col-lg-3 card text-center adminHover"
-					onclick="location.href='${pageContext.request.contextPath}/readTradePoint.do?nowPage=1'">
+					onclick="location.href='${pageContext.request.contextPath}/admin/readPointList.do?nowPage=1'">
 					<div class="card-body">
 						<i class="fas fa-hand-holding-usd fa-3x"></i> <br> <br>
 						<h5 class="card-title">포인트 지급</h5>

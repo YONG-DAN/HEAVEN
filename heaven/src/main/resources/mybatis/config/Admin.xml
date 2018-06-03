@@ -3,68 +3,83 @@
 <!DOCTYPE mapper
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<!-- 수정완료 -->
 <mapper namespace="admin">
+
 	<!-- 문의 result map -->
-   <resultMap type="questionPostVO" id="qPostVO">
-      <result column="q_no" property="qNo"/>
-      <result column="thread" property="thread"/>
-      <result column="q_title" property="qTitle"/>
-      <result column="q_contents" property="qContents"/>
-      <result column="q_regdate" property="qRegdate"/>
-      <result column="q_parent_no" property="qParentNo"/>
-      <result column="q_status" property="qStatus"/>
-      <collection property="userVO" javaType="userVO" column="q_no" select="selectUserByDetail" ></collection>
-   </resultMap>
+	<resultMap type="questionPostVO" id="qPostVO">
+		<result column="q_no" property="qNo"/>
+		<result column="thread" property="thread"/>
+		<result column="q_title" property="qTitle"/>
+		<result column="q_contents" property="qContents"/>
+		<result column="q_regdate" property="qRegdate"/>
+		<result column="q_parent_no" property="qParentNo"/>
+		<result column="q_status" property="qStatus"/>
+		<collection property="userVO" javaType="userVO" column="q_no" select="selectUserByDetail" ></collection>
+	</resultMap>
+	
 	<resultMap type="joinPostVO" id="joinPostRM">
 		 <result property="userVO.id" column="id"/>
 		 <result property="joinPostGroupVO.jpGroupNo" column="jp_group_no"/>
 		 <result property="joinPostStatusVO.jpStuatusName" column="jp_status"/>
 	</resultMap>
+	
+	<!-- 참여 게시글 result map -->
+	<resultMap type="joinPostVO" id="jpRM">
+		<result column="jp_no" property="jpNo"/>
+   		<result column="jp_title" property="jpTitle"/>
+  		<result column="jp_total_mileage" property="jpTotalMileage"/>
+  		<result column="id" property="userVO.id"/>
+  		<result column="name" property="userVO.name"/>
+		<result column="jp_group_no" property="joinPostGroupVO.jpGroupNo"/>
+		<result column="post_name" property="joinPostGroupVO.jpGroupName"/>
+		<result column="jp_progress" property="joinPostStatusVO.jpStuatusNo"/> 
+	</resultMap>
+	
 	<!-- collection select -->
-   <select id="selectUserByDetail" resultType="userVO">
-      select u.id, u.password, u.name, u.address, to_char(u.birthday,'yyyy.mm.dd') birthday,
-      u.mileage, u.total_use_mileage
-      from users u, question q
-      where u.id=q.id and q.q_no=#{value}
-   </select>
-   
-   <!-- 전체 문의 목록 출력 -->
-   <select id="readAllQuestionList" resultMap="qPostVO">
-         select rnum, q.q_no, q.thread, q.q_title, q.q_regdate, q.q_status, q.q_parent_no
-         from (select row_number() over(order by thread desc) rnum, q_no, thread, q_title,
-         to_char(q_regdate,'yyyy.mm.dd') q_regdate, q_status, q_parent_no, id
-         from question order by thread desc) q, users u
-         where q.id=u.id and rnum between #{startRowNumber} and  #{endRowNumber}
-         order by thread desc
-   </select>
-   
-   <!-- 전체 문의 목록 페이징을 위한 게시글 수 세기 -->
-   <select id="getTotalQuestionContentCount" resultType="int">
-      select count(*) from question
-   </select>
-   
-   <!-- 문의 상세 보기 -->
-   <select id="readQuestionDetail" parameterType="int" resultMap="qPostVO">
-      select q_no, thread, q_title, q_contents, to_char(q_regdate,'yyyy.mm.dd') q_regdate, q_parent_no, q_status
-      from question where q_no=#{value}
-   </select>
-   
-   <!-- 문의 답변하기 -->
-   <insert id="createQuestionAnswer" parameterType="questionPostVO">
-      <selectKey keyProperty="qNo" resultType="int" order="AFTER">
+	<select id="selectUserByDetail" resultType="userVO">
+		select u.id, u.password, u.name, u.address, to_char(u.birthday,'yyyy.mm.dd') birthday,
+		u.mileage, u.total_use_mileage
+		from users u, question q
+		where u.id=q.id and q.q_no=#{value}
+	</select>
+	
+	<!-- 전체 문의 목록 출력 -->
+	<select id="readAllQuestionList" resultMap="qPostVO">
+			select rnum, q.q_no, q.thread, q.q_title, q.q_regdate, q.q_status, q.q_parent_no
+			from (select row_number() over(order by thread desc) rnum, q_no, thread, q_title,
+			to_char(q_regdate,'yyyy.mm.dd') q_regdate, q_status, q_parent_no, id
+			from question order by thread desc) q, users u
+			where q.id=u.id and rnum between #{startRowNumber} and  #{endRowNumber}
+			order by thread desc
+	</select>
+	
+	<!-- 전체 문의 목록 페이징을 위한 게시글 수 세기 -->
+	<select id="getTotalQuestionContentCount" resultType="int">
+		select count(*) from question
+	</select>
+	
+	<!-- 문의 상세 보기 -->
+	<select id="readQuestionDetail" parameterType="int" resultMap="qPostVO">
+		select q_no, thread, q_title, q_contents, to_char(q_regdate,'yyyy.mm.dd') q_regdate, q_parent_no, q_status
+		from question where q_no=#{value}
+	</select>
+	
+	<!-- 문의 답변하기 -->
+	<insert id="createQuestionAnswer" parameterType="questionPostVO">
+	   <selectKey keyProperty="qNo" resultType="int" order="AFTER">
           select question_seq.currval from dual
        </selectKey>
-      <!-- insert into question(q_no, thread, q_title, q_contents, q_parent_no, q_status, id)
-      values(question_seq.nextval, #{qNo}*100-1, #{qTitle}, #{qContents}, #{qNo},'답변',#{userVO.id}) -->
-      insert into question(q_no, thread, q_title, q_contents, q_parent_no, q_status, id)
-      values(question_seq.nextval, #{qNo}*100-1, #{qTitle}, #{qContents}, #{qNo},'답변',#{userVO.id})
-   </insert>
-   
-   <!-- 문의 글 상태 업데이트 -->
-   <update id="updateQuestionStatus" parameterType="questionPostVO">
-      update question set q_status='답변완료' where q_no=#{qNo}
-   </update>
+		<!-- insert into question(q_no, thread, q_title, q_contents, q_parent_no, q_status, id)
+		values(question_seq.nextval, #{qNo}*100-1, #{qTitle}, #{qContents}, #{qNo},'답변',#{userVO.id}) -->
+		insert into question(q_no, thread, q_title, q_contents, q_parent_no, q_status, id)
+		values(question_seq.nextval, #{qNo}*100-1, #{qTitle}, #{qContents}, #{qNo},'답변',#{userVO.id})
+	</insert>
+	
+	<!-- 문의 글 상태 업데이트 -->
+	<update id="updateQuestionStatus" parameterType="questionPostVO">
+		update question set q_status='답변완료' where q_no=#{qNo}
+	</update>
+	
 	<!-- 전체 신청 재능기부 count -->
 	<select id="totalGibuJoinPostCount" resultType="int">
 		select count(*) from JOIN_POST where jp_group_no=1
@@ -145,4 +160,34 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		from join_post
 		where jp_group_no=2 and jp_status='거절'
 	</select>
+	
+	<!-- 포인트 지급 목록 페이징을 위한 게시글 수 세기 -->
+	<select id="getTotalPointContentCount" resultType="int">
+		select count(*) from join_post where jp_progress = '3'
+	</select>
+	
+	<!-- 포인트 지급 목록 게시글 가져오기 -->
+	<select id="readPointList" resultMap="jpRM">
+	select
+		jp.jp_no,
+		jp.jp_title,
+		jp.jp_imgdirectory,
+		jp.jp_total_mileage,
+		jp.jp_group_no,
+		jp.jp_progress, 
+		ps.ps_no,
+		ps.ps_name,
+		pg.post_no,
+		pg.post_name,
+		u.id,
+		u.name
+	from join_post jp 
+		inner join users u on jp.id = u.id
+		inner join progress_status ps on jp.jp_progress = ps.ps_no 
+		inner join post_group pg on jp.jp_group_no = pg.post_no
+	where jp.jp_progress='3' 
+<!-- 	and rnum between #{startRowNumber} and #{endRowNumber}
+	order by j.jp_no desc -->
+	</select>
+	
 </mapper>
