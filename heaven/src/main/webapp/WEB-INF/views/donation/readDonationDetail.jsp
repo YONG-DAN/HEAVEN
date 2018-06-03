@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<!-- 재능기부 정보 -->	
+<!-- 재능기부 정보 -->
 <div class="container my-5">
 	<div class="row">
 		<div class="col-md-7">
@@ -10,13 +10,28 @@
 		<div class="col-md-5">
 			<h3 class="mb-3">${donationVO.jpTitle }</h3>
 			<p>${donationVO.jpSummary }</p>
-			<ul class="jumbotron list-unstyled">
+			<ul class="jumbotron list-unstyled py-4">
 				<li class="mb-2"><i class="far fa-calendar-alt"></i>신청기간 ${donationVO.jpAppStartDate } - ${donationVO.jpAppEndDate }</li>
 				<li class="mb-2"><i class="far fa-calendar-alt"></i>모임일자 ${donationVO.jpEventStartDate } - ${donationVO.jpEventEndDate }</li>
 				<li class="mb-2"><i class="fas fa-users"></i>현재 참여자 수 ${donationVO.totalEntry }명</li>
 				<li class="mb-2"><i class="fas fa-male"></i> / <i class="fas fa-female"></i></li>
 			</ul>
-			<button class="btn btn-point btn-lg btn-block" data-toggle="modal" data-target="#entryModal">참여하기</button>
+			<c:choose>
+				<c:when test="${sessionScope.uvo==null }">
+					<button class="btn btn-point btn-lg btn-block" > 로그인 후 참여가 가능합니다 </button>	
+				</c:when>
+				<c:when test="${sessionScope.uvo.id==donationVO.userVO.id }">
+					<button class="btn btn-point btn-lg btn-block" > 재능기부자는 참여 할 수 없습니다. </button>	
+				</c:when>
+				<c:when test="${sessionScope.uvo.userGroupVO.ugroupNo != 1}">
+					<button class="btn btn-point btn-lg btn-block" > 개인회원만 참여 가능합니다. </button>	
+				</c:when>
+			
+				<c:otherwise>
+					<button class="btn btn-point btn-lg btn-block" data-toggle="modal" data-target="#entryModal">참여하기</button>	
+				</c:otherwise>
+			</c:choose>
+			
 		</div>
 	</div>
 	<!-- /.row -->
@@ -34,18 +49,37 @@
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
+			<form action="${pageContext.request.contextPath }/addUserActivity.do" method="post">
 			<div class="modal-body">
-				<div class="jumbotron">
-					<input type="hidden" name="jpNo" value="${donationVO.jpNo }">
-					<p>${donationVO.jpTitle }</p>
-					<p>${donationVO.jpEventStartDate } - ${donationVO.jpEventEndDate }</p>
-					<p>${donationVO.jpPlace }</p>
+				<input type="hidden" name="jpNo" value="${donationVO.jpNo }">
+				<input type="hidden" name="id" value="${sessionScope.uvo.id }">
+				<input type="hidden" name="name" value="${sessionScope.uvo.name }">
+				<ul class="jumbotron list-unstyled py-4">
+					<li class="mb-2">${donationVO.jpTitle }</li>
+					<li class="mb-2"><i class="far fa-calendar-alt"></i>모임기간 ${donationVO.jpEventStartDate } - ${donationVO.jpEventEndDate }</li>
+					<li class="mb-2"><i class="fas fa-map-marker-alt"></i>모임 장소 ${donationVO.jpPlace }</li>
+				</ul>
+				<div class="mb-3">
+					<label for="jpSummary">응원메시지</label>
+					<small class="text-muted">재능기부자에게 따뜻한 응원메시지를 남겨보세요</small>
+					<input type="text" class="form-control" name="cheerUpMessage" id="cheerUpMessage">
+				</div>
+				<div class="mb-3">
+					<label for="jpSummary">감사 마일리지</label>
+					<small class="text-muted">재능기부에 대한 감사의 마음을 마일리지로 전해보세요</small>
+					<input type="number" class="form-control" name="aMileage" id="aMileage">
+					<small class="text-muted">보유 마일리지 : ${sessionScope.uvo.mileage }</small>
+				</div>
+				<div class="custom-control custom-checkbox">
+					<input type="checkbox" class="custom-control-input" id="#">
+					<label class="custom-control-label" for="#">상기 내역에 동의합니다.</label>
 				</div>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-point">참여하기</button>
+				<button type="submit" class="btn btn-point">참여하기</button>
 				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 			</div>
+			</form>
 		</div>
 	</div>
 </div>
@@ -58,10 +92,10 @@
 				<a class="nav-link sub-1-txt" href="#">재능기부 소개</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link sub-1-txt" href="#">응원메시지</a>
+				<a class="nav-link sub-1-txt" href="${pageContext.request.contextPath }/donation/readCheerUpMessageList.do?jpNo=${donationVO.jpNo }">응원메시지</a>
 			</li>	
 			<li class="nav-item">
-				<a class="nav-link sub-1-txt" href="#">후기</a>
+				<a class="nav-link sub-1-txt" href="${pageContext.request.contextPath }/donation/readReviewList.do?jpNo=${donationVO.jpNo }">후기</a>
 			</li>
 			
 		</ul>

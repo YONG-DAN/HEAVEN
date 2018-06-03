@@ -12,13 +12,32 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  	</resultMap>
  	
  	<!-- 회원 resultMap -->
-   <resultMap type="userVO" id="userRM">
-      <result property="userGroupVO.ugroupNo" column="ugroup_no" />
-      <result property="userGroupVO.ugroupName" column="ugroup_name" />
-      <result property="userGradeVO.ugradeNo" column="ugrade_no" />
-      <result property="userGradeVO.ugradeName" column="ugrade_name" />
-   </resultMap>
+	<resultMap type="userVO" id="userRM">
+	   <result property="userGroupVO.ugroupNo" column="ugroup_no" />
+	   <result property="userGroupVO.ugroupName" column="ugroup_name" />
+	   <result property="userGradeVO.ugradeNo" column="ugrade_no" />
+	   <result property="userGradeVO.ugradeName" column="ugrade_name" />
+	</resultMap>
    
+	<!-- 참여 resultMap -->
+	<resultMap type="activityVO" id="uaRM">
+		<result column="u_no" property="aNo"/>
+		<result column="u_regdate" property="aRegdate"/>
+		<result column="u_mileage" property="aMileage"/>
+		<association property="userVO" column="id" javaType="userVO" select="selectUser"/>
+	</resultMap>
+	
+	<!-- 후기 resultMap -->
+	<resultMap type="reviewVO" id="reviewRM">
+		<result column="id" property="activityVO.userVO.id"/>
+		<result column="name" property="activityVO.userVO.name"/>
+		<result column="gender" property="activityVO.userVO.gender"/>
+		<result column="ua_no" property="activityVO.aNo"/>
+		<result column="mileage" property="activityVO.aMileage"/>		
+		<result column="jp_no" property="activityVO.joinPostVO.jpNo"/>
+		<result column="jp_title" property="activityVO.joinPostVO.jpTitle"/>
+	</resultMap>
+	
  	<select id="selectUser" resultMap="userRM" resultType="userVO">
 		select u.id as id, u.password as password, u.name as name, u.birthday as birthday, u.gender as gender, u.address as address, 
 				u.email as email, u.company_no as company, u.mileage as mileage, u.total_use_mileage as total_use_mileage, 
@@ -69,40 +88,75 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<!-- 재능기부 상세 -->
 	<select id="readDonationDetail" parameterType="int" resultType="joinPostVO" resultMap="jpRM">
-	<!-- 	select jp_no, jp_title, jp_contents, jp_summary, jp_place, to_char(jp_app_start_date,'yyyy-mm-dd') as jp_app_start_date, to_char(jp_app_end_date,'yyyy-mm-dd') as jp_app_end_date,
-			to_char(jp_event_start_date,'yyyy-mm-dd') as jp_event_start_date, to_char(jp_event_end_date,'yyyy-mm-dd') as jp_event_end_date, jp_imgdirectory, jp_regdate, jp_goal_mileage, jp_total_mileage,
-			jp_goal_entry, jp_total_entry, jp_status, id, jp_group_no, jp_progress
-		from join_post
-		where jp_no=#{value} -->
-	select
-		jp.jp_no as jp_no,
-		jp.jp_title as jp_title, 
-		jp.jp_contents as jp_contents, 
-		jp.jp_summary as jp_summary, 
-		jp.jp_place as jp_place, 
-		to_char(jp.jp_app_start_date,'yyyy-mm-dd') as jp_app_start_date, 
-		to_char(jp.jp_app_end_date, 'yyyy-mm-dd') as jp_app_end_date,
-		to_char(jp.jp_event_start_date,'yyyy-mm-dd') as jp_event_start_date, 
-		to_char(jp.jp_event_end_date, 'yyyy-mm-dd') as jp_event_end_date,
-		jp.jp_imgdirectory as jp_imgdirectory, 
-		jp.jp_regdate as jp_regdate, 
-		jp.jp_goal_mileage as jp_goal_mileage, 
-		jp.jp_total_mileage as jp_total_mileage,
-		jp.jp_goal_entry as jp_goal_entry, 
-		jp.jp_total_entry as jp_total_entry, 
-		jp.jp_status as jp_status, 
-		jp.jp_progress as jp_progress, 
-		u.id as id, 
-		u.name as name,
-		g.ugroup_no as ugroup_no, 
-		g.ugroup_name as ugroup_name,
-		grade.ugrade_no as ugrade_no,
-		grade.ugrade_name as ugrade_name
-	from join_post jp 
-		inner join users u on jp.id=u.id
-		inner join users_group g on u.ugroup_no=g.ugroup_no
-		inner join users_grade grade on u.ugroup_no=grade.ugrade_no
-	where jp.jp_no=#{value}
-		
+		select
+			jp.jp_no as jp_no,
+			jp.jp_title as jp_title, 
+			jp.jp_contents as jp_contents, 
+			jp.jp_summary as jp_summary, 
+			jp.jp_place as jp_place, 
+			to_char(jp.jp_app_start_date,'yyyy-mm-dd') as jp_app_start_date, 
+			to_char(jp.jp_app_end_date, 'yyyy-mm-dd') as jp_app_end_date,
+			to_char(jp.jp_event_start_date,'yyyy-mm-dd') as jp_event_start_date, 
+			to_char(jp.jp_event_end_date, 'yyyy-mm-dd') as jp_event_end_date,
+			jp.jp_imgdirectory as jp_imgdirectory, 
+			jp.jp_regdate as jp_regdate, 
+			jp.jp_goal_mileage as jp_goal_mileage, 
+			jp.jp_total_mileage as jp_total_mileage,
+			jp.jp_goal_entry as jp_goal_entry, 
+			jp.jp_total_entry as jp_total_entry, 
+			jp.jp_status as jp_status, 
+			jp.jp_progress as jp_progress, 
+			u.id as id, 
+			u.name as name,
+			g.ugroup_no as ugroup_no, 
+			g.ugroup_name as ugroup_name,
+			grade.ugrade_no as ugrade_no,
+			grade.ugrade_name as ugrade_name
+		from join_post jp 
+			inner join users u on jp.id=u.id
+			inner join users_group g on u.ugroup_no=g.ugroup_no
+			inner join users_grade grade on u.ugroup_no=grade.ugrade_no
+		where jp.jp_no=#{value}		
+	</select>
+	
+	<!-- 참여하기 (응원메시지, 감사 마일리지) -->	
+	<insert id="addUserActivity" parameterType="activityVO">
+		<selectKey keyProperty="aNo" resultType="int" order="BEFORE">
+ 			select users_activity_seq.nextval from dual
+ 		</selectKey>
+		insert into users_activity(u_no, u_regdate, u_mileage, <if test="cheerUpMessage!=null">cheerup_message,</if> id, jp_no) 
+		values(#{aNo}, sysdate, #{aMileage}, <if test="cheerUpMessage!=null">#{cheerUpMessage},</if> #{userVO.id}, #{joinPostVO.jpNo})
+	</insert>
+	
+	<!-- 참여한 재능기부의 모금 마일리지, 총 재능기부 참여자 수 수정 -->
+	<!-- <update id="updateDonationMileageAndTotalEntry" parameterType="activityVO">
+		update join_post set jp_total_mileage=jp_total_mileage+#{aMileage}, jp_total_entry=jp_total_entry+1
+		where jp_no=#{joinPostVO.jpNo}
+	</update> -->
+	
+	<!-- 응원메시지 목록 -->
+	<select id="readCheerUpMessageList" resultType="activityVO" resultMap="uaRM">
+		select ua.u_no as u_no, ua.u_regdate as u_regdate, 
+			ua.u_mileage as u_mileage, 
+			ua.cheerup_message as cheerup_message, 
+			u.id as id, u.name as name, u.gender as gender, 
+			ua.jp_no as jp_no
+		from users_activity ua
+			inner join users u on ua.id=u.id
+		where ua.jp_no=#{value}
+		order by u_no desc
+	</select>
+	
+	<!-- 후기 목록 -->
+	<select id="readReviewList" resultType="reviewVO" resultMap="reviewRM">
+		select r.r_no as r_no, r.r_title as r_title, r.r_contents as r_contents, 
+			to_char(r.r_regdate,'yyyy-mm-dd') as r_regdate, r.r_rate as r_rate, 
+			r.ua_no as ua_no, ua.u_mileage as mileage,
+			u.id as id, u.name as name, u.gender as gender 			
+		from review r
+			inner join users_activity ua on r.ua_no=ua.u_no
+			inner join users u on ua.id=u.id
+		where ua.jp_no=#{value}
+		order by r_no desc
 	</select>
 </mapper>
