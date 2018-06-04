@@ -110,8 +110,8 @@
 							</select>
 						</div>
 						<div class="form-group">
-							<input type="date" class="form-control" name="birthday"
-								required="required">
+							<input type="date" class="form-control" name="birthday" id="birthday" 
+							min="1900-01-01" max="${today}" required="required">
 						</div>
 						<div class="form-group">
 							<div class="input-group mb-3">
