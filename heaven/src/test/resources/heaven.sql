@@ -291,30 +291,5 @@ create table interview_post_reply(
 
 select * from interview_post_reply;
 
-<<<<<<< HEAD
 --인터뷰 게시판 시퀀스
 create sequence interview_post_reply_seq;
-=======
-
-
- select r.r_no,r.r_title,r.r_regdate,r.r_rate
-      from (select row_number() over (order by r_no desc) as rnum,r_no,r_title,to_char(r_regdate,'YYYY.MM.DD') as r_regdate,r_rate,ua_no
-      from review) r, USERS_ACTIVITY a
-      where r.ua_no=a.u_no and a.id='bbb' and rnum  between 1 and 5
-      order by r.r_no desc
-
-
-select j.jp_no, j.jp_title, j.jp_regdate, j.id, j.jp_status
-from (select row_number() over(order by jp_no desc) as rnum, jp_no, jp_title, to_char(jp_regdate,'YYYY.MM.DD') as jp_regdate,jp_group_no ,id, jp_status from join_post) j
-where j.jp_group_no=1 and rnum between 1 and  5
-order by j.jp_no desc
-
-
-
-select j.jp_no, j.jp_title, j.jp_regdate, j.id, j.jp_status
-from (select row_number() over(order by jp_no desc) as rnum, jp_no, jp_title, to_char(jp_regdate,'YYYY.MM.DD') as jp_regdate,jp_group_no ,id, jp_status from join_post) j
-where j.jp_group_no=1 and rnum between 1 and 5
-order by j.jp_no desc
-
-select * from JOIN_POST where jp_group_no=1
->>>>>>> branch 'master' of https://github.com/YONG-DAN/HEAVEN.git
