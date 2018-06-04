@@ -77,6 +77,7 @@ public class AdminController {
 		/*전체 테이킹리스트*/
 		JoinPostListVO jptListVO=adminService.totalTakingJoinPostList(nowPage);
 		model.addAttribute("jptListVO", jptListVO);
+		System.out.println("jptListVO :"+jptListVO);
 		return "admin/joinPostList.tiles";
 	}
 	/**
