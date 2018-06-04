@@ -290,3 +290,6 @@ create table interview_post_reply(
 )
 
 select * from interview_post_reply;
+
+--인터뷰 게시판 시퀀스
+create sequence interview_post_reply_seq;
