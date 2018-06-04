@@ -20,40 +20,44 @@ public interface AdminDAO {
 
 	public void updateQuestionStatus(QuestionPostVO qVO);
 	
-	public int totalGibuJoinPostCount(int nowPage);
+	public int totalGibuJoinPostCount();
 
-	public List<JoinPostVO> totalGibuJoinPostList(Map<String, Object> map);
+	public List<JoinPostVO> totalGibuJoinPostList(PagingBeanFive pdf);
 	
-	public int totalTakingJoinPostCount(int nowPage);
+	public int totalTakingJoinPostCount();
 
-	public List<JoinPostVO> totalTakingJoinPostList(Map<String, Object> map);
+	public List<JoinPostVO> totalTakingJoinPostList(PagingBeanFive pdf);
 
-	public int approvalGibuJoinPostCount(int nowPage);
+	public int approvalGibuJoinPostCount();
 
-	public List<JoinPostVO> approvalGibuJoinPostList(Map<String, Object> map);
+	public List<JoinPostVO> approvalGibuJoinPostList(PagingBeanFive pdf);
 
-	public int approvalTakingJoinPostCount(int nowPage);
+	public int approvalTakingJoinPostCount();
 
-	public List<JoinPostVO> approvalTakingJoinPostList(Map<String, Object> map);
+	public List<JoinPostVO> approvalTakingJoinPostList(PagingBeanFive pdf);
 
-	public int unapprovalGibuJoinPostCount(int nowPage);
+	public int unapprovalGibuJoinPostCount();
 
-	public List<JoinPostVO> unapprovalGibuJoinPostList(Map<String, Object> map);
+	public List<JoinPostVO> unapprovalGibuJoinPostList(PagingBeanFive pdf);
 
-	public int unapprovalTakingJoinPostCount(int nowPage);
+	public int unapprovalTakingJoinPostCount();
 
-	public List<JoinPostVO> unapprovalTakingJoinPostList(Map<String, Object> map);
+	public List<JoinPostVO> unapprovalTakingJoinPostList(PagingBeanFive pdf);
 
-	public int refusalGibuJoinPostCount(int nowPage);
+	public int refusalGibuJoinPostCount();
 
-	public List<JoinPostVO> refusalGibuJoinPostList(Map<String, Object> map);
+	public List<JoinPostVO> refusalGibuJoinPostList(PagingBeanFive pdf);
 
-	public int refusalTakingJoinPostCount(int nowPage);
+	public int refusalTakingJoinPostCount();
 
-	public List<JoinPostVO> refusalTakingJoinPostList(Map<String, Object> map);
+	public List<JoinPostVO> refusalTakingJoinPostList(PagingBeanFive pdf);
 	
 	public List<JoinPostVO> readPointList(PagingBeanFive pagingBean);
 
 	public int getTotalPointContentCount();
+
+	
+
+	
 
 }

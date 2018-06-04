@@ -51,7 +51,7 @@
 	<ul class="pagination justify-content-center">
 		<c:if test="${pb.previousPageGroup}">
 			<li class="page-item">
-				<a class="page-link" href="${pageContext.request.contextPath}/admin/readTotalJoinPostList.do?nowPage=${pb.startPageOfPageGroup-1}" aria-label="Previous">
+				<a class="page-link" href="${pageContext.request.contextPath}/admin/readApprovalJoinPostList.do?nowPage=${pb.startPageOfPageGroup-1}" aria-label="Previous">
 					<span aria-hidden="true">&laquo;</span>
 					<span class="sr-only">Previous</span>
 				</a>
@@ -61,7 +61,7 @@
 			<c:choose>
 				<c:when test="${pb.nowPage!=i}">
 					<li class="page-item">
-						<a class="page-link" href="${pageContext.request.contextPath}/admin/readTotalJoinPostList.do?nowPage=${i}">${i}</a>
+						<a class="page-link" href="${pageContext.request.contextPath}/admin/readApprovalJoinPostList.do?nowPage=${i}">${i}</a>
 					</li>
 				</c:when>
 				<c:otherwise>
@@ -74,7 +74,7 @@
 		</c:forEach>
 		<c:if test="${pb.nextPageGroup}">
 			<li class="page-item">
-				<a class="page-link" href="${pageContext.request.contextPath}/admin/readTotalJoinPostList.do?nowPage=${pb.endPageOfPageGroup+1}" aria-label="Next">
+				<a class="page-link" href="${pageContext.request.contextPath}/admin/readApprovalJoinPostList.do?nowPage=${pb.endPageOfPageGroup+1}" aria-label="Next">
 					<span aria-hidden="true">&raquo;</span>
 					<span class="sr-only">Next</span>
 				</a>
@@ -121,7 +121,7 @@
 	<ul class="pagination justify-content-center">
 		<c:if test="${pb.previousPageGroup}">
 			<li class="page-item">
-				<a class="page-link" href="${pageContext.request.contextPath}/admin/readTotalJoinPostList.do?nowPage=${pb.startPageOfPageGroup-1}" aria-label="Previous">
+				<a class="page-link" href="${pageContext.request.contextPath}/admin/readApprovalJoinPostList.do?nowPage=${pb.startPageOfPageGroup-1}" aria-label="Previous">
 					<span aria-hidden="true">&laquo;</span>
 					<span class="sr-only">Previous</span>
 				</a>
@@ -131,7 +131,7 @@
 			<c:choose>
 				<c:when test="${pb.nowPage!=i}">
 					<li class="page-item">
-						<a class="page-link" href="${pageContext.request.contextPath}/admin/readTotalJoinPostList.do?nowPage=${i}">${i}</a>
+						<a class="page-link" href="${pageContext.request.contextPath}/admin/readApprovalJoinPostList.do?nowPage=${i}">${i}</a>
 					</li>
 				</c:when>
 				<c:otherwise>
@@ -144,7 +144,7 @@
 		</c:forEach>
 		<c:if test="${pb.nextPageGroup}">
 			<li class="page-item">
-				<a class="page-link" href="${pageContext.request.contextPath}/admin/readTotalJoinPostList.do?nowPage=${pb.endPageOfPageGroup+1}" aria-label="Next">
+				<a class="page-link" href="${pageContext.request.contextPath}/admin/readApprovalJoinPostList.do?nowPage=${pb.endPageOfPageGroup+1}" aria-label="Next">
 					<span aria-hidden="true">&raquo;</span>
 					<span class="sr-only">Next</span>
 				</a>

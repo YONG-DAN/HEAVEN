@@ -43,70 +43,71 @@ public class AdminDAOImpl implements AdminDAO{
 		template.update("admin.updateQuestionStatus", qVO);
 	}
 	
-		@Override
-	public int totalGibuJoinPostCount(int nowPage) {
-		return template.selectOne("admin.totalGibuJoinPostCount", nowPage);
+	@Override
+	public int totalGibuJoinPostCount() {
+		return template.selectOne("admin.totalGibuJoinPostCount");
 	}
 	@Override
-	public List<JoinPostVO> totalGibuJoinPostList(Map<String,Object> map) {
-		return template.selectList("admin.totalGibuJoinPostList", map);
+	public List<JoinPostVO> totalGibuJoinPostList(PagingBeanFive pbf) {
+		
+		return template.selectList("admin.totalGibuJoinPostList", pbf);
 	}
 	@Override
-	public int totalTakingJoinPostCount(int nowPage) {
-		return template.selectOne("admin.totalTakingJoinPostCount", nowPage);
+	public int totalTakingJoinPostCount() {
+		return template.selectOne("admin.totalTakingJoinPostCount");
 	}
 
 	@Override
-	public List<JoinPostVO> totalTakingJoinPostList(Map<String,Object> map) {
-		return template.selectList("admin.totalTakingJoinPostList", map);
+	public List<JoinPostVO> totalTakingJoinPostList(PagingBeanFive pbf) {
+		return template.selectList("admin.totalTakingJoinPostList", pbf);
 	}
 	@Override
-	public int approvalGibuJoinPostCount(int nowPage) {
-		return template.selectOne("admin.approvalGibuJoinPostCount", nowPage);
+	public int approvalGibuJoinPostCount() {
+		return template.selectOne("admin.approvalGibuJoinPostCount");
 	}
 	@Override
-	public List<JoinPostVO> approvalGibuJoinPostList(Map<String, Object> map) {
-		return template.selectList("admin.approvalGibuJoinPostList", map);
+	public List<JoinPostVO> approvalGibuJoinPostList(PagingBeanFive pbf) {
+		return template.selectList("admin.approvalGibuJoinPostList", pbf);
 	}
 	@Override
-	public int approvalTakingJoinPostCount(int nowPage){
-		return template.selectOne("admin.approvalTakingJoinPostCount", nowPage);
+	public int approvalTakingJoinPostCount(){
+		return template.selectOne("admin.approvalTakingJoinPostCount");
 	}
 	@Override
-	public List<JoinPostVO> approvalTakingJoinPostList(Map<String, Object> map) {
-		return template.selectList("admin.approvalTakingJoinPostList", map);
+	public List<JoinPostVO> approvalTakingJoinPostList(PagingBeanFive pbf) {
+		return template.selectList("admin.approvalTakingJoinPostList", pbf);
 	}
 	@Override
-	public int unapprovalGibuJoinPostCount(int nowPage) {
-		return template.selectOne("admin.unapprovalGibuJoinPostCount", nowPage);
+	public int unapprovalGibuJoinPostCount() {
+		return template.selectOne("admin.unapprovalGibuJoinPostCount");
 	}
 	@Override
-	public List<JoinPostVO> unapprovalGibuJoinPostList(Map<String, Object> map){
-		return template.selectList("admin.unapprovalGibuJoinPostList", map);
+	public List<JoinPostVO> unapprovalGibuJoinPostList(PagingBeanFive pbf){
+		return template.selectList("admin.unapprovalGibuJoinPostList", pbf);
 	}
 	@Override
-	public int unapprovalTakingJoinPostCount(int nowPage) {
-		return template.selectOne("admin.unapprovalTakingJoinPostCount", nowPage);
+	public int unapprovalTakingJoinPostCount() {
+		return template.selectOne("admin.unapprovalTakingJoinPostCount");
 	}
 	@Override
-	public List<JoinPostVO> unapprovalTakingJoinPostList(Map<String, Object> map){
-		return template.selectList("admin.unapprovalTakingJoinPostList", map);
+	public List<JoinPostVO> unapprovalTakingJoinPostList(PagingBeanFive pbf){
+		return template.selectList("admin.unapprovalTakingJoinPostList", pbf);
 	}
 	@Override
-	public int refusalGibuJoinPostCount(int nowPage) {
-		return template.selectOne("admin.refusalGibuJoinPostCount", nowPage);
+	public int refusalGibuJoinPostCount() {
+		return template.selectOne("admin.refusalGibuJoinPostCount");
 	}
 	@Override
-	public List<JoinPostVO> refusalGibuJoinPostList(Map<String, Object> map){
-		return template.selectList("admin.refusalGibuJoinPostList", map);
+	public List<JoinPostVO> refusalGibuJoinPostList(PagingBeanFive pbf){
+		return template.selectList("admin.refusalGibuJoinPostList", pbf);
 	}
 	@Override
-	public int refusalTakingJoinPostCount(int nowPage) {
-		return template.selectOne("admin.refusalTakingJoinPostCount", nowPage);
+	public int refusalTakingJoinPostCount() {
+		return template.selectOne("admin.refusalTakingJoinPostCount");
 	}
 	@Override
-	public List<JoinPostVO> refusalTakingJoinPostList(Map<String, Object> map){
-		return template.selectList("admin.refusalTakingJoinPostList", map);
+	public List<JoinPostVO> refusalTakingJoinPostList(PagingBeanFive pbf){
+		return template.selectList("admin.refusalTakingJoinPostList", pbf);
 	}
 	
 	@Override

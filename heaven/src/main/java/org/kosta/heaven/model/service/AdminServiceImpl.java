@@ -48,100 +48,95 @@ public class AdminServiceImpl implements AdminService{
 	
 	@Override
 	public JoinPostListVO totalGibuJoinPostList(int nowPage) {
+		
+		int totalCount=adminDAO.totalGibuJoinPostCount();
 		PagingBeanFive pbf = null;
 		if(nowPage==0) {
-			pbf=new PagingBeanFive(adminDAO.totalGibuJoinPostCount(nowPage));
+			pbf=new PagingBeanFive(totalCount);
 		}else {
-			pbf = new PagingBeanFive(adminDAO.totalGibuJoinPostCount(nowPage));
+			pbf = new PagingBeanFive(totalCount,nowPage);
 		}
-		Map<String, Object> map = new HashMap<>();
-		map.put("pbf", pbf);
-		return new JoinPostListVO(adminDAO.totalGibuJoinPostList(map),pbf);
+		return new JoinPostListVO(adminDAO.totalGibuJoinPostList(pbf),pbf);
 	}
 
 	@Override
 	public JoinPostListVO totalTakingJoinPostList(int nowPage) {
+		int totalCount =adminDAO.totalTakingJoinPostCount();
 		PagingBeanFive pbf = null;
 		if(nowPage==0) {
-			pbf=new PagingBeanFive(adminDAO.totalTakingJoinPostCount(nowPage));
+			pbf=new PagingBeanFive(totalCount);
 		}else {
-			pbf = new PagingBeanFive(adminDAO.totalTakingJoinPostCount(nowPage));
+			pbf = new PagingBeanFive(totalCount,nowPage);
 		}
 		Map<String, Object> map = new HashMap<>();
 		map.put("pbf", pbf);
-		return new JoinPostListVO(adminDAO.totalTakingJoinPostList(map),pbf);
+		return new JoinPostListVO(adminDAO.totalTakingJoinPostList(pbf),pbf);
 	}
 	@Override
 	public JoinPostListVO approvalGibuJoinPostList(int nowPage) {
+		int totalCount=adminDAO.approvalGibuJoinPostCount();
 		PagingBeanFive pbf = null;
 		if(nowPage==0) {
-			pbf=new PagingBeanFive(adminDAO.approvalGibuJoinPostCount(nowPage));
+			pbf=new PagingBeanFive(totalCount);
 		}else {
-			pbf = new PagingBeanFive(adminDAO.approvalGibuJoinPostCount(nowPage));
+			pbf = new PagingBeanFive(totalCount,nowPage);
 		}
-		Map<String, Object> map = new HashMap<>();
-		map.put("pbf", pbf);
-		return new JoinPostListVO(adminDAO.approvalGibuJoinPostList(map),pbf);
+		return new JoinPostListVO(adminDAO.approvalGibuJoinPostList(pbf),pbf);
 	}
 	@Override
 	public JoinPostListVO approvalTakingJoinPostList(int nowPage) {
+		int totalCount=adminDAO.approvalTakingJoinPostCount();
 		PagingBeanFive pbf = null;
 		if(nowPage==0) {
-			pbf=new PagingBeanFive(adminDAO.approvalTakingJoinPostCount(nowPage));
+			pbf=new PagingBeanFive(totalCount);
 		}else {
-			pbf = new PagingBeanFive(adminDAO.approvalTakingJoinPostCount(nowPage));
+			pbf = new PagingBeanFive(totalCount,nowPage);
 		}
-		Map<String, Object> map = new HashMap<>();
-		map.put("pbf", pbf);
-		return new JoinPostListVO(adminDAO.approvalTakingJoinPostList(map),pbf);
+		return new JoinPostListVO(adminDAO.approvalTakingJoinPostList(pbf),pbf);
 	}
 	@Override
 	public JoinPostListVO unapprovalGibuJoinPostList(int nowPage) {
+		int totalCount=adminDAO.unapprovalGibuJoinPostCount();
 		PagingBeanFive pbf = null;
 		if(nowPage==0) {
-			pbf=new PagingBeanFive(adminDAO.unapprovalGibuJoinPostCount(nowPage));
+			pbf=new PagingBeanFive(totalCount);
 		}else {
-			pbf = new PagingBeanFive(adminDAO.unapprovalGibuJoinPostCount(nowPage));
+			pbf = new PagingBeanFive(totalCount,nowPage);
 		}
-		Map<String, Object> map = new HashMap<>();
-		map.put("pbf", pbf);
-		return new JoinPostListVO(adminDAO.unapprovalGibuJoinPostList(map),pbf);
+		return new JoinPostListVO(adminDAO.unapprovalGibuJoinPostList(pbf),pbf);
 	}
 	@Override
 	public JoinPostListVO unapprovalTakingJoinPostList(int nowPage) {
+		int totalCount=adminDAO.unapprovalGibuJoinPostCount();
 		PagingBeanFive pbf = null;
 		if(nowPage==0) {
-			pbf=new PagingBeanFive(adminDAO.unapprovalTakingJoinPostCount(nowPage));
+			pbf=new PagingBeanFive(totalCount);
 		}else {
-			pbf = new PagingBeanFive(adminDAO.unapprovalTakingJoinPostCount(nowPage));
+			pbf = new PagingBeanFive(totalCount,nowPage);
 		}
-		Map<String, Object> map = new HashMap<>();
-		map.put("pbf", pbf);
-		return new JoinPostListVO(adminDAO.unapprovalTakingJoinPostList(map),pbf);
+		return new JoinPostListVO(adminDAO.unapprovalTakingJoinPostList(pbf),pbf);
 	}
 	@Override
 	public JoinPostListVO refusalGibuJoinPostList(int nowPage) {
+		int totalCount=adminDAO.refusalGibuJoinPostCount();
 		PagingBeanFive pbf = null;
 		if(nowPage==0) {
-			pbf=new PagingBeanFive(adminDAO.refusalGibuJoinPostCount(nowPage));
+			pbf=new PagingBeanFive(totalCount);
 		}else {
-			pbf = new PagingBeanFive(adminDAO.refusalGibuJoinPostCount(nowPage));
+			pbf = new PagingBeanFive(totalCount,nowPage);
 		}
-		Map<String, Object> map = new HashMap<>();
-		map.put("pbf", pbf);
-		return new JoinPostListVO(adminDAO.refusalGibuJoinPostList(map),pbf);
+		return new JoinPostListVO(adminDAO.refusalGibuJoinPostList(pbf),pbf);
 	}
 	@Override
 	public JoinPostListVO refusalTakingJoinPostList(int nowPage) {
+		int totalCount=adminDAO.refusalTakingJoinPostCount();
 		PagingBeanFive pbf = null;
 		if(nowPage==0) {
-			pbf=new PagingBeanFive(adminDAO.refusalTakingJoinPostCount(nowPage));
+			pbf=new PagingBeanFive(totalCount);
 		}else {
-			pbf = new PagingBeanFive(adminDAO.refusalTakingJoinPostCount(nowPage));
+			pbf = new PagingBeanFive(totalCount,nowPage);
 		}
-		Map<String, Object> map = new HashMap<>();
-		map.put("pbf", pbf);
-		return new JoinPostListVO(adminDAO.refusalTakingJoinPostList(map),pbf);
+		return new JoinPostListVO(adminDAO.refusalTakingJoinPostList(pbf),pbf);
 	}
 
 	@Override
