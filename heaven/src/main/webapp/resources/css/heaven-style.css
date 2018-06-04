@@ -383,4 +383,9 @@ a.badge:focus {
     margin-bottom: 40px;
     padding-top: 25px;
 }
+.communityDetail{
+	margin: 0 auto;
+}
+#commentParentSubmit{
+	margin-bottom: 5px;	
 }
