@@ -4,5 +4,31 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="community">
-
+	<!-- 커뮤니티 게시글 result map -->
+	<resultMap type="interviewVO" id="ipRM">
+		<result column="ip_no" property="iNo"/>
+		<result column="ip_title" property="iTitle"/>
+		<result column="ip_regdate" property="iRegdate"/>
+	</resultMap>
+	
+	<!-- 커뮤니티 목록에 들어갈 컨텐츠 수 구하기 -->
+	<select id="getTotalCommunityContentCount" resultType="int">
+		select count(*) from interview_post
+	</select>
+	
+	<!-- 커뮤니티 목록 뽑기 -->
+	<select id="communityList" resultMap="ipRM" parameterType="pagingBeanFive">
+		select ip.ip_no, ip.ip_title, ip.ip_regdate
+		from (select row_number() over (order by ip_no desc) as rnum, ip_no, ip_title, 
+		to_char(ip_regdate,'YYYY.MM.DD') as ip_regdate from interview_post) ip
+		where rnum between #{startRowNumber} and #{endRowNumber}
+		order by ip_no desc
+	</select>
+	
+	<!-- 커뮤니티 글 상세 보기 -->
+	<select id="communityDetail" resultMap="ipRM" parameterType="int">
+		select ip_no, ip_title, ip_regdate
+		from interview_post
+		where ip_no=#{value}
+	</select>
 </mapper>

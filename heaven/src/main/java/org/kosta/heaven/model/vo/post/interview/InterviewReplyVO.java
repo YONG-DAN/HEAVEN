@@ -2,18 +2,18 @@ package org.kosta.heaven.model.vo.post.interview;
 
 import org.kosta.heaven.model.vo.user.UserVO;
 
-public class InterviewReply {
+public class InterviewReplyVO {
 	private int irNo;
 	private String irContents;
 	private String irRegdate;
 	private UserVO userVO;
 	private InterviewVO interviewVO;
 	
-	public InterviewReply() {
+	public InterviewReplyVO() {
 		super();
 	}
 
-	public InterviewReply(int irNo, String irContents, String irRegdate, UserVO userVO, InterviewVO interviewVO) {
+	public InterviewReplyVO(int irNo, String irContents, String irRegdate, UserVO userVO, InterviewVO interviewVO) {
 		super();
 		this.irNo = irNo;
 		this.irContents = irContents;
@@ -64,7 +64,7 @@ public class InterviewReply {
 
 	@Override
 	public String toString() {
-		return "InterviewReply [irNo=" + irNo + ", irContents=" + irContents + ", irRegdate=" + irRegdate + ", userVO="
+		return "InterviewReplyVO [irNo=" + irNo + ", irContents=" + irContents + ", irRegdate=" + irRegdate + ", userVO="
 				+ userVO + ", interviewVO=" + interviewVO + "]";
 	}
 	
