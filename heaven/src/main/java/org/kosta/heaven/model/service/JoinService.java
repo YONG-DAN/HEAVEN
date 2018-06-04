@@ -9,15 +9,21 @@ import org.kosta.heaven.model.vo.post.review.ReviewVO;
 
 public interface JoinService {
 
-	public void application(JoinPostVO joinPostVO);
+	void application(JoinPostVO joinPostVO);
 	
-	public JoinPostListVO readDonationList(int nowPage);
+	JoinPostListVO readDonationList(int nowPage);
 	
-	public JoinPostVO readDonationDetail(int jpNo);
+	JoinPostVO readDonationDetail(int jpNo);
 	
-	public void addUserActivity(ActivityVO activityVO);
+	void addUserActivity(ActivityVO activityVO);
 	
-	public List<ActivityVO> readCheerUpMessageList(int jpNo);
+	List<ActivityVO> readCheerUpMessageList(int jpNo);
 	
-	public List<ReviewVO> readReviewList(int jpNo);
+	List<ReviewVO> readReviewList(int jpNo);
+
+	int getDonationMaleEntry(int jpNo);
+
+	int getDonationFemaleEntry(int jpNo);
+
+	ActivityVO findEntryByIdAndJpno(int jpNo, String id);
 }

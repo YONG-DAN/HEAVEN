@@ -5,7 +5,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="join">
 	<!-- 참여게시판 resultMap -->
-	<resultMap type="joinPostVO" id="jpRM">
+	<resultMap type="joinPostVO" id="jpRM">	
+ 		<result column="jp_goal_mileage" property="goalMileage"/>
+ 		<result column="jp_total_mileage" property="totalMileage"/>
+ 		<result column="jp_goal_entry" property="goalEntry"/>
+ 		<result column="jp_total_entry" property="totalEntry"/>
  		<result column="jp_group_no"  property="joinPostGroupVO.jpGroupNo"/>
  		<result column="jp_progress" property="joinPostStatusVO.jpStuatusNo"/>
  		<association property="userVO" column="id" javaType="userVO" select="selectUser"/>
@@ -24,6 +28,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="u_no" property="aNo"/>
 		<result column="u_regdate" property="aRegdate"/>
 		<result column="u_mileage" property="aMileage"/>
+		<result column="jp_no" property="joinPostVO.jpNo"/>
 		<association property="userVO" column="id" javaType="userVO" select="selectUser"/>
 	</resultMap>
 	
@@ -56,9 +61,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		insert into join_post(jp_no, jp_title, jp_contents, jp_summary, <if test="jpPlace!=null">jp_place,</if> jp_app_start_date, jp_app_end_date,
 		<if test="jpEventStartDate!=null">jp_event_start_date,</if> <if test="jpEventEndDate!=null">jp_event_end_date,</if> jp_imgdirectory, jp_regdate, 
 		<if test="goalMileage!=null">jp_goal_mileage,</if> <if test="goalEntry!=null">jp_goal_entry,</if> id, jp_group_no)
-		values(#{jpNo}, #{jpTitle}, #{jpContents}, #{jpSummary}, #{jpPlace}, #{jpAppStartDate}, #{jpAppEndDate},
-		#{jpEventStartDate}, #{jpEventEndDate}, #{jpImgDirect}, sysdate,
-		#{goalMileage}, #{goalEntry}, #{userVO.id}, #{joinPostGroupVO.jpGroupNo})
+		values(#{jpNo}, #{jpTitle}, #{jpContents}, #{jpSummary}, <if test="jpPlace!=null">#{jpPlace},</if> #{jpAppStartDate}, #{jpAppEndDate},
+		<if test="jpEventStartDate!=null">#{jpEventStartDate},</if> <if test="jpEventEndDate!=null">#{jpEventEndDate},</if> #{jpImgDirect}, sysdate,
+		<if test="goalMileage!=null">#{goalMileage},</if> <if test="goalEntry!=null">#{goalEntry},</if> #{userVO.id}, #{joinPostGroupVO.jpGroupNo})
 	</insert>
 	
 	<!-- 재능기부 게시글 목록 -->	
@@ -129,10 +134,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</insert>
 	
 	<!-- 참여한 재능기부의 모금 마일리지, 총 재능기부 참여자 수 수정 -->
-	<!-- <update id="updateDonationMileageAndTotalEntry" parameterType="activityVO">
+	<update id="updateDonationMileageAndTotalEntry" parameterType="activityVO">
 		update join_post set jp_total_mileage=jp_total_mileage+#{aMileage}, jp_total_entry=jp_total_entry+1
 		where jp_no=#{joinPostVO.jpNo}
-	</update> -->
+	</update>
 	
 	<!-- 응원메시지 목록 -->
 	<select id="readCheerUpMessageList" resultType="activityVO" resultMap="uaRM">
@@ -158,5 +163,27 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			inner join users u on ua.id=u.id
 		where ua.jp_no=#{value}
 		order by r_no desc
+	</select>
+	
+	<!-- 성별이 남자인 참여자의 수 -->
+	<select id="getDonationMaleEntry" resultType="int">
+		select count(*)
+		from users_activity ua
+			inner join users u on u.id=ua.id
+		where gender='m' or gender='M' and jp_no=#{jpNo}
+	</select>
+	
+	<!-- 성별이 여자인 참여자의 수 -->
+	<select id="getDonationFemaleEntry" resultType="int">
+		select count(*)
+		from users_activity ua
+			inner join users u on u.id=ua.id
+		where gender='f' or gender='F' and jp_no=#{jpNo}
+	</select>
+	
+	<!-- 로그인한 회원의 참여 여부 -->
+	<select id="findEntryByIdAndJpno" parameterType="activityVO" resultMap="uaRM">
+		select u_no, jp_no, id from users_activity
+		where id=#{userVO.id} and jp_no=#{joinPostVO.jpNo}
 	</select>
 </mapper>

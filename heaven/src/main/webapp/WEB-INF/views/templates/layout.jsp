@@ -22,17 +22,11 @@
 	<tiles:insertAttribute name="main" />
 	<tiles:insertAttribute name="footer" />
 
-	<!-- Bootstrap core JavaScript -->
-	<!-- <script type="text/javascript"
-		src="//code.jquery.com/jquery-1.11.0.min.js"></script> -->
+
+	<!-- <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script> -->
 	
-	<script
-		src="${pageContext.request.contextPath }/resources/bootstrap/js/bootstrap.bundle.min.js"></script>
-	<script type="text/javascript"
-		src="/gat/resources/editor/js/HuskyEZCreator.js" charset="utf-8"></script>
+	<script src="${pageContext.request.contextPath }/resources/bootstrap/js/bootstrap.bundle.min.js"></script>
 	<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
-	<script type="text/javascript"
-		src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=anRlGsCNfoEuOHfb1mmv&submodules=geocoder"></script>
 	<script type="text/javascript">
 	    function execPostCode() {
 	         new daum.Postcode({
@@ -76,111 +70,7 @@
 	            }
 	         }).open();
 	     }
-
-	    
-	    	//<!-- 스마트 에디터-->
-			$(function() {
-				//전역변수
-				var obj = [];
-				//스마트에디터 프레임생성
-				nhn.husky.EZCreator.createInIFrame({
-					oAppRef : obj,
-					elPlaceHolder : "appContents",
-					sSkinURI : "/gat/resources/editor/SmartEditor2Skin.html",
-					htParams : {
-						// 툴바 사용 여부 (true:사용/ false:사용하지 않음)
-						bUseToolbar : true,
-						// 입력창 크기 조절바 사용 여부 (true:사용/ false:사용하지 않음)
-						bUseVerticalResizer : false,
-						// 모드 탭(Editor | HTML | TEXT) 사용 여부 (true:사용/ false:사용하지 않음)
-						bUseModeChanger : false,
-					}
-				});
-				//전송버튼
-				$("#savebutton").click(function() {
-					//id가 smarteditor인 textarea에 에디터에서 대입
-					obj.getById["appContents"].exec("UPDATE_CONTENTS_FIELD", []);
-					//폼 submit
-					$("#contactForm").submit();
-				})
-			});
-			
-			
-			function submitContents() {
-		        var elClickedObj = $("#appContents");
-		        oEditors.getById["appContents"].exec("UPDATE_CONTENTS_FIELD", []);
-		        var appContents = $("#appContents").val();
-
-		        if( appContents == ""  || appContents == null || appContents == '&nbsp;' || appContents == '<p>&nbsp;</p>')  {
-		             alert("내용을 입력하세요.");
-		             oEditors.getById["appContents"].exec("FOCUS"); //포커싱
-		             return;
-		        }
-
-		        try {
-		            elClickedObj.submit();
-		        } catch(e) {}
-		    }
-			
 	</script>
-
-	<script type="text/javascript">
-	//지도 타입 설정하는 곳 ( 아무것도 설정 하지 않으면 자동으로 Normal로 적용된다 ) 초기화할 때 설정할수 있다. 
-	var map = new naver.maps.Map('map');
-	// 위성지도를 사용하려면 MapTypeId 객체의 SATELLITE 상수 값을 사용합니다. 
-	//var map = new naver.maps.Map('map', {mapTypeId: naver.maps.MapTypeId.SATELLITE}); 
-	// 위성지도에 지명을 적용하려면 MapTypeId 객체의 HYBRID 상수 값을 사용합니다. 
-	//var map = new naver.maps.Map('map', {mapTypeId: naver.maps.MapTypeId.HYBRID}); 
-	// 기본지도에 높낮이만 적용하려면 MapTypeId 객체의 TERRAIN 상수 값을 사용합니다. 
-	//var map = new naver.maps.Map('map', {mapTypeId: naver.maps.MapTypeId.TERRAIN});
-	
-	//재능기부장소 주소정보
-	var myaddress = '${dpVO.place}';// 도로명 주소나 지번 주소만 가능 (건물명 불가!!!!) 
-	// 주소가 있는지 체크
-	naver.maps.Service
-			.geocode(
-					{
-						address : myaddress
-					},
-					function(status, response) {
-						if (status !== naver.maps.Service.Status.OK) {
-							return alert(myaddress + '의 검색 결과가 없거나 기타 네트워크 에러');
-						}
-						var result = response.result;
-						// 검색 결과 갯수: result.total 
-						// 첫번째 결과 결과 주소: result.items[0].address 
-						// 첫번째 검색 결과 좌표: result.items[0].point.y, result.items[0].point.x 
-						var myaddr = new naver.maps.Point(
-								result.items[0].point.x,
-								result.items[0].point.y);
-						map.setCenter(myaddr); // 검색된 좌표로 지도 이동 
-						// 마커 표시 ( 검색한 주소에 마커를 찍어둠 )
-						var marker = new naver.maps.Marker({
-							position : myaddr,
-							map : map
-						});
-						// 마커 클릭 이벤트 처리 ( 클릭할 경우 infowindow에 등록된 이미지와 이름이 뜸 )
-						naver.maps.Event.addListener(marker, "click", function(
-								e) {
-							if (infowindow.getMap()) {
-								infowindow.close();
-							} else {
-								infowindow.open(map, marker);
-							}
-						});
-						// 마크 클릭시 인포윈도우 오픈 
-						var infowindow = new naver.maps.InfoWindow(
-								{
-									//띄워줄 이름과 사이트 이미지, 클릭했을경우 이동할 url 주소를 입력해주면 된다.
-									content : '<h4> [제목을 넣어주세요]</h4><a href="https://developers.naver.com" target="_blank"><img src="https://developers.naver.com/inc/devcenter/images/nd_img.png"></a>'
-								});
-					});
-	</script>
-	
-	
-
-
-</body>
 
 </body>
 </html>

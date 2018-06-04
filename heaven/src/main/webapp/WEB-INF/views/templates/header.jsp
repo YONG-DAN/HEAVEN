@@ -8,13 +8,16 @@
 		<c:choose>
 			<c:when test="${sessionScope.uvo!=null}">
 				<li class="nav-item"><a class="nav-link" href="#">${sessionScope.uvo.name} 님</a></li>
-				<c:if test="${sessionScope.uvo.userGroupVO.ugroupNo!='4' }">
-					<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath }/users/mypage.do">myPage</a></li>
+				<c:if test="${sessionScope.uvo.userGroupVO.ugroupNo=='1' }">
+					<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath }/users/mypage.do">마이페이지</a></li>
 				</c:if>
-				<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath }/users/logout.do">Logout</a></li>
+				<c:if test="${sessionScope.uvo.userGroupVO.ugroupNo=='2' }">
+					<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath }/users/organizationPage.do">단체회원페이지</a></li>
+				</c:if>
 				<c:if test="${sessionScope.uvo.userGroupVO.ugroupNo=='4' }">
 					<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath }/admin/adminPage.do">관리자 페이지</a></li>
 				</c:if>
+				<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath }/users/logout.do">Logout</a></li>
 			</c:when>
 			<c:otherwise>
 				<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath }/users/loginForm.do">Login</a></li>

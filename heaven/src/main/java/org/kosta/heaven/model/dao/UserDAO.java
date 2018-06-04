@@ -2,15 +2,15 @@ package org.kosta.heaven.model.dao;
 
 import java.util.List;
 
-import org.kosta.heaven.model.vo.post.PagingBeanFive;
 import org.kosta.heaven.model.vo.post.PagingBeanTen;
 import org.kosta.heaven.model.vo.post.activity.ActivityListVO;
+import org.kosta.heaven.model.vo.post.activity.ActivityVO;
 import org.kosta.heaven.model.vo.post.join.JoinPostListVO;
 import org.kosta.heaven.model.vo.post.join.JoinPostVO;
-import org.kosta.heaven.model.vo.post.review.ReviewListVO;
-import org.kosta.heaven.model.vo.post.review.ReviewVO;
 import org.kosta.heaven.model.vo.post.mileage.MileageTradeVO;
 import org.kosta.heaven.model.vo.post.question.QuestionPostVO;
+import org.kosta.heaven.model.vo.post.review.ReviewListVO;
+import org.kosta.heaven.model.vo.post.review.ReviewVO;
 import org.kosta.heaven.model.vo.user.UserVO;
 
 public interface UserDAO {
@@ -62,4 +62,6 @@ public interface UserDAO {
 	public void updateQuestion(QuestionPostVO qVO);
 
 	public void deleteQuestion(int qNo);
+	
+	public void updateUserMileage(ActivityVO activityVO);
 }

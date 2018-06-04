@@ -1,6 +1,29 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=fsO5BCK_U3j98BlQEfLd&submodules=geocoder"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	$("#entryBtn").submit(function(){
+		//사용할 마일리지를 적지 않았을 경우
+		if($("#aMileage").val() == "" || $("#aMileage").val() == null){
+			alert("사용할 마일리지 액수를 적어주세요");
+			return false;
+		// 입력한 마일리지가 0 인 경우
+		}if(parseInt($("#aMileage").val())==0){
+			alert("마일리지 0 이상부터 가능합니다.")
+			return false;
+		// 입력한 마일리지 액수가 보유 마일리지 액수보다 클 경우
+		}else if(parseInt($("#aMileage").val()) > parseInt($("#userMileage").text())){
+			alert("보유하고 있는 마일리지 액수를 초과하였습니다.");
+			return false;
+		}else if(!$('input:checkbox[id="entryAgree"]').is(":checked")){
+			alert("상기 내용에 동의하지 않으셨습니다. 동의해주세요.");
+			return false;
+		}
+	});	
+});
+</script>
 <!-- 재능기부 정보 -->
 <div class="container my-5">
 	<div class="row">
@@ -13,8 +36,8 @@
 			<ul class="jumbotron list-unstyled py-4">
 				<li class="mb-2"><i class="far fa-calendar-alt"></i>신청기간 ${donationVO.jpAppStartDate } - ${donationVO.jpAppEndDate }</li>
 				<li class="mb-2"><i class="far fa-calendar-alt"></i>모임일자 ${donationVO.jpEventStartDate } - ${donationVO.jpEventEndDate }</li>
-				<li class="mb-2"><i class="fas fa-users"></i>현재 참여자 수 ${donationVO.totalEntry }명</li>
-				<li class="mb-2"><i class="fas fa-male"></i> / <i class="fas fa-female"></i></li>
+				<li class="mb-2"><i class="fas fa-users"></i>현재 참여자 수 ${donationVO.totalEntry }명 / 목표 참여자 수 ${donationVO.goalEntry }명</li>
+				<li class="mb-2"><i class="fas fa-male"></i>${maleEntry }명 / <i class="fas fa-female"></i>${femaleEntry }명</li>
 			</ul>
 			<c:choose>
 				<c:when test="${sessionScope.uvo==null }">
@@ -26,7 +49,9 @@
 				<c:when test="${sessionScope.uvo.userGroupVO.ugroupNo != 1}">
 					<button class="btn btn-point btn-lg btn-block" > 개인회원만 참여 가능합니다. </button>	
 				</c:when>
-			
+				<c:when test="${entryVO != null}">
+					<button class="btn btn-point btn-lg btn-block" > 참여는 한번만 가능합니다. </button>	
+				</c:when>
 				<c:otherwise>
 					<button class="btn btn-point btn-lg btn-block" data-toggle="modal" data-target="#entryModal">참여하기</button>	
 				</c:otherwise>
@@ -49,7 +74,7 @@
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
-			<form action="${pageContext.request.contextPath }/addUserActivity.do" method="post">
+			<form action="${pageContext.request.contextPath }/addUserActivity.do" method="post" id="entryBtn">
 			<div class="modal-body">
 				<input type="hidden" name="jpNo" value="${donationVO.jpNo }">
 				<input type="hidden" name="id" value="${sessionScope.uvo.id }">
@@ -68,11 +93,11 @@
 					<label for="jpSummary">감사 마일리지</label>
 					<small class="text-muted">재능기부에 대한 감사의 마음을 마일리지로 전해보세요</small>
 					<input type="number" class="form-control" name="aMileage" id="aMileage">
-					<small class="text-muted">보유 마일리지 : ${sessionScope.uvo.mileage }</small>
+					<small class="text-muted">보유 마일리지 : <span id="userMileage">${sessionScope.uvo.mileage }</span></small>
 				</div>
 				<div class="custom-control custom-checkbox">
-					<input type="checkbox" class="custom-control-input" id="#">
-					<label class="custom-control-label" for="#">상기 내역에 동의합니다.</label>
+					<input type="checkbox" class="custom-control-input" id="entryAgree">
+					<label class="custom-control-label" for="entryAgree">상기 내역에 동의합니다.</label>
 				</div>
 			</div>
 			<div class="modal-footer">
@@ -120,7 +145,7 @@
 				<h6 class="card-header">모임장소</h6>
 				<div class="card-body">
 				  <p><i class="fas fa-map-marker-alt"></i>${donationVO.jpPlace }</p>
-				  <div id="map"></div>
+				  <div id="map" style="width:100%; height:200px;"></div>
 				</div>
 			</div>
 			<div class="card my-4">

@@ -23,8 +23,13 @@
 
 		<div class="col-lg-3">
 			<div class="list-group">
+			<c:if test="${sessionScope.uvo.userGroupVO.ugroupNo=='1' }">
 				<a href="${pageContext.request.contextPath }/users/readMyActivityList.do?nowPage=1" class="list-group-item active">재능기부 참여내역</a>
 				<a href="${pageContext.request.contextPath }/users/readMyApplicationList.do?nowPage=1" class="list-group-item">재능기부 신청내역</a>
+			</c:if>
+			<c:if test="${sessionScope.uvo.userGroupVO.ugroupNo=='2' }">
+				<a href="${pageContext.request.contextPath }/users/readMyActivityList.do?nowPage=1" class="list-group-item active">테이킹 내역</a>
+			</c:if>	
 			</div>
 		</div>
 		<!-- /.col-lg-3 -->
