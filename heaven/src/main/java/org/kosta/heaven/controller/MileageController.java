@@ -3,7 +3,6 @@ package org.kosta.heaven.controller;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-
 import org.kosta.heaven.model.service.MileageService;
 import org.kosta.heaven.model.service.UserService;
 import org.kosta.heaven.model.vo.post.mileage.MileageTradePostListVO;
