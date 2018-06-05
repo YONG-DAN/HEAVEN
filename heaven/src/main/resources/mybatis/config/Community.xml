@@ -11,6 +11,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="ip_regdate" property="iRegdate"/>
 	</resultMap>
 	
+	<!-- 커뮤니티 댓글 RESULT MAP -->
+	<resultMap type="interviewReplyVO" id="irRM">
+		<result column="ipr_no" property="irNo"/>
+		<result column="ipr_content" property="irContents"/>
+		<result column="ipr_regdate" property="irRegdate"/>
+		<result column="id" property="userVO.id"/>
+		<result column="name" property="userVO.name"/>
+		<result column="ip_no" property="interviewVO.iNo"/>
+	</resultMap>
+	
 	<!-- 커뮤니티 목록에 들어갈 컨텐츠 수 구하기 -->
 	<select id="getTotalCommunityContentCount" resultType="int">
 		select count(*) from interview_post
@@ -30,5 +40,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select ip_no, ip_title, ip_regdate
 		from interview_post
 		where ip_no=#{value}
+	</select>
+	
+	<!-- 커뮤니티 댓글 달기 -->
+	<insert id="createInterviewReply" parameterType="interviewReplyVO">
+		insert into interview_post_reply(ipr_no, ipr_content, ipr_regdate, id, ip_no)
+		values(interview_post_reply_seq.nextval, #{irContents}, sysdate, #{userVO.id}, #{interviewVO.iNo})
+	</insert>
+	
+	<!-- 커뮤니티 댓글 불러오기 -->
+	<select id="readReplyList" resultMap="irRM" parameterType="int">
+		select ipr.ipr_no, ipr.ipr_content, ipr.ipr_regdate, ipr.id, ipr.ip_no, u.name
+		from INTERVIEW_POST_REPLY ipr, interview_post ip, users u
+		where ipr.ip_no = ip.ip_no and ipr.id = u.id
+		and ipr.ip_no=#{value}
 	</select>
 </mapper>
