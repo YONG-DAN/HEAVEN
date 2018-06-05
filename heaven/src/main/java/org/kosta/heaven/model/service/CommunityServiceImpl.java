@@ -1,10 +1,13 @@
 package org.kosta.heaven.model.service;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.kosta.heaven.model.dao.CommunityDAO;
 import org.kosta.heaven.model.vo.post.PagingBeanFive;
 import org.kosta.heaven.model.vo.post.interview.InterviewListVO;
+import org.kosta.heaven.model.vo.post.interview.InterviewReplyVO;
 import org.kosta.heaven.model.vo.post.interview.InterviewVO;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -36,8 +39,13 @@ public class CommunityServiceImpl implements CommunityService{
 		return communityDAO.communityDetail(iNo);
 	}
 
-	/*@Override
+	@Override
 	public void createInterviewReply(InterviewReplyVO irVO) {
 		communityDAO.createInterviewReply(irVO);
-	}*/
+	}
+
+	@Override
+	public List<InterviewReplyVO> readReplyList(int iNo) {
+		return communityDAO.readReplyList(iNo);
+	}
 }
