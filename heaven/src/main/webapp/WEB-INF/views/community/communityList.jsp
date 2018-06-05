@@ -12,7 +12,9 @@
 		<div class="col-12">
 			<div class="d-flex align-items-end">
 			<!-- 글쓰기 폼은 아직 구현하지 않았습니다 -->
+			<c:if test="${sessionScope.uvo.userGroupVO.ugroupNo=='4' }">
 				<a href="${pageContext.request.contextPath }/community/createCommunityPost.do" class="btn btn-sub-2 ml-auto mr-1 " id="#">글쓰기</a>
+			</c:if>
 			</div>
 		</div>
 	</div>
