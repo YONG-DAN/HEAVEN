@@ -42,5 +42,9 @@ public interface JoinDAO {
 	void multiplePhotoUpload(HttpServletRequest request, HttpServletResponse response);
 
 	void addReview(ReviewVO reviewVO);
+
+	JoinPostListVO readTakingList(int nowPage);
+
+	JoinPostVO readTakingDetail(int jpNo);
 	
 }

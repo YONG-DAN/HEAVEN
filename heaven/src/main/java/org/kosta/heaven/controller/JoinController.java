@@ -58,9 +58,16 @@ public class JoinController {
 
 		joinPostVO.setJoinPostGroupVO(joinPostGroupVO);
 		joinService.application(joinPostVO);
-		return "redirect:donation/readDonationDetail.do";
+		
+		if(jpGroupNo.equals("1")) {
+			return "redirect:donation/readDonationList.do";
+		}else if(jpGroupNo.equals("2")) {
+			return "redirect:taking/readTakingList.do";
+		}else {
+			return "redirect:home.do";
+		}
 	}
-
+	
 	/**
 	 * 재능기부 목록
 	 * 신청된 재능기부 중 승인이 된 재능기부에 대한 목록을 볼 수 있다.
@@ -133,7 +140,7 @@ public class JoinController {
 	 * @return
 	 */
 	@RequestMapping(method = RequestMethod.POST, value = "addUserActivity.do")
-	public String addUserActivity(ActivityVO activityVO, String jpNo, String id, String name, String gender) {
+	public String addUserActivity(ActivityVO activityVO, String jpNo, String id, String name, String gender, String jpGroupNo) {
 		UserVO userVO = new UserVO();
 		JoinPostVO joinPostVO = new JoinPostVO();
 		
@@ -156,7 +163,15 @@ public class JoinController {
 		
 		// 참여하기 기능
 		joinService.addUserActivity(activityVO);
-		return "redirect:donation/readDonationDetail.do?jpNo=" + jpNo;
+		
+		if(jpGroupNo.equals("1")) {
+			return "redirect:donation/readDonationDetail.do?jpNo=" + jpNo;
+		}else if(jpGroupNo.equals("2")){
+			return "redirect:taking/readTakingDetail.do?jpNo="+jpNo;
+		}else {
+			return "redirect:home.do";
+		}
+		
 	}
 
 	/**
@@ -192,6 +207,43 @@ public class JoinController {
 		joinService.addReview(reviewVO);
 		
 		return "redirect:donation/readDonationDetail.do?jpNo=" + jpNo;
+	}
+	
+	/**
+	 * 테이킹 목록
+	 * 신청된 재능기부 중 승인이 된 재능기부에 대한 목록을 볼 수 있다.
+	 * 
+	 * @author 조민경
+	 * @param nowPage
+	 * @return
+	 * 
+	 */
+	@RequestMapping("taking/readTakingList.do")
+	public String readTakingList(int nowPage, Model model) {
+		JoinPostListVO takingList = joinService.readTakingList(nowPage);
+		model.addAttribute("takingList", takingList);
+		return "taking/readTakingList.tiles";
+	}
+	
+	/**
+	 * 테이킹 상세
+	 * 테이킹 목록에서 선택한 테이킹에 대한 상세 내용을 볼 수 있다.
+	 * @param jpNo
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping("taking/readTakingDetail.do")
+	public String readTakingDetail(int jpNo, Model model) {
+		// 해당 테이킹에 대한 상세 내용
+		JoinPostVO takingVO = joinService.readTakingDetail(jpNo);
+		// 해당 테이킹 게시물의 응원메시지 목록
+		List<ActivityVO> activityList = joinService.readCheerUpMessageList(jpNo);
+		// 해당 테이킹에 대한 상세 내용
+		model.addAttribute("takingVO", takingVO);
+		// 해당 테이킹 게시물의 응원메시지 목록
+		model.addAttribute("activityList", activityList);
+		
+		return "taking/readTakingDetail.tiles";
 	}
 	
 }

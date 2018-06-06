@@ -34,6 +34,7 @@ public class JoinDAOImpl implements JoinDAO {
 	// 신청하기
 	@Override
 	public void application(JoinPostVO joinPostVO) {
+		System.out.println("JoinDAOImpl [joinPostVO] : "+joinPostVO);
 		template.insert("join.application", joinPostVO);
 	}
 
@@ -251,6 +252,27 @@ public class JoinDAOImpl implements JoinDAO {
 	public void addReview(ReviewVO reviewVO) {
 		template.insert("join.addReview", reviewVO);
 	}
+	
+	// 테이킹 목록
+	@Override
+	public JoinPostListVO readTakingList(int nowPage) {
+		PagingBeanFive pbf = null;
+		int totalDonationCount = template.selectOne("join.readTakingCount");
+		if (nowPage == 0) {
+			pbf = new PagingBeanFive(totalDonationCount);
+		} else {
+			pbf = new PagingBeanFive(totalDonationCount, nowPage);
+		}
+		List<JoinPostVO> takingList = template.selectList("join.readTakingList", pbf);
+		JoinPostListVO takingListVO = new JoinPostListVO(takingList, pbf);
 
+		return takingListVO;
+	}
+	
+	// 재능기부 상세
+	@Override
+	public JoinPostVO readTakingDetail(int jpNo) {
+		return template.selectOne("join.readTakingDetail", jpNo);
+	}
 
 }

@@ -41,7 +41,7 @@ $(document).ready(function(){
 			</ul>
 			<c:choose>
 				<c:when test="${sessionScope.uvo==null }">
-					<button class="btn btn-point btn-lg btn-block" > 로그인 후 참여가 가능합니다 </button>	
+					<a class="btn btn-point btn-lg btn-block" href="${pageContext.request.contextPath }/users/loginForm.do"> 로그인 후 참여가 가능합니다 </a>	
 				</c:when>
 				<c:when test="${sessionScope.uvo.id==donationVO.userVO.id }">
 					<button class="btn btn-point btn-lg btn-block" > 재능기부자는 참여 할 수 없습니다. </button>	
@@ -78,7 +78,8 @@ $(document).ready(function(){
 			<div class="modal-body">
 				<input type="hidden" name="jpNo" value="${donationVO.jpNo }">
 				<input type="hidden" name="id" value="${sessionScope.uvo.id }">
-				<input type="hidden" name="name" value="${sessionScope.uvo.name }">
+				<input type="hidden" name="name" value="${sessionScope.uvo.name }">				
+				<input type="hidden" name="jpGroupNo" value="${takingVO.joinPostGroupVO.jpGroupNo}">
 				<ul class="jumbotron list-unstyled py-4">
 					<li class="mb-2">${donationVO.jpTitle }</li>
 					<li class="mb-2"><i class="far fa-calendar-alt"></i>모임기간 ${donationVO.jpEventStartDate } - ${donationVO.jpEventEndDate }</li>

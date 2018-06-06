@@ -32,4 +32,8 @@ public interface JoinService {
 	String file_upload_save(MultipartFile uploadfile, ModelMap modelMap);
 	
 	void addReview(ReviewVO reviewVO);
+
+	JoinPostListVO readTakingList(int nowPage);
+	
+	JoinPostVO readTakingDetail(int jpNo);
 }

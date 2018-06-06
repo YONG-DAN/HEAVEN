@@ -69,10 +69,10 @@ nav.navbar>.container>.navbar-brand>img{
 /* tab menu style */
 .nav-pills .nav-link{
 	background-color:#fff;
-	color:#1e878d !important;
+	color:#34bdb6 !important;
 }
 .nav-pills .nav-link.active, .nav-pills .show>.nav-link{
-	background-color:#1e878d;
+	background-color:#34bdb6;
 	color:#fff !important;
 }
 
@@ -140,6 +140,10 @@ a.sub-4-txt:hover{
 
 .bg-black{
 	background-color:#000;
+}
+
+.bg-white{
+	background-color:#fff;	
 }
 
 

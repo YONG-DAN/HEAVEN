@@ -67,7 +67,6 @@ public class JoinServiceImpl implements JoinService {
 	@Override
 	@Transactional
 	public void addUserActivity(ActivityVO activityVO) {
-		System.out.println("JoinServiceImpl [activityVO]"+activityVO);
 		//재능기부 참여
 		joinDAO.addUserActivity(activityVO);
 		
@@ -132,5 +131,17 @@ public class JoinServiceImpl implements JoinService {
 	@Override
 	public void addReview(ReviewVO reviewVO) {
 		joinDAO.addReview(reviewVO);
+	}
+	
+	// 테이킹 목록
+	@Override
+	public JoinPostListVO readTakingList(int nowPage) {
+		return joinDAO.readTakingList(nowPage);
+	}
+
+	// 테이킹 상세
+	@Override
+	public JoinPostVO readTakingDetail(int jpNo) {
+		return joinDAO.readTakingDetail(jpNo);
 	}
 }

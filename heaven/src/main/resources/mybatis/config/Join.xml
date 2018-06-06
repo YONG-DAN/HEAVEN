@@ -111,6 +111,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			jp.jp_goal_entry as jp_goal_entry, 
 			jp.jp_total_entry as jp_total_entry, 
 			jp.jp_status as jp_status, 
+			jp.jp_group_no as jp_group_no,
 			jp.jp_progress as jp_progress, 
 			u.id as id, 
 			u.name as name,
@@ -196,4 +197,58 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		insert into review(r_no, r_title, r_contents, r_regdate, r_rate, ua_no)
 		values(#{rNo}, #{rTitle}, #{rContents}, sysdate, #{rRate}, #{activityVO.aNo})
 	</insert>
+		
+	<!-- 테이킹 게시글 목록 -->	
+	<select id="readTakingList" resultType="joinPostListVO" resultMap="jpRM">
+		select j.jp_no, j.jp_title, j.jp_contents, j.jp_summary, 
+				to_char(j.jp_app_start_date,'yyyy-mm-dd') as jp_app_start_date, to_char(j.jp_app_end_date, 'yyyy-mm-dd') as jp_app_end_date,
+				j.jp_imgdirectory, j.jp_regdate, j.jp_goal_mileage, j.jp_total_mileage,
+				j.jp_total_entry, j.jp_status, j.id, j.jp_group_no, j.jp_progress 
+		from (select 
+				row_number() over (order by jp_no desc) as rnum, jp_no, jp_title, jp_contents, jp_summary, jp_app_start_date, jp_app_end_date,
+				jp_imgdirectory, jp_regdate, jp_goal_mileage, jp_total_mileage,
+				 jp_total_entry, jp_status, id, jp_group_no, jp_progress 
+			from join_post
+			where jp_group_no='2' and jp_progress='2' and jp_status='승인'
+		)j, join_post jp
+		where j.jp_no=jp.jp_no and rnum between #{startRowNumber} and #{endRowNumber}
+		order by j.jp_no desc	
+	</select>
+	
+	<!-- 승인된 테이킹 게시물 수 -->
+	<select id="readTakingCount" resultType="int" parameterType="pagingBeanFive">
+		select count(*)
+		from join_post
+		where jp_group_no='2' and jp_progress='2' and jp_status='승인' 
+	</select>
+	
+	<!-- 테이킹 상세 -->
+	<select id="readTakingDetail" parameterType="int" resultType="joinPostVO" resultMap="jpRM">
+		select
+			jp.jp_no as jp_no,
+			jp.jp_title as jp_title, 
+			jp.jp_contents as jp_contents, 
+			jp.jp_summary as jp_summary, 
+			to_char(jp.jp_app_start_date,'yyyy-mm-dd') as jp_app_start_date, 
+			to_char(jp.jp_app_end_date, 'yyyy-mm-dd') as jp_app_end_date,
+			jp.jp_imgdirectory as jp_imgdirectory, 
+			jp.jp_regdate as jp_regdate, 
+			jp.jp_goal_mileage as jp_goal_mileage, 
+			jp.jp_total_mileage as jp_total_mileage,
+			jp.jp_total_entry as jp_total_entry, 
+			jp.jp_status as jp_status, 
+			jp.jp_progress as jp_progress, 
+			jp.jp_group_no as jp_group_no,
+			u.id as id, 
+			u.name as name,
+			g.ugroup_no as ugroup_no, 
+			g.ugroup_name as ugroup_name,
+			grade.ugrade_no as ugrade_no,
+			grade.ugrade_name as ugrade_name
+		from join_post jp 
+			inner join users u on jp.id=u.id
+			inner join users_group g on u.ugroup_no=g.ugroup_no
+			inner join users_grade grade on u.ugroup_no=grade.ugrade_no
+		where jp.jp_no=#{value}		
+	</select>
 </mapper>
