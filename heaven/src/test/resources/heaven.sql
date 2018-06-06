@@ -59,7 +59,7 @@ insert into users(id, password, name, birthday, gender, address, email, ugroup_n
 values('bbb','1111','bbb',to_date('1990.01.01','yyyy-mm-dd'),'f','파리','aaa@aa.a','1','1')
 
 insert into users(id, password, name, birthday,gender,address, email, company_no, ugroup_no, ugrade_no)
-values('단체A','1111','단체Z',to_date('1990.01.01','yyyy-mm-dd'),'5','아차산','admin@admi.n',1345613456,'2','4')
+values('admin','1111','어드민',to_date('1990.01.01','yyyy-mm-dd'),'5','아차산','admin@admi.n',1345613456,'2','4')
 
 --마일리지 거래 분류 테이블
 drop table mileage_group;
@@ -290,3 +290,21 @@ create table interview_post_reply(
 )
 
 select * from interview_post_reply;
+
+--인터뷰 게시판 시퀀스
+create sequence interview_post_reply_seq;
+
+
+insert into interview_post(ip_no, ip_title, ip_regdate, ip_imgdirectory, id)
+values(interview_post_seq.nextval, '6월의 기부자 백설희님을 만나봅시다', sysdate, '이미지 경로입니다', 'admin');
+insert into interview_post(ip_no, ip_title, ip_regdate, ip_imgdirectory, id)
+values(interview_post_seq.nextval, '7월의 기부자 조선화님을 만나봅시다', sysdate, '이미지 경로입니다', 'admin');
+
+select * from INTERVIEW_POST
+
+insert into interview_post_reply(ipr_no,ipr_content,ipr_regdate,id,ip_no)
+values(interview_post_seq.nextval,'최고예요 멋있어요, 저도 꼭 8월의 기부자가 될거예요',sysdate,'nana',2);
+
+
+
+

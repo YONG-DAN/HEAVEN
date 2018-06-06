@@ -48,7 +48,7 @@
 					<a class="nav-link" href="${pageContext.request.contextPath }/taking/readTakingList.do?nowPage=1">테이킹</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="${pageContext.request.contextPath }/board/list_board.do">커뮤니티</a>
+					<a class="nav-link" href="${pageContext.request.contextPath }/community/communityList.do?nowPage=1">커뮤니티</a>
 				</li>
 				<li class="nav-item">
 					<a class="nav-link" href="${pageContext.request.contextPath }/board/createQuestionForm.do">문의하기</a>

@@ -1,5 +1,6 @@
 package org.kosta.heaven.controller;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -15,8 +16,6 @@ import org.kosta.heaven.model.vo.post.join.JoinPostVO;
 import org.kosta.heaven.model.vo.post.question.QuestionPostListVO;
 import org.kosta.heaven.model.vo.post.question.QuestionPostVO;
 import org.kosta.heaven.model.vo.post.review.ReviewListVO;
-import org.kosta.heaven.model.vo.user.UserGroupVO;
-import org.kosta.heaven.model.vo.user.UserVO;
 import org.kosta.heaven.model.vo.post.review.ReviewVO;
 import org.kosta.heaven.model.vo.user.UserGroupVO;
 import org.kosta.heaven.model.vo.user.UserVO;
@@ -33,6 +32,21 @@ public class UserController {
 	
 	@Resource
 	private UserService userService;
+	
+	/**
+	 * 회원가입 폼으로 가는 메서드
+	 * 생년월일에 현재 날짜까지로 제한을 주기 위해 생성
+	 * 
+	 * @author 용다은
+	 */
+	@RequestMapping("users/registerNormalForm")
+	public String registerNormalForm(Model model) {
+		//현재 날짜를 yyyy-mm-dd 형식으로 가져와서 registerNormalForm에 뿌려 줌
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = new Date();
+		model.addAttribute("today", dateFormat.format(date));
+		return "users/registerNormalForm.tiles";
+	}
 	
 	/**
 	* 회원가입 메서드

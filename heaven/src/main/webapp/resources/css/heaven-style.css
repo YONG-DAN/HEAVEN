@@ -402,4 +402,18 @@ a.badge:focus {
     margin-bottom: 40px;
     padding-top: 25px;
 }
+.communityDetail{
+	margin: 0 auto;
+}
+#commentParentSubmit{
+	margin-bottom: 5px;	
+}
+.carousel-item:nth-child(2){
+	text-shadow: 0 1px 0 rgba(0,0,0,0.83);
+}
+.carousel-item:nth-child(3)>.carousel-caption>h3{
+	color: #777;
+}
+.carousel-item:nth-child(3)>.carousel-caption>p{
+	color: #777;
 }
