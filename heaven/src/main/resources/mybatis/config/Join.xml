@@ -6,6 +6,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="join">
 	<!-- 참여게시판 resultMap -->
 	<resultMap type="joinPostVO" id="jpRM">	
+		<result column="jp_imgdirectory" property="jpImgDirect"/>
  		<result column="jp_goal_mileage" property="goalMileage"/>
  		<result column="jp_total_mileage" property="totalMileage"/>
  		<result column="jp_goal_entry" property="goalEntry"/>

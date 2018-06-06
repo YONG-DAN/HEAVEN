@@ -16,6 +16,8 @@ import org.kosta.heaven.model.vo.post.review.ReviewVO;
 import org.kosta.heaven.model.vo.user.UserVO;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class JoinServiceImpl implements JoinService {
@@ -119,5 +121,10 @@ public class JoinServiceImpl implements JoinService {
 		activityVO.setUserVO(userVO);
 		activityVO.setJoinPostVO(joinPostVO);
 		return joinDAO.findEntryByIdAndJpno(activityVO);
+	}
+
+	@Override
+	public String file_upload_save(MultipartFile uploadfile, ModelMap modelMap) {
+		return joinDAO.file_upload_save(uploadfile, modelMap);		
 	}
 }
