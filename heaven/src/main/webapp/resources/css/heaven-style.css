@@ -66,6 +66,21 @@ nav.navbar>.container>.navbar-brand>img{
 	height:70px;
 }
 
+/* tab menu style */
+.nav-pills .nav-link{
+	background-color:#fff;
+	color:#1e878d !important;
+}
+.nav-pills .nav-link.active, .nav-pills .show>.nav-link{
+	background-color:#1e878d;
+	color:#fff !important;
+}
+
+/* btn lg font-size*/
+.btn-group-lg>.btn, .btn-lg{
+	font-size : 1rem;
+}
+
 
 /* gibu n take text color */
 .point-txt{

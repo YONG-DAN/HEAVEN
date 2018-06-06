@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %> 
 <script type="text/javascript">
 $(document).ready(function(){
 	$("#entryBtn").submit(function(){
@@ -111,33 +112,134 @@ $(document).ready(function(){
 <!-- menu -->
 <nav class="mt-5 border-top border-bottom">
 	<div class="container border-left border-right">
-		<ul class="nav nav-pills">	
+		<ul class="nav nav-pills" id="pills-tab" role="tablist">
 			<li class="nav-item">
-				<a class="nav-link sub-1-txt" href="#">재능기부 소개</a>
+				<a class="nav-link active" id="info-tab" data-toggle="pill" href="#info" role="tab" aria-controls="info" aria-selected="true">재능기부 소개</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link sub-1-txt" href="${pageContext.request.contextPath }/donation/readCheerUpMessageList.do?jpNo=${donationVO.jpNo }">응원메시지</a>
-			</li>	
-			<li class="nav-item">
-				<a class="nav-link sub-1-txt" href="${pageContext.request.contextPath }/donation/readReviewList.do?jpNo=${donationVO.jpNo }">후기</a>
+				<a class="nav-link" id="msg-tab" data-toggle="pill" href="#msg" role="tab" aria-controls="msg" aria-selected="false">응원메시지</a>
 			</li>
-			
+			<li class="nav-item">
+				<a class="nav-link" id="review-tab" data-toggle="pill" href="#review" role="tab" aria-controls="review" aria-selected="false">후기</a>
+			</li>
 		</ul>
 	</div>
 </nav>
 
-<!-- sidebar detail -->
 <div class="container">
 	<div class="row">
-		<!-- 재능기부 설명 - editor -->
 		<div class="col-lg-8">
-			<div class="card my-4">
-				<div class="card-body">
-					${donationVO.jpContents }
+			<div class="tab-content" id="pills-tabContent">
+				<!-- 해당 재능기부 소개  -->
+				<div class="tab-pane fade show active" id="info" role="tabpanel" aria-labelledby="info-tab">
+					<div class="card my-4">
+						<div class="card-header">재능기부 소개</div>
+						<div class="card-body">
+							${donationVO.jpContents }
+						</div>
+					</div>
 				</div>
-			</div>
+				<!-- 응원 메시지 -->
+				<div class="tab-pane fade" id="msg" role="tabpanel" aria-labelledby="msg-tab">
+					<div class="card my-4">
+						<div class="card-header">응원메시지</div>
+						<div class="card-body">
+							<table class="table table-hover">
+								<tbody>
+									<c:choose>
+										<c:when test="${fn:length(activityList)==0}">
+											<div class="mt-3 mb-3">여러분의 참여를 기다립니다.</div>
+										</c:when>
+										<c:otherwise>
+											<c:forEach items="${activityList }" var="list">
+												<tr>
+													<td>${list.cheerUpMessage }</td>
+													<td>${list.aMileage } 마일리지</td>
+													<td>${list.userVO.name }</td>
+													<td>${list.aRegdate }</td>
+												</tr>
+											</c:forEach>
+										</c:otherwise>
+									</c:choose>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+				<!-- 후기 목록 -->
+				<div class="tab-pane fade" id="review" role="tabpanel" aria-labelledby="review-tab">
+					<div class="card my-4">
+						<h6 class="card-header">후기</h6>
+						<div class="card-body">							<c:if test="${entryVO != null}">
+								<small class="text-muted">참여하신 재능기부에 대한 후기를 남겨주세요 
+									<a href="#" class="border-left ml-1 pl-1 sub-1-txt" data-toggle="modal" data-target="#entryReviewModal">후기 작성하기</a>
+								</small>
+							</c:if>
+							<c:choose>
+								<c:when test="${fn:length(reviewList)==0}">
+									<div class="mt-3 mb-3">참여하고 후기를 남기세요!</div>
+								</c:when>
+								
+								<c:otherwise>
+								<table class="table table-hover mt-4">
+									<thead>
+										<tr>
+											<th>제목</th>
+											<th>작성자</th>
+											<th>작성일</th>
+										</tr>
+									</thead>
+									<tbody>
+										<c:forEach items="${reviewList }" var="list" varStatus="i">
+										<tr>
+											<td><a href="#" data-toggle="modal" data-target="#entryReviewDetail${i.index}">${list.rTitle }</a></td>
+											<td>${list.activityVO.userVO.name }</td>
+											<td>${list.rRegdate }</td>
+										</tr>
+										<!-- 후기 상세 Modal -->
+										<div class="modal fade" id="entryReviewDetail${i.index }" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+											<div class="modal-dialog" role="document">
+												<div class="modal-content">
+													<div class="modal-header bg-point white-txt">
+														<h5 class="modal-title" id="exampleModalLabel">후기</h5>
+														<button type="button" class="close white-txt" data-dismiss="modal" aria-label="Close">
+															<span aria-hidden="true">&times;</span>
+														</button>
+													</div>
+													<div class="modal-body">
+														<div class="mb-3">
+															<h4>${list.rTitle }</h4>
+														</div>
+														<div class="mb-3 row">
+															<label for="rTitle" class="col-sm-2 col-form-label">작성자</label>
+															<div class="col-sm-10">
+																<input type="text" class="form-control-plaintext" name="name" id="name" value="${list.activityVO.userVO.name }" readonly="readonly">
+															</div>
+														</div>
+														<div class="mb-3">
+															<label for="rContents">내용</label>
+															<div class="jumbotron">
+																<pre>${list.rContents }</pre>
+															</div>
+														</div>
+													</div>								
+													<div class="modal-footer">
+														<button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Close</button>
+													</div>
+												</div>
+											</div>
+										</div>	
+										<!-- /.후기 상세 modal -->		
+										</c:forEach>										
+									</tbody>									
+								</table>
+								</c:otherwise>
+							</c:choose>
+						</div>
+					</div>
+				</div>
+			</div>		
 		</div>
-		
 		<!-- 재능기부 기부자 정보 등 -->
 		<div class="col-lg-4 col-mb-4">
 			<div class="card my-4">
@@ -166,3 +268,55 @@ $(document).ready(function(){
 		</div>
 	</div>
 </div>
+
+<!-- 후기작성 modal -->
+<!-- Modal -->
+<div class="modal fade" id="entryReviewModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header bg-point white-txt">
+				<h5 class="modal-title" id="exampleModalLabel">후기 작성</h5>
+				<button type="button" class="close white-txt" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<form action="${pageContext.request.contextPath }/addReview.do" method="post">
+			<div class="modal-body">
+				${entryVO }
+				<input type="hidden" name="aNo" value="${entryVO.aNo }">
+				<input type="hidden" name="id" value="${sessionScope.uvo.id }">
+				<input type="hidden" name="jpNo" value="${donationVO.jpNo }">
+				<ul class="jumbotron list-unstyled py-4">
+					<li class="mb-2">${donationVO.jpTitle }</li>
+					<li class="mb-2"><i class="far fa-calendar-alt"></i>모임기간 ${donationVO.jpEventStartDate } - ${donationVO.jpEventEndDate }</li>
+					<li class="mb-2"><i class="fas fa-map-marker-alt"></i>모임 장소 ${donationVO.jpPlace }</li>
+				</ul>
+				<div class="mb-3">
+					<label for="rTitle">작성자</label>
+					<input type="text" class="form-control" name="name" id="name" value="${sessionScope.uvo.name }" readonly="readonly">
+				</div>
+				
+				<div class="mb-3">
+					<label for="rTitle">제목</label>
+					<small class="text-muted">재능기부자에게 따뜻한 응원메시지를 남겨보세요</small>
+					<input type="text" class="form-control" name="rTitle" id="rTitle">
+				</div>
+				<div class="mb-3">
+					<label for="rRate">평점</label>
+					<input type="number" class="form-control" name="rRate" id="rRate" min="0" max="5"/>
+				</div>
+				<div class="mb-3">
+					<label for="rContents">내용</label>
+					<textarea class="form-control" name="rContents" id="rContents"></textarea>
+				</div>
+				
+			</div>
+			<div class="modal-footer">
+				<button type="submit" class="btn btn-point">작성하기</button>
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+			</div>
+			</form>
+		</div>
+	</div>
+</div>
+<!--/.후기작성 modal -->

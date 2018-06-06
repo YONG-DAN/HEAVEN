@@ -89,6 +89,8 @@ public class JoinDAOImpl implements JoinDAO {
 	public int getDonationMaleEntry(int jpNo) {
 		return template.selectOne("join.getDonationMaleEntry", jpNo);
 	}
+	
+	
 
 	// 성별이 남자인 참여자의 수
 	@Override
@@ -242,6 +244,12 @@ public class JoinDAOImpl implements JoinDAO {
 	        e.printStackTrace();
 	    }
 		
+	}
+	
+	// 해당 재능기부 후기 작성
+	@Override
+	public void addReview(ReviewVO reviewVO) {
+		template.insert("join.addReview", reviewVO);
 	}
 
 

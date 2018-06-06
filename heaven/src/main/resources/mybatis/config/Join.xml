@@ -187,4 +187,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select u_no, jp_no, id from users_activity
 		where id=#{userVO.id} and jp_no=#{joinPostVO.jpNo}
 	</select>
+	
+	<!-- 후기 작성 -->
+	<insert id="addReview" parameterType="reviewVO">
+		<selectKey keyProperty="rNo" resultType="int" order="BEFORE">
+ 			select review_seq.nextval from dual
+ 		</selectKey>
+		insert into review(r_no, r_title, r_contents, r_regdate, r_rate, ua_no)
+		values(#{rNo}, #{rTitle}, #{rContents}, sysdate, #{rRate}, #{activityVO.aNo})
+	</insert>
 </mapper>

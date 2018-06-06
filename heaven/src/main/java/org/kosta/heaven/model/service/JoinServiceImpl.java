@@ -127,4 +127,10 @@ public class JoinServiceImpl implements JoinService {
 	public String file_upload_save(MultipartFile uploadfile, ModelMap modelMap) {
 		return joinDAO.file_upload_save(uploadfile, modelMap);		
 	}
+	
+	// 해당 재능기부 후기 작성
+	@Override
+	public void addReview(ReviewVO reviewVO) {
+		joinDAO.addReview(reviewVO);
+	}
 }

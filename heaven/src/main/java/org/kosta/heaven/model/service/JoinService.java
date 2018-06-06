@@ -30,4 +30,6 @@ public interface JoinService {
 	ActivityVO findEntryByIdAndJpno(int jpNo, String id);
 
 	String file_upload_save(MultipartFile uploadfile, ModelMap modelMap);
+	
+	void addReview(ReviewVO reviewVO);
 }

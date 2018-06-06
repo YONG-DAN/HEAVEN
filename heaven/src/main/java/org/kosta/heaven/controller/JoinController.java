@@ -58,7 +58,7 @@ public class JoinController {
 
 		joinPostVO.setJoinPostGroupVO(joinPostGroupVO);
 		joinService.application(joinPostVO);
-		return "redirect:home.do";
+		return "redirect:donation/readDonationDetail.do";
 	}
 
 	/**
@@ -94,14 +94,30 @@ public class JoinController {
 		if (session != null || session.getAttribute("uvo") != null) {
 			uvo = (UserVO) session.getAttribute("uvo");
 			if (uvo != null) {
+				// 접속한 회원이 해당 재능기부에 참여한 참여번호
 				entryVO = joinService.findEntryByIdAndJpno(jpNo, uvo.getId());
 			}
 		}
+		// 재능기부 게시물 번호에 따른 상세 내용
 		JoinPostVO donationVO = joinService.readDonationDetail(jpNo);
+		// 해당 재능기부 게시물의 응원메시지 목록
+		List<ActivityVO> activityList = joinService.readCheerUpMessageList(jpNo);
+		// 해당 재능기부 게시물의 후기 목록
+		List<ReviewVO> reviewList = joinService.readReviewList(jpNo);
+		
+		// 재능기부 게시물 번호에 따른 상세 내용
 		model.addAttribute("donationVO", donationVO);
+		// 해당 재능기부에 참여한 남자 회원의 수
 		model.addAttribute("maleEntry", joinService.getDonationMaleEntry(jpNo));
+		// 해당 재능기부에 참여한 여자 회원의 수
 		model.addAttribute("femaleEntry", joinService.getDonationFemaleEntry(jpNo));
+		// 접속한 회원이 해당 재능기부에 참여했는지 여부
 		model.addAttribute("entryVO", entryVO);
+		// 해당 재능기부 게시물의 응원메시지 목록
+		model.addAttribute("activityList", activityList);
+		// 해당 재능기부 게시물의 후기 목록
+		model.addAttribute("reviewList", reviewList);
+		
 		return "donation/readDonationDetail.tiles";
 	}
 
@@ -120,51 +136,62 @@ public class JoinController {
 	public String addUserActivity(ActivityVO activityVO, String jpNo, String id, String name, String gender) {
 		UserVO userVO = new UserVO();
 		JoinPostVO joinPostVO = new JoinPostVO();
+		
 		// userVO setting
 		userVO.setId(id);
-		userVO.setName(name);
+		userVO.setName(name);		
 		userVO.setGender(gender);
+		
 		// joinPostVO setting
 		joinPostVO.setJpNo(Integer.parseInt(jpNo));
+		
 		// activityVO setting
-		activityVO.setUserVO(userVO);
+		activityVO.setUserVO(userVO);		
 		activityVO.setJoinPostVO(joinPostVO);
+		
+		//응원메시지를 입력하지 않았을 때 null로 강제 입력
 		if (activityVO.getCheerUpMessage().equals("") || activityVO.getCheerUpMessage() == null) {
 			activityVO.setCheerUpMessage(null);
 		}
+		
 		// 참여하기 기능
 		joinService.addUserActivity(activityVO);
 		return "redirect:donation/readDonationDetail.do?jpNo=" + jpNo;
 	}
 
 	/**
-	 * 응원메시지 목록 
-	 * 해당 재능기부에 있는 응원메시지 목록을 가지고 온다
+	 * 후기 작성하기
+	 * 참여한 회원에 한하여 참여한 재능기부에 후기를 작성할 수 있다.
 	 * 
+	 * @param reviewVO
+	 * @param aNo
+	 * @param id
 	 * @param jpNo
-	 * @param model
 	 * @return
 	 */
-	@RequestMapping("donation/readCheerUpMessageList.do")
-	public String readCheerUpMessageList(int jpNo, Model model) {
-		List<ActivityVO> activityList = joinService.readCheerUpMessageList(jpNo);
-		model.addAttribute("activityList", activityList);
-		return "donation/readCheerUpMessageList.tiles";
-	}
-
-	/**
-	 * 후기 목록 
-	 * 해당 재능기부에 있는 후기 목록을 가지고 온다
-	 * 
-	 * @param jpNo
-	 * @param model
-	 * @return
-	 */
-	@RequestMapping("donation/readReviewList.do")
-	public String readReviewList(int jpNo, Model model) {
-		List<ReviewVO> reviewList = joinService.readReviewList(jpNo);
-		model.addAttribute("reviewList", reviewList);
-		return "donation/readReviewList.tiles";
+	@RequestMapping(method = RequestMethod.POST, value="addReview.do")
+	public String addReview(ReviewVO reviewVO, String aNo, String id, String jpNo) {
+		UserVO userVO = new UserVO();
+		JoinPostVO joinPostVO = new JoinPostVO();
+		ActivityVO activityVO = new ActivityVO();
+		
+		// userVO setting
+		userVO.setId(id);
+		
+		// joinPostVO setting
+		joinPostVO.setJpNo(Integer.parseInt(jpNo));
+		
+		// activityVO setting
+		activityVO.setaNo(Integer.parseInt(aNo));
+		activityVO.setUserVO(userVO);
+		activityVO.setJoinPostVO(joinPostVO);
+		
+		//reviewVO setting
+		reviewVO.setActivityVO(activityVO);
+		
+		joinService.addReview(reviewVO);
+		
+		return "redirect:donation/readDonationDetail.do?jpNo=" + jpNo;
 	}
 	
 }

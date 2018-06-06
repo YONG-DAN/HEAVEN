@@ -40,5 +40,7 @@ public interface JoinDAO {
 	String photoUpload(HttpServletRequest request, PhotoVO vo);
 
 	void multiplePhotoUpload(HttpServletRequest request, HttpServletResponse response);
+
+	void addReview(ReviewVO reviewVO);
 	
 }
