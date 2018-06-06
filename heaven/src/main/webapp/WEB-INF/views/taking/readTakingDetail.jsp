@@ -153,6 +153,7 @@ $(document).ready(function(){
 										<c:otherwise>
 											<c:forEach items="${activityList }" var="list">
 												<tr>
+													<td><img alt="default_img" src="${pageContext.request.contextPath }/resources/img/default_img.png" class="" ></td>
 													<td>${list.cheerUpMessage }</td>
 													<td>${list.aMileage } 마일리지</td>
 													<td>${list.userVO.name }</td>

@@ -154,10 +154,11 @@ $(document).ready(function(){
 										<c:otherwise>
 											<c:forEach items="${activityList }" var="list">
 												<tr>
-													<td>${list.cheerUpMessage }</td>
-													<td>${list.aMileage } 마일리지</td>
-													<td>${list.userVO.name }</td>
-													<td>${list.aRegdate }</td>
+													<td><img alt="default_img" src="${pageContext.request.contextPath }/resources/img/default_img.png" class="" ></td>
+													<td class="align-middle">${list.cheerUpMessage }</td>
+													<td class="align-middle">${list.aMileage } 마일리지</td>
+													<td class="align-middle">${list.userVO.name }</td>
+													<td class="align-middle">${list.aRegdate }</td>
 												</tr>
 											</c:forEach>
 										</c:otherwise>

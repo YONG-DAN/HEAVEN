@@ -72,8 +72,7 @@
 		<div class="col-md-8 offset-md-2 order-md-1">
 			<form action="${pageContext.request.contextPath }/application.do"
 				method="post" id="appForm" enctype="multipart/form-data">
-				<input type="hidden" name="jpGroupNo"
-					value="${uvo.userGroupVO.ugroupNo }">
+				<input type="hidden" name="jpGroupNo" value="${uvo.userGroupVO.ugroupNo }">
 				<!-- 이름 -->
 				<div class="mb-3">
 					<c:choose>
