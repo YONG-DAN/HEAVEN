@@ -6,7 +6,9 @@
 		<div class="row">
 			<div class="col-lg-3">
 				<div class="list-group">
+				<c:if test="${sessionScope.uvo.userGroupVO.ugroupNo=='1' }">
 					<a href="${pageContext.request.contextPath }/users/addMileageForm.do" class="list-group-item">마일리지 충전</a>
+				</c:if>
 					<a href="${pageContext.request.contextPath }/users/exchangeMileageForm.do" class="list-group-item">마일리지 환전</a>
 					<a href="${pageContext.request.contextPath }/users/readMyMileageTradeList.do?nowPage=1" class="list-group-item active">마일리지 내역</a>
 				</div>
