@@ -16,6 +16,8 @@ import org.kosta.heaven.model.vo.post.review.ReviewVO;
 import org.kosta.heaven.model.vo.user.UserVO;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class JoinServiceImpl implements JoinService {
@@ -65,7 +67,6 @@ public class JoinServiceImpl implements JoinService {
 	@Override
 	@Transactional
 	public void addUserActivity(ActivityVO activityVO) {
-		System.out.println("JoinServiceImpl [activityVO]"+activityVO);
 		//재능기부 참여
 		joinDAO.addUserActivity(activityVO);
 		
@@ -119,5 +120,28 @@ public class JoinServiceImpl implements JoinService {
 		activityVO.setUserVO(userVO);
 		activityVO.setJoinPostVO(joinPostVO);
 		return joinDAO.findEntryByIdAndJpno(activityVO);
+	}
+
+	@Override
+	public String file_upload_save(MultipartFile uploadfile, ModelMap modelMap) {
+		return joinDAO.file_upload_save(uploadfile, modelMap);		
+	}
+	
+	// 해당 재능기부 후기 작성
+	@Override
+	public void addReview(ReviewVO reviewVO) {
+		joinDAO.addReview(reviewVO);
+	}
+	
+	// 테이킹 목록
+	@Override
+	public JoinPostListVO readTakingList(int nowPage) {
+		return joinDAO.readTakingList(nowPage);
+	}
+
+	// 테이킹 상세
+	@Override
+	public JoinPostVO readTakingDetail(int jpNo) {
+		return joinDAO.readTakingDetail(jpNo);
 	}
 }

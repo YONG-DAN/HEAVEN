@@ -54,7 +54,7 @@
 			alert("상기 내용에 동의하지 않으셨습니다. 동의해주세요.");
 			return false;
 		}
-	}});
+	});
 </script>
 <!-- Page Heading -->
 <div class="page-heading bg-sub-3-gnt">
@@ -71,9 +71,8 @@
 	<div class="row">
 		<div class="col-md-8 offset-md-2 order-md-1">
 			<form action="${pageContext.request.contextPath }/application.do"
-				method="post" id="appForm">
-				<input type="hidden" name="jpGroupNo"
-					value="${uvo.userGroupVO.ugroupNo }">
+				method="post" id="appForm" enctype="multipart/form-data">
+				<input type="hidden" name="jpGroupNo" value="${uvo.userGroupVO.ugroupNo }">
 				<!-- 이름 -->
 				<div class="mb-3">
 					<c:choose>
@@ -115,12 +114,12 @@
 					</c:choose>
 					<div class="row">
 						<div class="col-md-6 mb-3">
-							<label for="jpAppStartDate" class="text-muted">신청 시작 날짜</label> <input
-								type="date" class="form-control" name="jpAppStartDate" required>
+							<label for="jpAppStartDate" class="text-muted">신청 시작 날짜</label>
+							<input type="date" class="form-control" name="jpAppStartDate" required>
 						</div>
 						<div class="col-md-6 mb-3">
-							<label for="jpAppEndDate" class="text-muted">신청 마감 날짜</label> <input
-								type="date" class="form-control" name="jpAppEndDate" required>
+							<label for="jpAppEndDate" class="text-muted">신청 마감 날짜</label>
+							<input type="date" class="form-control" name="jpAppEndDate" required>
 						</div>
 					</div>
 				</div>
@@ -131,27 +130,23 @@
 							모임 기간을 선택하세요</small>
 						<div class="row">
 							<div class="col-md-6 mb-3">
-								<label for="jpEventStartDate" class="text-muted">모임 시작
-									날짜</label> <input type="date" class="form-control"
-									name="jpEventStartDate" required>
+								<label for="jpEventStartDate" class="text-muted">모임 시작 날짜</label>
+								<input type="date" class="form-control" name="jpEventStartDate" required>
 							</div>
 							<div class="col-md-6 mb-3">
 								<label for="jpEventEndDate" class="text-muted">모임 마감 날짜</label>
-								<input type="date" class="form-control" name="jpEventEndDate"
-									required>
+								<input type="date" class="form-control" name="jpEventEndDate" required>
 							</div>
 						</div>
 					</div>
 					<!-- 모임 장소 -->
 					<div class="mb-3">
-						<label for="jpTitle">모임 장소</label> <small class="text-muted">모일
-							장소를 검색하세요</small>
+						<label for="jpTitle">모임 장소</label>
+						<small class="text-muted">모일 장소를 검색하세요</small>
 						<div class="input-group">
-							<input type="text" class="form-control" name="jpPlace"
-								aria-describedby="basic-addon2" />
+							<input type="text" class="form-control" name="jpPlace" aria-describedby="basic-addon2" />
 							<div class="input-group-append">
-								<button type="button" class="btn btn-sub-2"
-									onclick="execPostCode()">
+								<button type="button" class="btn btn-sub-2" onclick="execPostCode()">
 									<i class="fa fa-search"></i>
 								</button>
 							</div>
@@ -160,24 +155,24 @@
 				</c:if>
 				<!-- 대표이미지 -->
 				<div class="mb-3">
-					<label for="jpImgDirect">대표이미지</label> <small class="text-muted">재능기부
-						목록과 상세화면에서 보여지는 대표 이미지를 등록하세요</small> <input type="file"
-						class="form-control" name="jpImgDirect" required>
+					<label for="jpImgDirect">대표이미지</label>
+					<small class="text-muted">재능기부 목록과 상세화면에서 보여지는 대표 이미지를 등록하세요</small>
+					<input type="file" class="form-control" name="main_image" required>
 				</div>
 				<!-- 목표 참여자수 -->
 				<c:if test="${uvo.userGroupVO.ugroupNo=='1' }">
 					<div class="mb-3">
-						<label for="goalEntry">목표 참여자 수</label> <small class="text-muted">최소
-							10명이상 선택하세요</small> <input type="number" class="form-control"
-							name="goalEntry" min="10" required>
+						<label for="goalEntry">목표 참여자 수</label>
+						<small class="text-muted">최소 10명이상 선택하세요</small>
+						<input type="number" class="form-control" name="goalEntry" min="10" required>
 					</div>
 				</c:if>
 				<c:if test="${uvo.userGroupVO.ugroupNo=='2' }">
 					<!-- 목표 마일리지 -->
 					<div class="mb-3">
-						<label for="goalMileage">목표 마일리지</label> <small class="text-muted">최소
-							100마일리지 이상 설정하세요</small> <input type="number" class="form-control"
-							name="goalMileage" min="100" required>
+						<label for="goalMileage">목표 마일리지</label>
+						<small class="text-muted">최소 100마일리지 이상 설정하세요</small>
+						<input type="number" class="form-control" name="goalMileage" min="100" required>
 					</div>
 				</c:if>
 				<!-- 내용 -->

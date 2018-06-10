@@ -303,7 +303,7 @@ values(interview_post_seq.nextval, '7월의 기부자 조선화님을 만나봅�
 select * from INTERVIEW_POST
 
 insert into interview_post_reply(ipr_no,ipr_content,ipr_regdate,id,ip_no)
-values(interview_post_seq.nextval,'최고예요 멋있어요, 저도 꼭 8월의 기부자가 될거예요',sysdate,'aaa',2);
+values(interview_post_seq.nextval,'최고예요 멋있어요, 저도 꼭 8월의 기부자가 될거예요',sysdate,'nana',2);
 
 
 
