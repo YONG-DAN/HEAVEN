@@ -41,4 +41,9 @@ public class MileageDAOImpl implements MileageDAO {
 	public void saveMileage(MileageTradeVO mileageTradeVO) {
 		template.insert("mileage.saveMileage", mileageTradeVO);
 	}
+
+	@Override
+	public void giveMileage(MileageTradeVO mileageTradeVO) {
+		template.insert("mileage.giveMileage", mileageTradeVO);
+	}
 }

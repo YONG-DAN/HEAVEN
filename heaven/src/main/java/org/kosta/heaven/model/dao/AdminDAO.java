@@ -1,11 +1,10 @@
 package org.kosta.heaven.model.dao;
 
 import java.util.List;
-import java.util.Map;
+
 import org.kosta.heaven.model.vo.post.PagingBeanFive;
 import org.kosta.heaven.model.vo.post.PagingBeanTen;
 import org.kosta.heaven.model.vo.post.join.JoinPostVO;
-import org.kosta.heaven.model.vo.post.question.QuestionPostListVO;
 import org.kosta.heaven.model.vo.post.question.QuestionPostVO;
 
 public interface AdminDAO {
@@ -56,8 +55,6 @@ public interface AdminDAO {
 
 	public int getTotalPointContentCount();
 
-	
-
-	
+	public void changeTheStatus(int jpNo);
 
 }

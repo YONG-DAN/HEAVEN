@@ -153,5 +153,9 @@ public class AdminServiceImpl implements AdminService{
 		}
 		return new JoinPostListVO(adminDAO.readPointList(pagingBean),pagingBean);
 	}
-	
+
+	@Override
+	public void changeTheStatus(int jpNo) {
+		adminDAO.changeTheStatus(jpNo);
+	}	
 }

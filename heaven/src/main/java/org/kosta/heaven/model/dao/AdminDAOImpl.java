@@ -1,12 +1,10 @@
 package org.kosta.heaven.model.dao;
 
 import java.util.List;
-import java.util.Map;
+
 import org.kosta.heaven.model.vo.post.PagingBeanFive;
 import org.kosta.heaven.model.vo.post.PagingBeanTen;
-import org.kosta.heaven.model.vo.post.join.JoinPostListVO;
 import org.kosta.heaven.model.vo.post.join.JoinPostVO;
-import org.kosta.heaven.model.vo.post.question.QuestionPostListVO;
 import org.kosta.heaven.model.vo.post.question.QuestionPostVO;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -118,6 +116,11 @@ public class AdminDAOImpl implements AdminDAO{
 	@Override
 	public int getTotalPointContentCount() {
 		return template.selectOne("admin.getTotalPointContentCount");
+	}
+
+	@Override
+	public void changeTheStatus(int jpNo) {
+		template.update("admin.changeTheStatus", jpNo);
 	}
 	
 }

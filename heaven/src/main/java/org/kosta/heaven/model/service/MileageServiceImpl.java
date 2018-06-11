@@ -51,13 +51,9 @@ public class MileageServiceImpl implements MileageService {
 		return new MileageTradePostListVO(mileageDAO.readMyMileageTradeList(pagingBean), pagingBean);
 	}
 
-/*	@Override
+	@Override
 	@Transactional
-	public void saveMileage(String id, int mileage) {
-		MileageTradeVO mileageTradeVO = new MileageTradeVO();
-		UserVO uvo = userDAO.checkId(id);
-		mileageTradeVO.setUserVO(uvo);
-		mileageTradeVO.setMtVolume(mileage);
-		mileageDAO.saveMileage(mileageTradeVO);
-	}*/
+	public void giveMileage(MileageTradeVO mileageTradeVO) {
+		mileageDAO.giveMileage(mileageTradeVO);
+	}
 }

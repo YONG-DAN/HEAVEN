@@ -17,5 +17,7 @@ public interface MileageDAO {
 	public int getTotalContentCount(String id);
 
 	public void saveMileage(MileageTradeVO mileageTradeVO);
+
+	public void giveMileage(MileageTradeVO mileageTradeVO);
 	
 }
