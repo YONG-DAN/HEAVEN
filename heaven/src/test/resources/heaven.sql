@@ -59,7 +59,7 @@ insert into users(id, password, name, birthday, gender, address, email, ugroup_n
 values('bbb','1111','bbb',to_date('1990.01.01','yyyy-mm-dd'),'f','파리','aaa@aa.a','1','1')
 
 insert into users(id, password, name, birthday,gender,address, email, company_no, ugroup_no, ugrade_no)
-values('admin','1111','어드민',to_date('1990.01.01','yyyy-mm-dd'),'5','아차산','admin@admi.n',1345613456,'2','4')
+values('fff','1111','단체',to_date('1990.01.01','yyyy-mm-dd'),'5','아차산','ccc@cc.c',1345613456,'2','4')
 
 --마일리지 거래 분류 테이블
 drop table mileage_group;
@@ -160,8 +160,8 @@ to_date('2018-06-30','yyyy-mm-dd'),to_date('2018-07-01','yyyy-mm-dd'),to_date('2
 )
 --테이킹 신청서
 insert into join_post (jp_no,jp_title,jp_contents,jp_summary,jp_app_start_date,jp_app_end_date,
-jp_imgdirectory,jp_goal_mileage,jp_status,id,jp_group_no,jp_progress)values(application_seq.nextval,'거절신청서테스트','거절테이킹신청서테스트입니다','신청서요약',to_date('2018-05-30','yyyy-mm-dd'),
-to_date('2018-06-30','yyyy-mm-dd'),'이미지이다',150000,'거절','bbb','2','3'
+jp_imgdirectory,jp_goal_mileage,jp_status,id,jp_group_no,jp_progress)values(application_seq.nextval,'테이킹신청서테스트6','테이킹신청서테스트입니다','신청서요약',to_date('2018-05-30','yyyy-mm-dd'),
+to_date('2018-06-30','yyyy-mm-dd'),'이미지이다',150000,'처리중','fff','2','3'
 )
 -- 참여게시판 게시글 시퀀스
 drop sequence join_post_seq;

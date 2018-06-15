@@ -54,4 +54,6 @@ public interface UserService {
 
 	public void deleteQuestion(int qNo);
 
+	public JoinPostListVO readMyTakingList(String id, int nowPage);
+
 }

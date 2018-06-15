@@ -73,7 +73,7 @@
                      <div class="card-text">
                         <p>나의 활동 현황</p>
                      </div>
-                     <a href="${pageContext.request.contextPath}/users/readMyActivityList.do?nowPage=1" class="btn btn-sub-2 btn-sm">테이킹 목록</a>
+                     <a href="${pageContext.request.contextPath}/users/readMyTakingList.do?nowPage=1" class="btn btn-sub-2 btn-sm">테이킹 목록</a>
                      <a href="${pageContext.request.contextPath}/users/readMyQuestionList.do?nowPage=1" class="btn btn-sub-2 btn-sm">문의</a>
                   </div>
                </div>

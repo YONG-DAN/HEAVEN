@@ -2,6 +2,7 @@ package org.kosta.heaven.model.service;
 
 import javax.annotation.Resource;
 import org.kosta.heaven.model.dao.UserDAO;
+import org.kosta.heaven.model.vo.post.PagingBeanFive;
 import org.kosta.heaven.model.vo.post.PagingBeanTen;
 import org.kosta.heaven.model.vo.post.activity.ActivityListVO;
 import org.kosta.heaven.model.vo.post.join.JoinPostListVO;
@@ -142,6 +143,24 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public void deleteQuestion(int qNo) {
 		userDAO.deleteQuestion(qNo);
+	}
+
+	@Override
+	public JoinPostListVO readMyTakingList(String id, int nowPage) {
+		//목록에 보여 줄 단체의 테이킹 내역을 가져옴
+		int totalCount= userDAO.getTotalMyTakingContentCount(id);
+		//페이징빈 생성
+		PagingBeanFive pagingBean=null;
+		if(nowPage==0) {
+			pagingBean=new PagingBeanFive(totalCount);
+			pagingBean.setId(id);
+		}
+		else {
+			pagingBean=new PagingBeanFive(totalCount, nowPage);
+			pagingBean.setId(id);
+		}
+		
+		return new JoinPostListVO(userDAO.readMyTakingList(pagingBean),pagingBean);
 	}
 	
 }

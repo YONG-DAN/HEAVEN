@@ -177,7 +177,16 @@ public class UserDAOImpl implements UserDAO{
 	public void updateUserMileage(ActivityVO activityVO) {
 		template.update("user.updateUserMileage", activityVO);		
 	}
-	
+
+	@Override
+	public int getTotalMyTakingContentCount(String id) {
+		return template.selectOne("user.getTotalMyTakingContentCount", id);
+	}
+
+	@Override
+	public List<JoinPostVO> readMyTakingList(PagingBeanFive pagingBean) {
+		return template.selectList("user.readMyTakingList", pagingBean);
+	}
 	
 	
 }
