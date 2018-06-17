@@ -15,6 +15,7 @@ import org.kosta.heaven.model.vo.user.UserVO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
@@ -88,7 +89,7 @@ public class CommunityController {
 	 * @author 조민경
 	 * 
 	 */
-	@RequestMapping("community/createCoummnityPost.do")
+	@RequestMapping(method = RequestMethod.POST, value = "writeCommunityPost.do")
 	public String createCommunityPost(InterviewVO interviewVO, InterviewQAVO interviewQAVO, HttpServletRequest request) {
 		HttpSession session=request.getSession(false);
 		// name이 question인 값들을 array로 받는다
@@ -111,6 +112,6 @@ public class CommunityController {
 			interviewQAVO.setInterviewVO(ivo);
 			communityService.createCoummunityQNA(interviewQAVO);
 		} 
-		return "community/communityList.do?nowPage=1";
+		return "redirect:community/communityList.do?nowPage=1";
 	}
 }

@@ -50,7 +50,7 @@
 <div class="container">
 	<div class="row">
 		<div class="col-md-8 offset-md-2 order-md-1 my-4">
-			<form action="${pageContext.request.contextPath }/community/createCoummnityPost.do" method="post">
+			<form action="${pageContext.request.contextPath }/writeCommunityPost.do" method="post">
 				<div class="mb-3">
 					<label for="iTitle">제목</label>
 					<input type="text" name="iTitle" id="iTitle" class="form-control" placeholder="제목을 입력하세요"/>
