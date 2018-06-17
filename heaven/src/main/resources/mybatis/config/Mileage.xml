@@ -24,6 +24,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  		values(mileage_trade_seq.nextval, #{mtVolume}, #{mugVO.mugNo}, #{userVO.id})
  	</insert>
  	
+ 	<!-- 마일리지 적립 -->
+ 	<insert id="giveMileage" parameterType="mileageTradeVO">
+ 		insert into mileage_trade(mt_no, mt_volume, mg_no, id)
+ 		values(mileage_trade_seq.nextval, #{mtVolume}, '4', #{userVO.id})
+ 	</insert>
+ 	
  	<!-- 마일리지 거래 내역 콘텐츠 수 -->
  	<select id="getTotalContentCount" parameterType="string" resultType="int">
  		select count(*) from mileage_trade where id=#{value}

@@ -211,9 +211,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		inner join users u on jp.id = u.id
 		inner join progress_status ps on jp.jp_progress = ps.ps_no 
 		inner join post_group pg on jp.jp_group_no = pg.post_no
-	where jp.jp_progress='3' 
+	where jp.jp_progress='3'
 <!-- 	and rnum between #{startRowNumber} and #{endRowNumber}
 	order by j.jp_no desc -->
 	</select>
 	
+	<update id="changeTheStatus" parameterType="int">
+		update join_post set jp_progress = '4' where jp_no = #{value}
+	</update>
+
 </mapper>

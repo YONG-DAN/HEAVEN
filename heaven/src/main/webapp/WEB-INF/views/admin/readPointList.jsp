@@ -1,16 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!-- <script type="text/javascript">
-	function givePoint(id,mileage,tdNo){
-		var conResult = confirm(id+"님에게 "+mileage+"포인트를 지급하시겠습니까?");
+<script type="text/javascript">
+	function giveMileage(id, mileage, jpNo){
+		var conResult = confirm(id + "님에게 " + mileage + "마일리지를 지급하시겠습니까?");
 		if(conResult){
-			location.href="${pageContext.request.contextPath}/givePoint.do?id="+id+"&mileage="+mileage+"&tdNo="+tdNo;
+			location.href="${pageContext.request.contextPath}/admin/giveMileage.do?jpNo="+jpNo;
 		}else{
 			return false;
 		}
 	}
-</script> -->
+</script>
 <div class="page-heading">
 	<h4 class="py-5 text-center sub2-txt">포인트 지급 관리</h4>
 </div>
@@ -39,10 +39,8 @@
 								<td>${jpVO.userVO.name}</td>
 								<td>${jpVO.totalMileage} P</td>
 								<td>
-								<input type="button" value="지급" class="btn btn-block-point">
-<%-- 								<input type="button" value="지급" 
-									onclick="return givePoint('${tdpVO.donationPostVO.memberVO.id}','${tdpVO.tdMileage}',${tdpVO.tdNo})"
-									class="btn btn-block tradePointBtn"> --%>
+								<input type="button" value="지급" class="btn btn-block-point" 
+								onclick="return giveMileage('${jpVO.userVO.id}', '${jpVO.totalMileage}', '${jpVO.jpNo}')">
 								</td> 
 							</tr>
 					</c:forEach>

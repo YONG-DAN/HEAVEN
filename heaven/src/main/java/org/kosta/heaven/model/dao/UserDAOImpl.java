@@ -1,6 +1,7 @@
 package org.kosta.heaven.model.dao;
 
 import java.util.List;
+
 import org.kosta.heaven.model.vo.post.PagingBeanFive;
 import org.kosta.heaven.model.vo.post.PagingBeanTen;
 import org.kosta.heaven.model.vo.post.activity.ActivityListVO;
@@ -11,8 +12,6 @@ import org.kosta.heaven.model.vo.post.mileage.MileageTradeVO;
 import org.kosta.heaven.model.vo.post.question.QuestionPostVO;
 import org.kosta.heaven.model.vo.post.review.ReviewListVO;
 import org.kosta.heaven.model.vo.post.review.ReviewVO;
-import org.kosta.heaven.model.vo.post.mileage.MileageTradeVO;
-import org.kosta.heaven.model.vo.post.question.QuestionPostVO;
 import org.kosta.heaven.model.vo.user.UserVO;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -178,7 +177,16 @@ public class UserDAOImpl implements UserDAO{
 	public void updateUserMileage(ActivityVO activityVO) {
 		template.update("user.updateUserMileage", activityVO);		
 	}
-	
+
+	@Override
+	public int getTotalMyTakingContentCount(String id) {
+		return template.selectOne("user.getTotalMyTakingContentCount", id);
+	}
+
+	@Override
+	public List<JoinPostVO> readMyTakingList(PagingBeanFive pagingBean) {
+		return template.selectList("user.readMyTakingList", pagingBean);
+	}
 	
 	
 }

@@ -30,4 +30,6 @@ public interface AdminService {
 	
 	public JoinPostListVO readPointList(int nowPage);
 
+	public void changeTheStatus(int jpNo);
+	
 }
