@@ -48,7 +48,7 @@
 		<c:set var="pb" value="${iListVO.pbf}"></c:set>
 		<c:if test="${pb.previousPageGroup}">
 			<li class="page-item"><a class="page-link"
-				href="${pageContext.request.contextPath}/users/readMyQuestionList.do?nowPage=${pb.startPageOfPageGroup-1}"
+				href="${pageContext.request.contextPath}/community/communityList.do?nowPage=${pb.startPageOfPageGroup-1}"
 				aria-label="Previous"> <span aria-hidden="true">&laquo;</span> <span
 					class="sr-only"> Previous </span>
 			</a></li>
@@ -58,7 +58,7 @@
 			<c:choose>
 				<c:when test="${pb.nowPage!=page}">
 					<li class="page-item"><a class="page-link"
-						href="${pageContext.request.contextPath}/users/readMyQuestionList.do?nowPage=${page}">${page}</a>
+						href="${pageContext.request.contextPath}/community/communityList.do?nowPage=${page}">${page}</a>
 					</li>
 				</c:when>
 				<c:otherwise>
@@ -69,7 +69,7 @@
 		</c:forEach>
 		<c:if test="${pb.nextPageGroup}">
 			<li class="page-item"><a class="page-link"
-				href="${pageContext.request.contextPath}/users/readMyQuestionList.do?nowPage=${pb.endPageOfPageGroup+1}"
+				href="${pageContext.request.contextPath}/community/communityList.do?nowPage=${pb.endPageOfPageGroup+1}"
 				aria-label="Next"> <span aria-hidden="true">&raquo;</span> 
 				<span class="sr-only">Next</span>
 			</a></li>
