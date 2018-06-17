@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 import org.kosta.heaven.model.dao.CommunityDAO;
 import org.kosta.heaven.model.vo.post.PagingBeanFive;
 import org.kosta.heaven.model.vo.post.interview.InterviewListVO;
+import org.kosta.heaven.model.vo.post.interview.InterviewQAVO;
 import org.kosta.heaven.model.vo.post.interview.InterviewReplyVO;
 import org.kosta.heaven.model.vo.post.interview.InterviewVO;
 import org.springframework.stereotype.Service;
@@ -48,4 +49,20 @@ public class CommunityServiceImpl implements CommunityService{
 	public List<InterviewReplyVO> readReplyList(int iNo) {
 		return communityDAO.readReplyList(iNo);
 	}
+
+	@Override
+	public InterviewVO createCommunityPost(InterviewVO interviewVO) {
+		return communityDAO.createCommunityPost(interviewVO);
+	}
+	
+	@Override
+	public void createCoummunityQNA(InterviewQAVO interviewQAVO) {
+		communityDAO.createCommunityQNA(interviewQAVO);
+	}
+
+	@Override
+	public List<InterviewQAVO> communityDetailQNA(int iNo) {
+		return communityDAO.communityDetailQNA(iNo);
+	}
+	
 }

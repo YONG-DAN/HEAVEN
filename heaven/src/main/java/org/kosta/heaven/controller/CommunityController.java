@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 
 import org.kosta.heaven.model.service.CommunityService;
 import org.kosta.heaven.model.vo.post.interview.InterviewListVO;
+import org.kosta.heaven.model.vo.post.interview.InterviewQAVO;
 import org.kosta.heaven.model.vo.post.interview.InterviewReplyVO;
 import org.kosta.heaven.model.vo.post.interview.InterviewVO;
 import org.kosta.heaven.model.vo.user.UserVO;
@@ -39,10 +40,14 @@ public class CommunityController {
 	 */
 	@RequestMapping("community/communityDetail.do")
 	public String communityDetail(int iNo, Model model) {
+		// 커뮤니티 게시글 보기
 		InterviewVO ivo = communityService.communityDetail(iNo);
+		// 해당 커뮤니티 게시글 질문/답 보기
+		List<InterviewQAVO> iqList = communityService.communityDetailQNA(iNo);
 		List<InterviewReplyVO> irVO = (List<InterviewReplyVO>) communityService.readReplyList(iNo);
 		model.addAttribute("irVO", irVO);
 		model.addAttribute("ivo", ivo);
+		model.addAttribute("iqList",iqList);
 		return "community/communityDetail.tiles";
 	}
 	/**
@@ -74,5 +79,38 @@ public class CommunityController {
 		List<InterviewReplyVO> irVO = (List<InterviewReplyVO>) communityService.readReplyList(iNo);
 		model.addAttribute("irVO", irVO);
 		return "community/communityDetail.tiles";
+	}
+	
+	/**
+	 * 이달의 기부자 글쓰기
+	 * 인터뷰 질문/답을 작성한다.
+	 * 
+	 * @author 조민경
+	 * 
+	 */
+	@RequestMapping("community/createCoummnityPost.do")
+	public String createCommunityPost(InterviewVO interviewVO, InterviewQAVO interviewQAVO, HttpServletRequest request) {
+		HttpSession session=request.getSession(false);
+		// name이 question인 값들을 array로 받는다
+		String question[] = request.getParameterValues("question");
+		// name이 answer인 값들을 array로 받는다
+		String answer[] = request.getParameterValues("answer");
+		UserVO uvo = new UserVO();
+		if (session != null) {
+			uvo = (UserVO) session.getAttribute("uvo");
+			if (uvo != null)
+				// interviewQAVO userVO setting
+				interviewVO.setUserVO(uvo);
+		}
+		
+		InterviewVO ivo = communityService.createCommunityPost(interviewVO);		
+				
+		for(int i=0; i<question.length; i++) {
+			interviewQAVO.setQuestion(question[i]);
+			interviewQAVO.setAnswer(answer[i]);
+			interviewQAVO.setInterviewVO(ivo);
+			communityService.createCoummunityQNA(interviewQAVO);
+		} 
+		return "community/communityList.do?nowPage=1";
 	}
 }

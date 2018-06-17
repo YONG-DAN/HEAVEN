@@ -417,3 +417,13 @@ a.badge:focus {
 .carousel-item:nth-child(3)>.carousel-caption>p{
 	color: #777;
 }
+
+
+/* community detail style */
+.border-point{
+	border:1px solid #f35b56;
+}
+
+.border-left-2-sub-4{
+	border-left:2px solid #cee7e4;
+}

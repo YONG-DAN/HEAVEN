@@ -60,9 +60,9 @@ public class JoinController {
 		joinService.application(joinPostVO);
 		
 		if(jpGroupNo.equals("1")) {
-			return "redirect:donation/readDonationList.do";
+			return "redirect:donation/readDonationList.do?nowPage=1";
 		}else if(jpGroupNo.equals("2")) {
-			return "redirect:taking/readTakingList.do";
+			return "redirect:taking/readTakingList.do?nowPage=1";
 		}else {
 			return "redirect:home.do";
 		}

@@ -34,7 +34,6 @@ public class JoinDAOImpl implements JoinDAO {
 	// 신청하기
 	@Override
 	public void application(JoinPostVO joinPostVO) {
-		System.out.println("JoinDAOImpl [joinPostVO] : "+joinPostVO);
 		template.insert("join.application", joinPostVO);
 	}
 
@@ -91,9 +90,7 @@ public class JoinDAOImpl implements JoinDAO {
 		return template.selectOne("join.getDonationMaleEntry", jpNo);
 	}
 	
-	
-
-	// 성별이 남자인 참여자의 수
+	// 성별이 여자인 참여자의 수
 	@Override
 	public int getDonationFemaleEntry(int jpNo) {
 		return template.selectOne("join.getDonationFemaleEntry", jpNo);
@@ -118,8 +115,8 @@ public class JoinDAOImpl implements JoinDAO {
             // 파일의 바이트 정보 얻기
             byte[] bytes = uploadfile.getBytes();
             // 파일의 저장 경로 얻기
-            String uploadPath = "/java-kosta/was/spring-tomcat/webapps/heaven/resources/photo_upload/" + fileName;
-            loadPath = "/heaven/resources/photo_upload/" + fileName;
+            String uploadPath = "/java-kosta/framework-workspace2/resources/upload/postImg" + fileName;
+            loadPath = "/heaven/resources/upload/postImg/" + fileName;
             // 파일 객체 생성
             File file = new File(uploadPath);
             // 상위 폴더 존재 여부 확인
@@ -203,7 +200,8 @@ public class JoinDAOImpl implements JoinDAO {
 	         //파일 기본경로
 	         String dftFilePath = request.getSession().getServletContext().getRealPath("/");
 	         //파일 기본경로 _ 상세경로 - 시연경로
-	         String filePath = dftFilePath + "resources" + File.separator + "photo_upload" + File.separator;
+	         String filePath = dftFilePath + "resources" + File.separator + "upload/postImg" + File.separator;
+	         System.out.println("MiltiplePhotoUpload [filePath]"+filePath);
 	         // 테스트 경로
 	         //String filePath = "C:\\java-kosta\\framework\\workspace2\\gat\\src\\main\\webapp\\resources\\img" + File.separator;
 	         File file = new File(filePath);
@@ -234,7 +232,7 @@ public class JoinDAOImpl implements JoinDAO {
 	         // img 태그의 title 속성을 원본파일명으로 적용시켜주기 위함
 	         sFileInfo += "&sFileName="+ filename;
 	         //시연경로
-	         sFileInfo += "&sFileURL="+"/heaven/resources/photo_upload/"+realFileNm;
+	         sFileInfo += "&sFileURL="+"/heaven/resources/upload/postImg/"+realFileNm;
 	         //테스트파일경로
 	         //sFileInfo += "&sFileURL="+"./resources/img/"+realFileNm;	         
 	         PrintWriter print = response.getWriter();

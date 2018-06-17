@@ -9,6 +9,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="ip_no" property="iNo"/>
 		<result column="ip_title" property="iTitle"/>
 		<result column="ip_regdate" property="iRegdate"/>
+		<result column="ip_imgdirectory" property="iImgDirectory"/>
+		<result column="id" property="userVO.id"/>
 	</resultMap>
 	
 	<!-- 커뮤니티 댓글 RESULT MAP -->
@@ -19,6 +21,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="id" property="userVO.id"/>
 		<result column="name" property="userVO.name"/>
 		<result column="ip_no" property="interviewVO.iNo"/>
+	</resultMap>
+	
+	<!-- 커뮤니티 상세보기 RESULT MAP -->
+	<resultMap type="interviewQAVO" id="iqRM">
+		<result column="iq_no" property="qaNo"/>
+		<result column="iq_question" property="question"/>
+		<result column="iq_answer" property="answer"/>
+		<association property="interviewVO " column="iNo" javaType="interviewVO" select="ipRM"/>
 	</resultMap>
 	
 	<!-- 커뮤니티 목록에 들어갈 컨텐츠 수 구하기 -->
@@ -37,10 +47,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- 커뮤니티 글 상세 보기 -->
 	<select id="communityDetail" resultMap="ipRM" parameterType="int">
-		select ip_no, ip_title, ip_regdate
+		select ip_no, ip_title, ip_regdate, ip_imgdirectory
 		from interview_post
 		where ip_no=#{value}
 	</select>
+	
+	<!-- 커뮤니티 글에 따른 질문/답변 -->
+	<select id="communityDetailQNA" resultMap="iqRM" parameterType="int">
+		select
+			iq_no, iq_question, iq_answer
+		from interview_qna
+		where ip_no=#{value}
+		order by iq_no asc
+	</select>		
 	
 	<!-- 커뮤니티 댓글 달기 -->
 	<insert id="createInterviewReply" parameterType="interviewReplyVO">
@@ -55,4 +74,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where ipr.ip_no = ip.ip_no and ipr.id = u.id
 		and ipr.ip_no=#{value}
 	</select>
+	
+	<!-- 커뮤니티 글쓰기 -->
+	<insert id="createCommunityPost" parameterType="interviewVO">
+		<selectKey keyProperty="iNo" resultType="int" order="BEFORE">
+			select interview_post_seq.nextval from dual
+		</selectKey>
+		insert into interview_post(ip_no, ip_title, ip_regdate, ip_imgdirectory, id)
+		values(#{iNo}, #{iTitle}, sysdate, #{iImgDirectory}, #{userVO.id})
+	</insert>
+	
+	<!-- 커뮤니티 글쓰기(질문/답) -->
+	<insert id="createCommunityQNA" parameterType="interviewQAVO">	
+		insert into interview_qna(iq_no, iq_question, iq_answer, ip_no)
+		values(interview_qna_seq.nextval, #{question}, #{answer}, #{interviewVO.iNo})		
+	</insert>
 </mapper>

@@ -2,6 +2,7 @@ package org.kosta.heaven.model.dao;
 
 import java.util.List;
 import org.kosta.heaven.model.vo.post.PagingBeanFive;
+import org.kosta.heaven.model.vo.post.interview.InterviewQAVO;
 import org.kosta.heaven.model.vo.post.interview.InterviewReplyVO;
 import org.kosta.heaven.model.vo.post.interview.InterviewVO;
 
@@ -16,5 +17,11 @@ public interface CommunityDAO {
 	public void createInterviewReply(InterviewReplyVO irVO);
 
 	public List<InterviewReplyVO> readReplyList(int iNo);
+
+	public InterviewVO createCommunityPost(InterviewVO interviewVO);
+
+	public void createCommunityQNA(InterviewQAVO interviewQAVO);
+
+	public List<InterviewQAVO> communityDetailQNA(int iNo);
 
 }
